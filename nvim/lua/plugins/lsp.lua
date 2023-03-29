@@ -5,6 +5,7 @@ local servers = {
       telemetry = { enable = false },
     },
   },
+  bashls = {},
   gopls = {},
   golangci_lint_ls = {},
 }
