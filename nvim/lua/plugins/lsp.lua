@@ -1,8 +1,17 @@
 local servers = {
   lua_ls = {
     Lua = {
-      workspace = { checkThirdParty = false },
+      runtime = {
+        version = 'LuaJIT',
+      },
+      workspace = {
+        checkThirdParty = false,
+        library = vim.api.nvim_get_runtime_file("", true),
+      },
       telemetry = { enable = false },
+      diagnostics = {
+        globals = {'vim'},
+      },
     },
   },
   bashls = {},
