@@ -7,7 +7,7 @@ return {
       defaults = {
         mappings = {
           i = {
-            ['<Esc>'] = actions.close,
+            ['<esc>'] = actions.close,
           },
         },
       },

@@ -2,11 +2,14 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.o.termguicolors = true
 
+vim.o.updatetime = 250
 vim.o.timeout = true
-vim.o.timeoutlen = 250
+vim.o.timeoutlen = 300
 
 vim.o.guicursor = ''
 vim.o.mouse = 'a'
+
+vim.o.completeopt = 'menuone,noselect'
 
 vim.o.number = true
 vim.o.relativenumber = true
