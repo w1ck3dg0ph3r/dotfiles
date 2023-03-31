@@ -1,0 +1,25 @@
+[credential]
+	helper = store
+[alias]
+	s = status -u
+	sw = switch
+	cb = switch -c
+	rs = restore
+	b = branch 
+	l = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]"
+	lg = log --graph --abbrev-commit --decorate --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --all
+	c = commit -m
+	ca = commit --amend --no-edit
+	rb = rebase -i
+	fa = fetch --all --prune --prune-tags
+	mc = merge --no-ff
+	mf = merge --ff-only
+	st = stash
+	stl = stash list
+	pop = stash pop
+[core]
+	excludesfile = ~/.gitignore_global
+[user]
+	email = w1ck3dg0ph3r@gmail.com
+	name = w1ck3dg0ph3r
+	signingkey = E6B82D220E93965DF35BE8FE508376B17E6F5DEB
