@@ -1,42 +1,48 @@
-require('utils')
+local util = require('util')
 
 -- leave '\' as leader
--- map('n', '<space>', '<nop>')
+-- util.map('n', '<space>', '<nop>')
 -- vim.g.mapleader = ' '
 
 -- Escape insert mode quickly
-map('i', 'kj', '<esc>')
-map('i', 'jk', '<esc>')
+util.map('i', 'kj', '<esc>')
+util.map('i', 'jk', '<esc>')
 
 -- Clear search highlighting with <leader> and c
-map('n', '<leader>c', '<cmd>nohl<cr>')
+util.map('n', '<leader>c', '<cmd>nohl<cr>')
 
 -- Fast saving with <leader> and s
-map('n', '<leader>s', '<cmd>w<cr>')
-map('i', '<leader>s', '<c-c>:w<cr>')
+util.map('n', '<leader>s', '<cmd>w<cr>')
+util.map('i', '<leader>s', '<c-c>:w<cr>')
 
 -- Indent stay in visual mode
-map('v', '<', '<gv')
-map('v', '>', '>gv')
+util.map('v', '<', '<gv')
+util.map('v', '>', '>gv')
 
 -- Fast quitting with <leader> and q
-map('n', '<leader>q', ':qa<cr>')
-map('i', '<leader>q', '<c-c>:qa<cr>')
+util.map('n', '<leader>q', ':qa<cr>')
+util.map('i', '<leader>q', '<c-c>:qa<cr>')
 
 -- Move around splits using Ctrl + {h,j,k,l}
-map('n', '<c-h>', '<c-w>h')
-map('n', '<c-j>', '<c-w>j')
-map('n', '<c-k>', '<c-w>k')
-map('n', '<c-l>', '<c-w>l')
+util.map('n', '<c-h>', '<c-w>h')
+util.map('n', '<c-j>', '<c-w>j')
+util.map('n', '<c-k>', '<c-w>k')
+util.map('n', '<c-l>', '<c-w>l')
 -- Move around splits using Ctrl + {left,down,up,right}
-map('n', '<c-left>', '<c-w>h')
-map('n', '<c-down>', '<c-w>j')
-map('n', '<c-up>', '<c-w>k')
-map('n', '<c-right>', '<c-w>l')
+util.map('n', '<c-left>', '<c-w>h')
+util.map('n', '<c-down>', '<c-w>j')
+util.map('n', '<c-up>', '<c-w>k')
+util.map('n', '<c-right>', '<c-w>l')
 
 -- Buffers
-map('n', '<a-h>', '<cmd>bp<cr>')
-map('n', '<a-j>', '<cmd>b#<cr>')
-map('n', '<a-l>', '<cmd>bn<cr>')
-map('n', '<leader>w', '<cmd>bw|bn<cr>')
-map('i', '<leader>w', '<c-c><cmd>bw|bn<cr>')
+util.map('n', '<a-h>', '<cmd>bp<cr>')
+util.map('n', '<a-j>', '<cmd>b#<cr>')
+util.map('n', '<a-l>', '<cmd>bn<cr>')
+util.map('n', '<leader>w', '<cmd>bw|bn<cr>')
+util.map('i', '<leader>w', '<c-c><cmd>bw|bn<cr>')
+
+-- Diagnostics
+util.map('n', '[d', vim.diagnostic.goto_prev)
+util.map('n', ']d', vim.diagnostic.goto_next)
+util.map('n', '<leader>df', vim.diagnostic.open_float)
+util.map('n', '<leader>dl', vim.diagnostic.setloclist)

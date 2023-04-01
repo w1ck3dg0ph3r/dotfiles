@@ -10,7 +10,7 @@ local servers = {
       },
       telemetry = { enable = false },
       diagnostics = {
-        globals = {'vim'},
+        globals = { 'vim' },
       },
     },
   },
@@ -20,7 +20,7 @@ local servers = {
 }
 
 local on_attach = function(client, bufnr)
-  local bufopts = { noremap=true, silent=true, buffer=bufnr }
+  local bufopts = { noremap = true, silent = true, buffer = bufnr }
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
@@ -35,7 +35,7 @@ end
 
 return {
   'neovim/nvim-lspconfig',
-  dependencies = {'williamboman/mason.nvim', 'williamboman/mason-lspconfig.nvim'},
+  dependencies = { 'williamboman/mason.nvim', 'williamboman/mason-lspconfig.nvim' },
   config = function()
     local mason = require('mason')
     mason.setup()

@@ -18,5 +18,6 @@ return {
     vim.keymap.set('n', '<leader>ss', builtin.current_buffer_fuzzy_find, {})
     vim.keymap.set('n', '<leader>so', builtin.lsp_document_symbols, {})
     vim.keymap.set('n', '<leader>st', builtin.lsp_dynamic_workspace_symbols, {})
+    vim.keymap.set('n', '<leader>sd', builtin.diagnostics, {})
   end,
 }
