@@ -36,10 +36,18 @@ util.map('n', '<c-right>', '<c-w>l')
 
 -- Buffers
 util.map('n', '<a-h>', '<cmd>bp<cr>')
-util.map('n', '<a-j>', '<cmd>b#<cr>')
+util.map('n', '<a-g>', '<cmd>b#<cr>')
 util.map('n', '<a-l>', '<cmd>bn<cr>')
 util.map('n', '<leader>w', '<cmd>bw|bn<cr>')
 util.map('i', '<leader>w', '<c-c><cmd>bw|bn<cr>')
+
+-- Move lines around
+util.map('n', '<a-j>', '<cmd>m .+1<cr>==')
+util.map('n', '<a-k>', '<cmd>m .-2<cr>==')
+util.map('i', '<a-j>', '<esc><cmd>m .+1<cr>==gi')
+util.map('i', '<a-k>', '<esc><cmd>m .-2<cr>==gi')
+util.map('v', '<a-j>', ':m \'>+1<cr>gv=gv')
+util.map('v', '<a-k>', ':m \'<-2<cr>gv=gv')
 
 -- Diagnostics
 util.map('n', '[d', vim.diagnostic.goto_prev)
