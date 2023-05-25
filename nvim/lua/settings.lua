@@ -28,6 +28,15 @@ vim.o.smartcase = true
 
 vim.o.wrap = false
 
+-- Code folding
+vim.o.foldlevel = 99
+vim.o.foldmethod = 'expr'
+vim.o.foldnestmax = 1
+vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
+vim.o.fillchars = 'eob:~,fold:·,foldopen:,foldsep: ,foldclose:'
+vim.o.foldcolumn = '1'
+
+-- Diagnostic icons
 local signs = { Error = "", Warn = "󰀪", Hint = "", Info = "" }
 for type, icon in pairs(signs) do
   local hl = "DiagnosticSign" .. type
