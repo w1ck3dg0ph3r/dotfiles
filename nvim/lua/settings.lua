@@ -28,6 +28,14 @@ vim.o.smartcase = true
 
 vim.o.wrap = false
 
+-- Highlight current line
+vim.o.cursorline = true
+
+-- Visible whitespace
+vim.o.list = true
+vim.opt.listchars:append 'space:⋅'
+vim.opt.listchars:append 'tab:→ '
+
 -- Code folding
 vim.o.foldlevel = 99
 vim.o.foldmethod = 'expr'
