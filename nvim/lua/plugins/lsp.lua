@@ -16,7 +16,6 @@ local servers = {
   },
   bashls = {},
   gopls = {},
-  golangci_lint_ls = {},
 }
 
 local on_attach = function(client, bufnr)
