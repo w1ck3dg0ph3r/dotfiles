@@ -61,8 +61,6 @@ local function on_attach(bufnr)
   -- END_DEFAULT_ON_ATTACH
 
   vim.keymap.set('n', '<space>', api.node.open.edit, opts('Open'))
-  vim.keymap.set('n', 'E', api.tree.expand_all, opts('Expand All'))
-  vim.keymap.set('n', 'H', api.tree.collapse_all, opts('Collapse'))
 end
 
 return {

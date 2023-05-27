@@ -12,6 +12,7 @@ return {
           nvimtree = true,
           treesitter = true,
           telescope = true,
+          bufferline = true,
           notify = false,
           mini = false,
         },
