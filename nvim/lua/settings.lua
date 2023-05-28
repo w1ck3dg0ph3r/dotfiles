@@ -44,6 +44,16 @@ vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.o.fillchars = 'eob:~,fold:·,foldopen:,foldsep: ,foldclose:'
 vim.o.foldcolumn = '1'
 
+-- Fix no folding with telescope
+vim.api.nvim_create_autocmd('BufRead', {
+  callback = function()
+    vim.api.nvim_create_autocmd('BufWinEnter', {
+      once = true,
+      command = 'normal! zx'
+    })
+  end
+})
+
 -- Diagnostic icons
 local signs = { Error = "", Warn = "󰀪", Hint = "", Info = "" }
 for type, icon in pairs(signs) do
