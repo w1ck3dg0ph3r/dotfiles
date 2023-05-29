@@ -2,6 +2,7 @@ return {
   'nvim-telescope/telescope.nvim',
   dependencies = { 'nvim-lua/plenary.nvim' },
   config = function()
+    local util = require('util')
     local actions = require('telescope.actions')
     require('telescope').setup({
       defaults = {
@@ -13,12 +14,15 @@ return {
       },
     })
     local builtin = require('telescope.builtin')
-    vim.keymap.set('n', '<leader>sf', builtin.find_files, {})
-    vim.keymap.set('n', '<leader>sg', builtin.live_grep, {})
-    vim.keymap.set('n', '<leader>ss', builtin.current_buffer_fuzzy_find, {})
-    vim.keymap.set('n', '<leader>so', builtin.lsp_document_symbols, {})
-    vim.keymap.set('n', '<leader>st', builtin.lsp_dynamic_workspace_symbols, {})
-    vim.keymap.set('n', '<leader>sr', builtin.lsp_references, {})
-    vim.keymap.set('n', '<leader>sd', builtin.diagnostics, {})
+    util.map('n', '<leader>sc', builtin.commands)
+    util.map('n', '<leader>sb', builtin.buffers)
+    util.map('n', '<leader>sh', builtin.help_tags)
+    util.map('n', '<leader>sf', builtin.find_files, {})
+    util.map('n', '<leader>sg', builtin.live_grep, {})
+    util.map('n', '<leader>ss', builtin.current_buffer_fuzzy_find, {})
+    util.map('n', '<leader>so', builtin.lsp_document_symbols, {})
+    util.map('n', '<leader>st', builtin.lsp_dynamic_workspace_symbols, {})
+    util.map('n', '<leader>sr', builtin.lsp_references, {})
+    util.map('n', '<leader>sd', builtin.diagnostics, {})
   end,
 }
