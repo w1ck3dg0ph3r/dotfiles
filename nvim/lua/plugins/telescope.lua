@@ -1,9 +1,12 @@
 return {
   'nvim-telescope/telescope.nvim',
+
   dependencies = { 'nvim-lua/plenary.nvim' },
+
   config = function()
     local util = require('util')
     local actions = require('telescope.actions')
+
     require('telescope').setup({
       defaults = {
         mappings = {
@@ -13,6 +16,7 @@ return {
         },
       },
     })
+
     local builtin = require('telescope.builtin')
     util.map('n', '<leader>sc', builtin.commands)
     util.map('n', '<leader>sb', builtin.buffers)

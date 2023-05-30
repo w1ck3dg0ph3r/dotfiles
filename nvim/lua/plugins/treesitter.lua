@@ -6,7 +6,20 @@ return {
   config = function()
     require('nvim-treesitter.install').update({ with_sync = true })
     require('nvim-treesitter.configs').setup({
-      ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'help', 'vim' },
+      ensure_installed = {
+        'c',
+        'cpp',
+        'go',
+        'lua',
+        'python',
+        'rust',
+        'tsx',
+        'typescript',
+        'yaml',
+        'help',
+        'vim'
+      },
+
       highlight = { enable = true },
       indent = { enable = true, disable = { 'python' } },
       incremental_selection = {

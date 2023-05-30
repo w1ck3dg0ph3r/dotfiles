@@ -11,6 +11,13 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+local lazy = require('lazy')
+lazy.setup('plugins', {
+  change_detection = { enabled = false },
+})
+
 require('settings')
 require('keymap')
-require('lazy').setup('plugins')
+
+-- Include project specific config
+pcall(dofile, vim.fn.getcwd() .. '/.nvimrc.lua')
