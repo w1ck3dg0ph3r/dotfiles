@@ -27,19 +27,14 @@ end, {
   nargs = '?',
 })
 
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = 'go',
+local augroup = vim.api.nvim_create_augroup('format_on_save', { clear = true })
+vim.api.nvim_create_autocmd('BufWritePre', {
+  group = augroup,
   callback = function(ev)
-    local group = vim.api.nvim_create_augroup('format_on_save', { clear = true })
-
-    vim.api.nvim_create_autocmd('BufWritePre', {
-      group = group,
-      buffer = ev.buf,
-      callback = function()
-        vim.lsp.buf.format()
-        M.go_organize_imports()
-      end,
-    })
+    if vim.bo[ev.buf].filetype == 'go' then
+      vim.lsp.buf.format()
+      M.go_organize_imports()
+    end
   end,
 })
 
