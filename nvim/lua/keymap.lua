@@ -20,8 +20,8 @@ util.map('v', '<', '<gv')
 util.map('v', '>', '>gv')
 
 -- Fast quitting with <leader> and q
-util.map('n', '<leader>q', ':qa<cr>')
-util.map('i', '<leader>q', '<c-c>:qa<cr>')
+util.map('n', '<leader>q', '<cmd>qa<cr>')
+util.map('i', '<leader>q', '<c-c><cmd>qa<cr>')
 
 -- Move around splits using Ctrl + {h,j,k,l}
 util.map('n', '<c-h>', '<c-w>h')
@@ -39,8 +39,8 @@ util.map('n', '<a-h>', '<cmd>bp<cr>')
 util.map('n', '<a-g>', '<cmd>b#<cr>')
 util.map('n', '<a-l>', '<cmd>bn<cr>')
 util.map('n', '<leader>g', '<cmd>BufferLinePick<cr>')
-util.map('n', '<leader>w', '<cmd>bw|bn<cr>')
-util.map('i', '<leader>w', '<c-c><cmd>bw|bn<cr>')
+util.map('n', '<leader>w', '<cmd>Bdelete<cr>')
+util.map('i', '<leader>w', '<c-c><cmd>Bdelete<cr>')
 
 -- Move lines around
 util.map('n', '<a-j>', '<cmd>m .+1<cr>==')

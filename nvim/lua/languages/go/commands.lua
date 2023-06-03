@@ -1,24 +1,31 @@
 local toggleterm = require("toggleterm")
 local util = require('util')
 
-local M = {
-  last_run_package = '.',
-}
+local M = {}
+
+M.run_package = '.'
 
 vim.api.nvim_create_user_command('GoRun', function(opts)
-  vim.cmd('w')
+  vim.cmd('write')
   if opts.args ~= '' then
-    M.last_run_package = opts.args
+    M.run_package = opts.args
   end
-  toggleterm.exec('go run ' .. M.last_run_package, 1, 0, nil, 'horizontal', true)
+  toggleterm.exec('go run ' .. M.run_package, 1, 0, nil, 'horizontal', true)
 end, {
   nargs = '?',
 })
 util.map('n', '<f9>', '<cmd>GoRun<cr>')
 
 vim.api.nvim_create_user_command('GoTest', function(opts)
-  toggleterm.exec('go test . -v', 1, 0, nil, 'horizontal', true)
-end, {})
+  local cmd = 'go test ./...'
+  if opts.args ~= '' then
+    cmd = cmd .. ' -run ' .. opts.args
+  end
+  cmd = cmd .. ' -v'
+  toggleterm.exec(cmd, 1, 0, nil, 'horizontal', true)
+end, {
+  nargs = '?',
+})
 
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'go',

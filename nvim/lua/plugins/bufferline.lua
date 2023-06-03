@@ -13,7 +13,7 @@ return {
         show_close_icon = false,
         show_buffer_icons = false,
         show_buffer_close_icons = false,
-        close_command = 'bw|b#',
+        close_command = ':Bdelete',
         offsets = {
           { filetype = 'NvimTree', text = 'File Tree', highlight = 'Directory', separator = false },
           { filetype = 'neo-tree', text = 'File Tree', highlight = 'Directory', separator = false },
