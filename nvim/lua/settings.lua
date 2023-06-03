@@ -9,7 +9,6 @@ vim.o.backup = false
 vim.o.writebackup = false
 vim.o.swapfile = false
 
-vim.o.guicursor = ''
 vim.o.mouse = 'a'
 
 vim.o.completeopt = 'menu,menuone,noselect'
