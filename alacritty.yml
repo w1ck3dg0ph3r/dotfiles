@@ -12,7 +12,7 @@ window:
 
 font:
   normal:
-    family: FiraCode Nerd Font
+    family: JetBrainsMono Nerd Font
   size: 10.0
 
 colors:
