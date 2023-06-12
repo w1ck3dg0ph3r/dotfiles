@@ -4,14 +4,20 @@ return {
     'nvim-tree/nvim-web-devicons',
   },
   config = function()
-    require('bufferline').setup({
+    local bufferline = require('bufferline')
+    bufferline.setup({
       options = {
         themable = true,
+        style_preset = {
+          bufferline.style_preset.no_italic,
+          bufferline.style_preset.no_bold,
+        },
         indicator = {
-          style = 'none',
+          style = 'icon',
         },
         show_close_icon = false,
         show_buffer_icons = false,
+        color_icons = true,
         show_buffer_close_icons = false,
         close_command = ':Bdelete',
         offsets = {
