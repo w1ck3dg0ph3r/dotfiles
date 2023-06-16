@@ -9,7 +9,9 @@ local plugin = {
       sort_by = 'case_sensitive',
       view = {
         width = 40,
-        hide_root_folder = true,
+      },
+      renderer = {
+        root_folder_label = false,
       },
       diagnostics = {
         enable = true,
