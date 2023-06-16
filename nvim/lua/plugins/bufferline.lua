@@ -5,7 +5,8 @@ return {
   },
   config = function()
     local bufferline = require('bufferline')
-    bufferline.setup({
+
+    local config = {
       options = {
         themable = true,
         style_preset = {
@@ -25,7 +26,13 @@ return {
           { filetype = 'neo-tree', text = 'File Tree', highlight = 'Directory', separator = false },
         },
       },
-      highlights = require("catppuccin.groups.integrations.bufferline").get(),
-    })
+    }
+
+    local has_catppuccin, catppuccin = pcall(require, 'catppuccin.groups.integrations.bufferline')
+    if has_catppuccin then
+      config.options.highlights = catppuccin.get()
+    end
+
+    bufferline.setup(config)
   end,
 }
