@@ -61,7 +61,6 @@ for type, icon in pairs(signs) do
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
-
 -- Toggle relative numbers and cursorline for focused buffer
 local line_numbers_group = vim.api.nvim_create_augroup('line_numbers', { clear = true })
 vim.api.nvim_create_autocmd({ 'BufEnter', 'FocusGained', 'WinEnter' }, {

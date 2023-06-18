@@ -11,7 +11,7 @@ return {
         statusline = { 'NvimTree', 'neo-tree', 'toggleterm' },
         winbar = {},
       },
-      ignore_focus = {},
+      ignore_focus = { 'dapui_watches', 'dapui_stacks', 'dapui_breakpoints', 'dapui_scopes' },
       always_divide_middle = true,
       globalstatus = false,
       refresh = {

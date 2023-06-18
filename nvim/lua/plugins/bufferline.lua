@@ -1,8 +1,10 @@
 return {
   'akinsho/bufferline.nvim',
+
   dependencies = {
     'nvim-tree/nvim-web-devicons',
   },
+
   config = function()
     local bufferline = require('bufferline')
 
@@ -17,13 +19,14 @@ return {
           style = 'icon',
         },
         show_close_icon = false,
-        show_buffer_icons = false,
+        show_buffer_icons = true,
         color_icons = true,
         show_buffer_close_icons = false,
         close_command = ':Bdelete',
         offsets = {
-          { filetype = 'NvimTree', text = 'File Tree', highlight = 'Directory', separator = false },
-          { filetype = 'neo-tree', text = 'File Tree', highlight = 'Directory', separator = false },
+          { filetype = 'NvimTree',      text = 'File Tree', highlight = 'Directory', separator = false },
+          { filetype = 'neo-tree',      text = 'File Tree', highlight = 'Directory', separator = false },
+          { filetype = 'dapui_watches', text = 'Debugger',  highlight = 'Directory', separator = false },
         },
       },
     }

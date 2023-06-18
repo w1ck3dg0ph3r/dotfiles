@@ -1,8 +1,10 @@
 return {
   'nvim-treesitter/nvim-treesitter',
+
   dependencies = {
     'nvim-treesitter/nvim-treesitter-textobjects',
   },
+
   config = function()
     require('nvim-treesitter.install').update({ with_sync = true })
     require('nvim-treesitter.configs').setup({
@@ -17,7 +19,7 @@ return {
         'typescript',
         'yaml',
         'help',
-        'vim'
+        'vim',
       },
 
       highlight = { enable = true },

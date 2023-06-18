@@ -15,13 +15,17 @@ util.map('n', '<leader>c', '<cmd>nohl<cr>')
 util.map('n', '<leader>s', '<cmd>w<cr>')
 util.map('i', '<leader>s', '<c-c>:w<cr>')
 
+-- Fast quitting with <leader> and q
+util.map('n', '<leader>q', '<cmd>qa<cr>')
+util.map('i', '<leader>q', '<c-c><cmd>qa<cr>')
+
 -- Indent stay in visual mode
 util.map('v', '<', '<gv')
 util.map('v', '>', '>gv')
 
--- Fast quitting with <leader> and q
-util.map('n', '<leader>q', '<cmd>qa<cr>')
-util.map('i', '<leader>q', '<c-c><cmd>qa<cr>')
+-- Keep cursor centered
+util.map('n', '<c-d>', '<c-d>zz')
+util.map('n', '<c-u>', '<c-u>zz')
 
 -- Move around splits using Ctrl + {h,j,k,l}
 util.map('n', '<c-h>', '<c-w>h')
