@@ -1,4 +1,4 @@
-local toggleterm = require("toggleterm")
+local toggleterm = require('toggleterm')
 local util = require('util')
 
 local M = {}
@@ -6,7 +6,7 @@ local M = {}
 M.run_package = '.'
 
 vim.api.nvim_create_user_command('GoRun', function(opts)
-  vim.cmd('write')
+  pcall(function () vim.cmd('wa') end)
   if opts.args ~= '' then
     M.run_package = opts.args
   end
@@ -17,6 +17,7 @@ end, {
 util.map('n', '<f9>', '<cmd>GoRun<cr>')
 
 vim.api.nvim_create_user_command('GoTest', function(opts)
+  pcall(function () vim.cmd('wa') end)
   local cmd = 'go test ./...'
   if opts.args ~= '' then
     cmd = cmd .. ' -run ' .. opts.args

@@ -1,4 +1,4 @@
-local luasnip = require("luasnip")
+local luasnip = require('luasnip')
 
 local snip = luasnip.snippet
 local node = luasnip.snippet_node

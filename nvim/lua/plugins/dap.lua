@@ -11,8 +11,8 @@ return {
     local dap = require('dap')
     local dapui = require('dapui')
 
-    dapui.setup()
-    require('nvim-dap-virtual-text').setup()
+    dapui.setup({})
+    require('nvim-dap-virtual-text').setup({})
     require('dap-go').setup()
 
     -- Keymaps
