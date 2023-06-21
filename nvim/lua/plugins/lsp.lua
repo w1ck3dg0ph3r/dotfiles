@@ -4,7 +4,17 @@ local servers = {
   gopls = {
     gofumpt = true,
   },
+  volar = {},
+  eslint = {},
 }
+
+local formatters = {
+  go = 'gopls',
+  vue = 'prettier',
+}
+for _, filetype in ipairs({ 'js', 'ts', 'vue', 'html', 'pug', 'css', 'scss', 'sass' }) do
+  formatters[filetype] = 'null-ls'
+end
 
 local on_attach = function(client, bufnr)
   local bufopts = { noremap = true, silent = true, buffer = bufnr }
@@ -17,7 +27,17 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<leader>R', vim.lsp.buf.rename, bufopts)
   vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-  vim.keymap.set('n', '<leader>f', function() vim.lsp.buf.format({ async = true }) end, bufopts)
+
+  local filetype = vim.bo[bufnr].filetype
+  if formatters[filetype] ~= nil then
+    vim.keymap.set(
+      'n', '<leader>f',
+      function() vim.lsp.buf.format({ name = formatters[filetype], async = true }) end,
+      bufopts
+    )
+  else
+    vim.keymap.set('n', '<leader>f', function() print('no formatter configured for ' .. filetype) end, bufopts)
+  end
 end
 
 return {
@@ -26,6 +46,8 @@ return {
   dependencies = {
     'williamboman/mason.nvim',
     'williamboman/mason-lspconfig.nvim',
+    'nvim-lua/plenary.nvim',
+    'jose-elias-alvarez/null-ls.nvim',
     'folke/neodev.nvim',
   },
 
@@ -52,6 +74,13 @@ return {
           settings = servers[server_name],
         }
       end,
+    })
+
+    local nullls = require('null-ls')
+    nullls.setup({
+      sources = {
+        nullls.builtins.formatting.prettier,
+      },
     })
   end,
 }
