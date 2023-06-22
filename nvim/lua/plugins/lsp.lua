@@ -11,6 +11,7 @@ local servers = {
 local formatters = {
   go = 'gopls',
   vue = 'prettier',
+  lua = 'lua_ls',
 }
 for _, filetype in ipairs({ 'js', 'ts', 'vue', 'html', 'pug', 'css', 'scss', 'sass' }) do
   formatters[filetype] = 'null-ls'
