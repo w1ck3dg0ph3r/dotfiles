@@ -1,6 +1,10 @@
 return {
   'nvim-lualine/lualine.nvim',
+
   dependencies = { 'nvim-tree/nvim-web-devicons' },
+
+  priority = 900,
+
   opts = {
     options = {
       icons_enabled = true,

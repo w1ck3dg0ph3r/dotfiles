@@ -6,6 +6,19 @@ return {
     'nvim-telescope/telescope-fzf-native.nvim',
   },
 
+  keys = {
+    '<leader>sc',
+    '<leader>sb',
+    '<leader>sh',
+    '<leader>sf',
+    '<leader>sg',
+    '<leader>ss',
+    '<leader>so',
+    '<leader>st',
+    '<leader>sr',
+    '<leader>sd',
+  },
+
   config = function()
     local util = require('util')
     local actions = require('telescope.actions')
