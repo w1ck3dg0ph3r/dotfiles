@@ -15,9 +15,15 @@ require('settings')
 require('keymap')
 
 local lazy = require('lazy')
-lazy.setup('plugins', {
-  change_detection = { enabled = false },
-})
+lazy.setup(
+  {
+    { import = 'plugins' },
+    { import = 'languages' },
+  },
+  {
+    change_detection = { enabled = false },
+  }
+)
 
 -- Include project specific config
 pcall(dofile, vim.fn.getcwd() .. '/.nvimrc.lua')
