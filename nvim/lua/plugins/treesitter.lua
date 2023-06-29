@@ -21,7 +21,7 @@ return {
         'tsx',
         'typescript',
         'yaml',
-        'help',
+        'vimdoc',
         'vim',
       },
 
