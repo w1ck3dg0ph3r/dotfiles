@@ -2,7 +2,11 @@ local servers = {
   lua_ls = {},
   bashls = {},
   gopls = {
-    gofumpt = true,
+    gopls = {
+      gofumpt = true,
+      usePlaceholders = true,
+      directoryFilters = { '-vendor' },
+    },
   },
   volar = {},
   eslint = {},
@@ -10,7 +14,6 @@ local servers = {
 
 local formatters = {
   go = 'gopls',
-  vue = 'prettier',
   lua = 'lua_ls',
 }
 for _, filetype in ipairs({ 'js', 'ts', 'vue', 'html', 'pug', 'css', 'scss', 'sass' }) do
@@ -48,6 +51,7 @@ return {
     'williamboman/mason.nvim',
     'williamboman/mason-lspconfig.nvim',
     'nvim-lua/plenary.nvim',
+    'hrsh7th/cmp-nvim-lsp',
     'jose-elias-alvarez/null-ls.nvim',
     'folke/neodev.nvim',
   },
@@ -69,11 +73,11 @@ return {
 
     masonconfig.setup_handlers({
       function(server_name)
-        require('lspconfig')[server_name].setup {
+        require('lspconfig')[server_name].setup({
           capabilities = capabilities,
           on_attach = on_attach,
           settings = servers[server_name],
-        }
+        })
       end,
     })
 
