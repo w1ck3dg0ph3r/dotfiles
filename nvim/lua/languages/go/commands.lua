@@ -44,7 +44,7 @@ M.go_organize_imports = function()
   local params = vim.lsp.util.make_range_params()
   params.context = context
   local result = vim.lsp.buf_request_sync(0, 'textDocument/codeAction', params, 1000)
-  if not result then return end
+  if result == nil or result[1] == nil then return end
   result = result[1].result
   if not result then return end
   vim.lsp.util.apply_workspace_edit(result[1].edit, 'utf-8')

@@ -79,7 +79,6 @@ return {
           local nvimrc = nvimrc_file()
           if nvimrc['lspconfig'] ~= nil and nvimrc.lspconfig[server_name] ~= nil then
             servers[server_name] = vim.tbl_deep_extend('force', servers[server_name], nvimrc.lspconfig[server_name])
-            print(vim.inspect(servers[server_name]))
           end
         end
 
