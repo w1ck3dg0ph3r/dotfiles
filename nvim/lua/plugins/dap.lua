@@ -16,14 +16,19 @@ return {
     require('dap-go').setup()
 
     -- Keymaps
+    --
+    -- F-keys mapping:
+    -- <f1>..<f12> : <f1>..<f12>
+    -- <s-f1>..<s-f12> : <f13>..<f24>
+    -- <c-f1>..<c-f12> : <f25>..<f36>
     vim.keymap.set('n', '<f8>', function() dap.continue() end)
-    vim.keymap.set('n', '<c-f12>', function() dap.terminate() end)
+    vim.keymap.set('n', '<f26>', function() dap.terminate() end)
     vim.keymap.set('n', '<f7>', function() dap.step_over() end)
     vim.keymap.set('n', '<f6>', function() dap.step_into() end)
-    vim.keymap.set('n', '<s-f8>', function() dap.step_out() end)
+    vim.keymap.set('n', '<f18>', function() dap.step_out() end)
     vim.keymap.set('n', '<f5>', function() dap.toggle_breakpoint() end)
-    vim.keymap.set('n', '<s-f5>', function() dap.set_breakpoint(vim.fn.input('BP Condition: ')) end)
-    vim.keymap.set('n', '<c-f5>', function() dap.set_breakpoint(nil, nil, vim.fn.input('BP Log Message: ')) end)
+    vim.keymap.set('n', '<f17>', function() dap.set_breakpoint(vim.fn.input('BP Condition: ')) end)
+    vim.keymap.set('n', '<f29>', function() dap.set_breakpoint(nil, nil, vim.fn.input('BP Log Message: ')) end)
     vim.keymap.set('n', '<leader>dr', function() dap.repl.open() end)
     vim.keymap.set('n', '<leader>du', function() dapui.toggle() end)
 
