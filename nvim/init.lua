@@ -25,5 +25,4 @@ lazy.setup(
   }
 )
 
--- Include project specific config
-pcall(dofile, vim.fn.getcwd() .. '/.nvimrc.lua')
+require('nvimrc').config()
