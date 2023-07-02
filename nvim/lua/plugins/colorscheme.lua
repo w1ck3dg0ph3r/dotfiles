@@ -15,11 +15,16 @@ return {
         gitsigns = true,
         nvimtree = true,
         treesitter = true,
-        telescope = true,
+        telescope = {
+          enabled = true,
+          style = 'classic',
+        },
         bufferline = true,
-        notify = false,
-        mini = false,
         mason = true,
+        dap = {
+          enabled = true,
+          enable_ui = true,
+        },
       },
     })
     vim.cmd('colorscheme catppuccin')
