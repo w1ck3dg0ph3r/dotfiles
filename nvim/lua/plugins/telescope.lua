@@ -21,6 +21,7 @@ return {
 
   config = function()
     local util = require('util')
+    local themes = require('telescope.themes')
     local actions = require('telescope.actions')
 
     require('telescope').setup({
@@ -34,8 +35,8 @@ return {
     })
 
     local builtin = require('telescope.builtin')
-    util.map('n', '<leader>sc', builtin.commands)
-    util.map('n', '<leader>sb', builtin.buffers)
+    util.map('n', '<leader>sc', function() builtin.commands(themes.get_dropdown()) end)
+    util.map('n', '<leader>sb', function() builtin.buffers(themes.get_dropdown()) end)
     util.map('n', '<leader>sh', builtin.help_tags)
     util.map('n', '<leader>sf', function() builtin.find_files({ hidden = true }) end)
     util.map('n', '<leader>sg', builtin.live_grep)
