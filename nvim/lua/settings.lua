@@ -11,6 +11,8 @@ vim.o.swapfile = false
 
 vim.o.mouse = 'a'
 
+vim.o.clipboard = 'unnamedplus'
+
 vim.o.completeopt = 'menu,menuone,noselect'
 
 vim.o.number = true

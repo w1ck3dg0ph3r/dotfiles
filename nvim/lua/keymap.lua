@@ -5,7 +5,6 @@ local util = require('util')
 -- vim.g.mapleader = ' '
 
 -- Escape insert mode quickly
-util.map('i', 'kj', '<esc>')
 util.map('i', 'jk', '<esc>')
 
 -- Clear search highlighting with <leader> and c
@@ -18,6 +17,14 @@ util.map('i', '<leader>s', '<c-c>:w<cr>')
 -- Fast quitting with <leader> and q
 util.map('n', '<leader>q', '<cmd>qa<cr>')
 util.map('i', '<leader>q', '<c-c><cmd>qa<cr>')
+
+-- Use leader + d to cut, d and x to delete
+util.map({ 'n', 'v' }, 'd', '"_d')
+util.map({ 'n', 'v' }, 'D', '"_D')
+util.map({ 'n', 'v' }, 'x', '"_x')
+util.map({ 'n', 'v' }, 'X', '"_X')
+util.map({ 'n', 'v' }, '<leader>d', 'd')
+util.map({ 'n', 'v' }, '<leader>D', 'D')
 
 -- Indent stay in visual mode
 util.map('v', '<', '<gv')
