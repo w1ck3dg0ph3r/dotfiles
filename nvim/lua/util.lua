@@ -21,4 +21,27 @@ function util.remap(modes, lhs, rhs, opts)
   })
 end
 
+function util.load_plugins()
+  local dir = vim.fn.stdpath('config') .. '/lua/plugins'
+  local plugins = {}
+  for _, fn in pairs(vim.fn.readdir(dir)) do
+    local path = dir .. '/' .. fn
+    if fn ~= 'init.lua' and vim.fn.filereadable(path) then
+      local ok, spec = pcall(dofile, path)
+      if ok then
+        local name
+        if spec[1] ~= nil and type(spec[1]) == 'string' then
+          name = spec[1]
+        else
+          name = spec.name
+        end
+        if name ~= nil then
+          plugins[name] = spec
+        end
+      end
+    end
+  end
+  return plugins
+end
+
 return util

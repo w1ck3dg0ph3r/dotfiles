@@ -19,20 +19,21 @@ return {
     '<leader>sd',
   },
 
-  config = function()
-    local util = require('util')
-    local themes = require('telescope.themes')
-    local actions = require('telescope.actions')
-
-    require('telescope').setup({
-      defaults = {
-        mappings = {
-          i = {
-            ['<esc>'] = actions.close,
-          },
+  opts = {
+    defaults = {
+      mappings = {
+        i = {
+          ['<esc>'] = 'close',
         },
       },
-    })
+    },
+  },
+
+  config = function(_, opts)
+    local util = require('util')
+    local themes = require('telescope.themes')
+
+    require('telescope').setup(opts)
 
     local builtin = require('telescope.builtin')
     util.map('n', '<leader>sc', function() builtin.commands(themes.get_dropdown()) end)

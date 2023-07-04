@@ -14,15 +14,25 @@ vim.opt.rtp:prepend(lazypath)
 require('settings')
 require('keymap')
 
+-- Load plugin specs and extend them with nvimrc ones
+local plugins = require('util').load_plugins()
+local nvimrc = require('nvimrc').config()
+if nvimrc ~= nil and nvimrc.plugins ~= nil then
+  for _, spec in pairs(nvimrc.plugins) do
+    if spec[1] ~= nil and type(spec[1]) == "string" then
+      local name = spec[1]
+      plugins[name] = vim.tbl_deep_extend('force', plugins[name], spec)
+    end
+  end
+end
+
 local lazy = require('lazy')
 lazy.setup(
   {
-    { import = 'plugins' },
+    vim.tbl_values(plugins),
     { import = 'languages' },
   },
   {
     change_detection = { enabled = false },
   }
 )
-
-require('nvimrc').config()

@@ -4,7 +4,7 @@ local servers = {
   gopls = {
     gopls = {
       gofumpt = true,
-      usePlaceholders = true,
+      usePlaceholders = false,
       directoryFilters = { '-vendor' },
     },
   },
