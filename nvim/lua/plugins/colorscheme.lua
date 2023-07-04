@@ -19,6 +19,7 @@ return {
           enabled = true,
           style = 'classic',
         },
+        lsp_trouble = true,
         bufferline = true,
         mason = true,
         dap = {

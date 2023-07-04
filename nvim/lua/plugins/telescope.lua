@@ -33,6 +33,12 @@ return {
     local util = require('util')
     local themes = require('telescope.themes')
 
+    -- Open in trouble instead of quickfix
+    local has_trouble, trouble = pcall(require, 'trouble.providers.telescope')
+    if has_trouble then
+      opts.defaults.mappings.i['<c-q>'] = trouble.open_with_trouble
+    end
+
     require('telescope').setup(opts)
 
     local builtin = require('telescope.builtin')
@@ -45,6 +51,7 @@ return {
     util.map('n', '<leader>so', builtin.lsp_document_symbols)
     util.map('n', '<leader>st', builtin.lsp_dynamic_workspace_symbols)
     util.map('n', '<leader>sr', builtin.lsp_references)
+    util.map('n', '<leader>si', builtin.lsp_implementations)
     util.map('n', '<leader>sd', builtin.diagnostics)
   end,
 }
