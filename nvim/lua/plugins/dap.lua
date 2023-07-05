@@ -21,7 +21,12 @@ return {
     -- <f1>..<f12> : <f1>..<f12>
     -- <s-f1>..<s-f12> : <f13>..<f24>
     -- <c-f1>..<c-f12> : <f25>..<f36>
-    vim.keymap.set('n', '<f8>', function() dap.continue() end)
+    vim.keymap.set('n', '<f8>', function()
+      if vim.fn.filereadable('.vscode/launch.js') then
+        require('dap.ext.vscode').load_launchjs()
+      end
+      dap.continue()
+    end)
     vim.keymap.set('n', '<f26>', function() dap.terminate() end)
     vim.keymap.set('n', '<f7>', function() dap.step_over() end)
     vim.keymap.set('n', '<f6>', function() dap.step_into() end)
