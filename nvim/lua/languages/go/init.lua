@@ -1,6 +1,5 @@
 return {
   dir = '.',
-  name = 'languages/go',
 
   dependencies = {
     'akinsho/toggleterm.nvim',

@@ -41,10 +41,10 @@ vim.opt.listchars:append 'tab:» '
 -- Code folding
 vim.o.foldlevel = 99
 vim.o.foldmethod = 'expr'
-vim.o.foldnestmax = 1
+vim.o.foldnestmax = 5
 vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.o.fillchars = 'eob:~,fold:·,foldopen:,foldsep: ,foldclose:'
-vim.o.foldcolumn = '2'
+vim.o.foldcolumn = '1'
 
 -- Fix no folding with telescope
 vim.api.nvim_create_autocmd('BufRead', {
