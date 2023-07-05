@@ -32,7 +32,7 @@ local on_attach = function(bufnr)
   map('n', '<leader>hb', function() gs.blame_line { full = true } end)
   map('n', '<leader>hd', gs.diffthis)
   map('n', '<leader>hD', function() gs.diffthis('~') end)
-  map('n', '<leader>td', gs.toggle_deleted)
+  map('n', '<leader>hsd', gs.toggle_deleted)
 
   -- Text object
   map({ 'o', 'x' }, 'ih', ':<c-u>Gitsigns select_hunk<cr>')
