@@ -32,22 +32,21 @@ return {
     local coverage = require('coverage')
     coverage.setup({
       signs = {
-        -- covered = { hl = 'CoverageCovered', text = '░' },
-        -- uncovered = { hl = 'CoverageUncovered', text = '░' },
-        covered = { hl = 'CoverageCovered', text = '│' },
-        uncovered = { hl = 'CoverageUncovered', text = '│' },
+        covered = { hl = 'CoverageCovered', text = '░' },
+        uncovered = { hl = 'CoverageUncovered', text = '░' },
       },
       lang = {
         go = { coverage_file = '.cover' },
       },
     })
 
-    vim.keymap.set('n', '<leader>cs', function()
-      coverage.load()
-      coverage.show()
-    end)
-    vim.keymap.set('n', '<leader>ch', function()
-      coverage.clear()
-    end)
+    vim.keymap.set('n', '<leader>tt', '<cmd>Neotest run<cr>')
+    vim.keymap.set('n', '<leader>tf', '<cmd>Neotest run file<cr>')
+    vim.keymap.set('n', '<leader>ts', '<cmd>Neotest summary<cr>')
+    vim.keymap.set('n', '<leader>to', '<cmd>Neotest output<cr>')
+    vim.keymap.set('n', '<leader>tp', '<cmd>Neotest output-panel<cr>')
+
+    vim.keymap.set('n', '<leader>cs', function() coverage.load(true) end)
+    vim.keymap.set('n', '<leader>ch', function() coverage.clear() end)
   end,
 }

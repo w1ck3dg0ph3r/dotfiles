@@ -1,7 +1,7 @@
 return {
   'numToStr/Comment.nvim',
 
-  event = 'InsertEnter',
+  event = 'BufEnter',
 
   config = true,
 }

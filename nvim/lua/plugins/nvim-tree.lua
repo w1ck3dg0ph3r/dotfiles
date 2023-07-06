@@ -5,7 +5,7 @@ local plugin = {
 
   dependencies = { 'nvim-tree/nvim-web-devicons' },
 
-  keys = { '<leader>t' },
+  keys = { '<leader>e' },
 
   opts = {
     on_attach = on_attach,
@@ -46,7 +46,7 @@ local plugin = {
   config = function(_, opts)
     require('nvim-tree').setup(opts)
 
-    vim.keymap.set('n', '<leader>t', '<cmd>NvimTreeToggle<cr>')
+    vim.keymap.set('n', '<leader>e', '<cmd>NvimTreeToggle<cr>')
 
     local api = require('nvim-tree.api')
 

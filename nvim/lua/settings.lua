@@ -3,7 +3,7 @@ vim.g.loaded_netrwPlugin = 1
 vim.o.termguicolors = true
 
 vim.o.timeout = true
-vim.o.timeoutlen = 300
+vim.o.timeoutlen = 500
 
 vim.o.backup = false
 vim.o.writebackup = false
@@ -43,7 +43,6 @@ vim.o.foldlevel = 99
 vim.o.foldmethod = 'expr'
 vim.o.foldnestmax = 5
 vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
-vim.o.fillchars = 'eob:~,fold:·,foldopen:,foldsep: ,foldclose:'
 vim.o.foldcolumn = '1'
 
 -- Fix no folding with telescope
