@@ -1,8 +1,8 @@
 local util = require('util')
 
--- leave '\' as leader
--- util.map('n', '<space>', '<nop>')
--- vim.g.mapleader = ' '
+-- Configure leader
+util.map('n', '<space>', '<nop>')
+vim.g.mapleader = ' '
 
 -- Escape insert mode quickly
 util.map('i', 'jk', '<esc>')
@@ -12,11 +12,9 @@ util.map('n', '<leader>c', '<cmd>nohl<cr>')
 
 -- Fast saving with <leader> and s
 util.map('n', '<leader>s', '<cmd>w<cr>')
-util.map('i', '<leader>s', '<c-c>:w<cr>')
 
 -- Fast quitting with <leader> and q
 util.map('n', '<leader>q', '<cmd>qa<cr>')
-util.map('i', '<leader>q', '<c-c><cmd>qa<cr>')
 
 -- Use leader + d to cut, d and x to delete
 util.map({ 'n', 'v' }, 'd', '"_d')
@@ -51,7 +49,6 @@ util.map('n', '<a-g>', '<cmd>b#<cr>')
 util.map('n', '<a-l>', '<cmd>bn<cr>')
 util.map('n', '<leader>g', '<cmd>BufferLinePick<cr>')
 util.map('n', '<leader>w', '<cmd>Bdelete<cr>')
-util.map('i', '<leader>w', '<c-c><cmd>Bdelete<cr>')
 
 -- Move lines around
 util.map('n', '<a-j>', '<cmd>m .+1<cr>==')

@@ -42,7 +42,8 @@ return {
     require('telescope').setup(opts)
 
     local builtin = require('telescope.builtin')
-    util.map('n', '<leader>sc', function() builtin.commands(themes.get_dropdown()) end)
+
+    util.map('n', '<leader>sc', function() builtin.commands() end)
     util.map('n', '<leader>sb', function() builtin.buffers(themes.get_dropdown()) end)
     util.map('n', '<leader>sh', builtin.help_tags)
     util.map('n', '<leader>sf', function() builtin.find_files({ hidden = true }) end)

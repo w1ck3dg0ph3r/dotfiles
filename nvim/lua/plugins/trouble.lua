@@ -4,6 +4,7 @@ return {
   dependencies = { 'nvim-tree/nvim-web-devicons' },
 
   opts = {
+    height = 16,
   },
 
   config = function(_, opts)

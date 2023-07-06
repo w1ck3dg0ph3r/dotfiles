@@ -8,6 +8,9 @@ return {
     statuscol.setup({
       relculright = true,
 
+      ft_ignore = { 'alpha', 'NvimTree' },
+      bt_ignore = { 'terminal' },
+
       segments = {
         { text = { builtin.foldfunc }, click = 'v:lua.ScFa' },
         {

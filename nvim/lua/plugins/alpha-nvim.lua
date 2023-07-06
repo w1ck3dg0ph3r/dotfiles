@@ -100,6 +100,7 @@ return {
         button('e', '  New file', '<cmd>enew<cr>'),
         button('f', '󰈞  Find file', '<leader>sf', { noremap = false }),
         button('g', '  Grep files', '<leader>sg', { noremap = false }),
+        -- button('t', '󰙅  Explore tree', '<leader>e', { noremap = false }),
         button('h', '󰞋  Search help', '<leader>sh', { noremap = false }),
         button('q', '󰗼  Exit neovim', '<cmd>q<cr>'),
       },

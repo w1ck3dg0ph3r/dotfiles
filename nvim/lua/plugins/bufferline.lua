@@ -1,6 +1,8 @@
 return {
   'akinsho/bufferline.nvim',
 
+  event = { 'BufReadPost', 'BufNew' },
+
   dependencies = {
     'nvim-tree/nvim-web-devicons',
   },
@@ -17,10 +19,12 @@ return {
         },
         indicator = {
           style = 'icon',
+          icon = '',
         },
+        separator_style = 'thin',
         show_close_icon = false,
         show_buffer_icons = true,
-        color_icons = true,
+        color_icons = false,
         show_buffer_close_icons = false,
         close_command = ':Bdelete',
         offsets = {
