@@ -74,11 +74,11 @@ return {
 
     -- Repeat movements
     vim.keymap.set({ 'n', 'x', 'o' }, ';', function()
-      ts_repeat_move.repeat_last_move()
+      pcall(ts_repeat_move.repeat_last_move)
       vim.api.nvim_feedkeys('zz', 'n', false)
     end)
     vim.keymap.set({ 'n', 'x', 'o' }, ',', function()
-      ts_repeat_move.repeat_last_move_opposite()
+      pcall(ts_repeat_move.repeat_last_move_opposite)
       vim.api.nvim_feedkeys('zz', 'n', false)
     end)
     vim.keymap.set({ 'n', 'x', 'o' }, 'f', ts_repeat_move.builtin_f)
