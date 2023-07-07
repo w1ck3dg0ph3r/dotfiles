@@ -48,10 +48,10 @@ return {
     vim.keymap.set('n', '<leader>tp', function() neotest.run.run(vim.fn.expand('%:h')) end)
 
     -- Not suported yet by neotest-go, but can be run through dap directly
-    -- vim.keymap.set('n', '<leader>tdt', function() neotest.run.run({ strategy = 'dap' }) end)
-    -- vim.keymap.set('n', '<leader>tdl', function() neotest.run.run_last({ strategy = 'dap' }) end)
-    -- vim.keymap.set('n', '<leader>tdf', function() neotest.run.run({ vim.fn.expand('%'), strategy = 'dap' }) end)
-    -- vim.keymap.set('n', '<leader>tdp', function() neotest.run.run({ vim.fn.expand('%:h'), strategy = 'dap' }) end)
+    vim.keymap.set('n', '<leader>tdt', function() neotest.run.run({ strategy = 'dap' }) end)
+    vim.keymap.set('n', '<leader>tdl', function() neotest.run.run_last({ strategy = 'dap' }) end)
+    vim.keymap.set('n', '<leader>tdf', function() neotest.run.run({ vim.fn.expand('%'), strategy = 'dap' }) end)
+    vim.keymap.set('n', '<leader>tdp', function() neotest.run.run({ vim.fn.expand('%:h'), strategy = 'dap' }) end)
 
     vim.keymap.set('n', '<leader>tq', function() neotest.run.stop() end)
 
