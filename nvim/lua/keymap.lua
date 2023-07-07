@@ -14,7 +14,7 @@ util.map('n', '<leader>c', '<cmd>nohl<cr>')
 util.map('n', '<leader>s', '<cmd>w<cr>')
 
 -- Fast quitting with <leader> and q
-util.map('n', '<leader>q', '<cmd>qa<cr>')
+util.map('n', '<leader>q', '<cmd>q<cr>')
 
 -- Use leader + d to cut, d and x to delete
 util.map({ 'n', 'v' }, 'd', '"_d')

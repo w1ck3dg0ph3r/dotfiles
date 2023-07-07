@@ -39,7 +39,10 @@ local on_attach = function(client, bufnr)
   if formatters[filetype] ~= nil then
     vim.keymap.set(
       'n', '<leader>f',
-      function() vim.lsp.buf.format({ name = formatters[filetype], async = true }) end,
+      function()
+        vim.lsp.buf.format({ name = formatters[filetype] })
+        vim.api.nvim_feedkeys('zx', 'n', false)
+      end,
       bufopts
     )
   else

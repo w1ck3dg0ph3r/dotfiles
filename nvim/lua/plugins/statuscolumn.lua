@@ -8,7 +8,7 @@ return {
     statuscol.setup({
       relculright = true,
 
-      ft_ignore = { 'alpha', 'NvimTree' },
+      ft_ignore = { 'alpha', 'NvimTree', 'help' },
       bt_ignore = { 'terminal' },
 
       segments = {

@@ -19,7 +19,9 @@ return {
       },
     }, neotest_ns)
 
-    require('neotest').setup({
+    local neotest = require('neotest')
+
+    neotest.setup({
       adapters = {
         require('neotest-go')({
           experimental = {
@@ -40,11 +42,22 @@ return {
       },
     })
 
-    vim.keymap.set('n', '<leader>tt', '<cmd>Neotest run<cr>')
-    vim.keymap.set('n', '<leader>tf', '<cmd>Neotest run file<cr>')
-    vim.keymap.set('n', '<leader>ts', '<cmd>Neotest summary<cr>')
-    vim.keymap.set('n', '<leader>to', '<cmd>Neotest output<cr>')
-    vim.keymap.set('n', '<leader>tp', '<cmd>Neotest output-panel<cr>')
+    vim.keymap.set('n', '<leader>tt', function() neotest.run.run() end)
+    vim.keymap.set('n', '<leader>tl', function() neotest.run.run_last() end)
+    vim.keymap.set('n', '<leader>tf', function() neotest.run.run(vim.fn.expand('%')) end)
+    vim.keymap.set('n', '<leader>tp', function() neotest.run.run(vim.fn.expand('%:h')) end)
+
+    -- Not suported yet by neotest-go, but can be run through dap directly
+    -- vim.keymap.set('n', '<leader>tdt', function() neotest.run.run({ strategy = 'dap' }) end)
+    -- vim.keymap.set('n', '<leader>tdl', function() neotest.run.run_last({ strategy = 'dap' }) end)
+    -- vim.keymap.set('n', '<leader>tdf', function() neotest.run.run({ vim.fn.expand('%'), strategy = 'dap' }) end)
+    -- vim.keymap.set('n', '<leader>tdp', function() neotest.run.run({ vim.fn.expand('%:h'), strategy = 'dap' }) end)
+
+    vim.keymap.set('n', '<leader>tq', function() neotest.run.stop() end)
+
+    vim.keymap.set('n', '<leader>ts', function() neotest.summary.toggle() end)
+    vim.keymap.set('n', '<leader>to', function() neotest.output.open() end)
+    vim.keymap.set('n', '<leader>tw', function() neotest.output_panel.toggle() end)
 
     vim.keymap.set('n', '<leader>cs', function() coverage.load(true) end)
     vim.keymap.set('n', '<leader>ch', function() coverage.clear() end)
