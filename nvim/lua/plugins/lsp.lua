@@ -2,13 +2,18 @@ local servers = {
   lua_ls = {},
   bashls = {},
   gopls = {
-    gopls = {
-      gofumpt = true,
-      usePlaceholders = false,
-      directoryFilters = { '-vendor' },
+    settings = {
+      gopls = {
+        gofumpt = true,
+        usePlaceholders = false,
+        directoryFilters = { '-vendor' },
+      },
     },
   },
-  volar = {},
+  volar = {
+    filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json' },
+    settings = {},
+  },
   eslint = {},
 }
 
@@ -88,7 +93,9 @@ return {
         require('lspconfig')[server_name].setup({
           capabilities = capabilities,
           on_attach = on_attach,
-          settings = servers[server_name],
+          init_options = servers[server_name].init_options,
+          filetypes = servers[server_name].filetypes,
+          settings = servers[server_name].settings,
         })
       end,
     })

@@ -14,9 +14,11 @@ M.plugins = {
 
 M.lspconfig = {
   gopls = {
-    gopls = {
-      ['local'] = 'local.import/path',
-      directoryFilters = { '-vendor' },
+    settings = {
+      gopls = {
+        ['local'] = 'local.import/path',
+        directoryFilters = { '-vendor' },
+      },
     },
   }
 }
