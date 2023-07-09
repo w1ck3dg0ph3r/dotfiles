@@ -23,3 +23,7 @@
 	email = w1ck3dg0ph3r@gmail.com
 	name = w1ck3dg0ph3r
 	signingkey = E6B82D220E93965DF35BE8FE508376B17E6F5DEB
+[pull]
+	rebase = true
+[rebase]
+	autoStash = true
