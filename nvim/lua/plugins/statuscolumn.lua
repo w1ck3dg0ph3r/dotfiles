@@ -8,7 +8,7 @@ return {
     statuscol.setup({
       relculright = true,
 
-      ft_ignore = { 'alpha', 'NvimTree', 'help' },
+      ft_ignore = { 'alpha', 'NvimTree', 'help', 'Trouble', 'neotest-summary', 'neotest-output', 'neotest-output-panel' },
       bt_ignore = { 'terminal' },
 
       segments = {
