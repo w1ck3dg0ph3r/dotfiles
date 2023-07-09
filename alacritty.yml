@@ -2,11 +2,12 @@ env:
   TERM: xterm-256color
 
 window:
-  startup_mode: fullscreen
+  # startup_mode: fullscreen
   # startup_mode: maximized
   dimensions:
     columns: 150
     lines: 45
+  decorations: None
   title: alacritty
   dynamic_title: false
 
