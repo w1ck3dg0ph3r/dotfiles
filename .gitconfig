@@ -5,9 +5,9 @@
 	sw = switch
 	cb = switch -c
 	rs = restore
-	b = branch 
-	l = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]"
-	lg = log --graph --abbrev-commit --decorate --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --all
+	b = branch
+  l = log --pretty=format:"%C(yellow)%h\\ %Creset%s%C(red)%d%C(blue)\\ [%cn]\\ %cr"
+	lg = log --graph --abbrev-commit --decorate --pretty=format:"%C(yellow)%h\\ %Creset%s%C(red)%d%C(blue)\\ [%cn]\\ %cr" --all
 	c = commit -m
 	ca = commit --amend --no-edit
 	rb = rebase -i
