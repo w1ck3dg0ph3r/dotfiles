@@ -11,7 +11,7 @@ local servers = {
     },
   },
   volar = {
-    filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json' },
+    filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
     settings = {},
   },
   eslint = {},
@@ -21,7 +21,7 @@ local formatters = {
   go = 'gopls',
   lua = 'lua_ls',
 }
-for _, filetype in ipairs({ 'js', 'ts', 'vue', 'html', 'pug', 'css', 'scss', 'sass' }) do
+for _, filetype in ipairs({ 'js', 'ts', 'vue', 'html', 'pug', 'css', 'scss', 'sass', 'json', 'yaml' }) do
   formatters[filetype] = 'null-ls'
 end
 
@@ -102,6 +102,7 @@ return {
 
     local nullls = require('null-ls')
     nullls.setup({
+      on_attach = on_attach,
       sources = {
         nullls.builtins.formatting.prettier,
       },
