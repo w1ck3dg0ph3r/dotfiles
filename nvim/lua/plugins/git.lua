@@ -8,14 +8,14 @@ local on_attach = function(bufnr)
   end
 
   -- Navigation
-  map('n', ']c', function()
-    if vim.wo.diff then return ']c' end
+  map('n', ']h', function()
+    if vim.wo.diff then return ']h' end
     vim.schedule(function() gs.next_hunk() end)
     return '<ignore>'
   end, { expr = true })
 
-  map('n', '[c', function()
-    if vim.wo.diff then return '[c' end
+  map('n', '[h', function()
+    if vim.wo.diff then return '[h' end
     vim.schedule(function() gs.prev_hunk() end)
     return '<ignore>'
   end, { expr = true })
