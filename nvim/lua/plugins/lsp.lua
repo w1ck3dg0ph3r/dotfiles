@@ -4,6 +4,7 @@ local servers = {
   gopls = {
     settings = {
       gopls = {
+        experimentalPostfixCompletions = true,
         gofumpt = true,
         usePlaceholders = false,
         directoryFilters = { '-vendor' },
@@ -69,11 +70,11 @@ return {
 
   config = function()
     local mason = require('mason')
+    local lspconfig = require('lspconfig')
+    local masonconfig = require('mason-lspconfig')
     mason.setup()
 
     require('neodev').setup({})
-
-    local masonconfig = require('mason-lspconfig')
 
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
@@ -90,7 +91,7 @@ return {
           servers[server_name] = vim.tbl_deep_extend('force', servers[server_name], nvimrc.lspconfig[server_name])
         end
 
-        require('lspconfig')[server_name].setup({
+        lspconfig[server_name].setup({
           capabilities = capabilities,
           on_attach = on_attach,
           init_options = servers[server_name].init_options,

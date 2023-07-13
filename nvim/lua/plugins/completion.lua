@@ -102,6 +102,15 @@ return {
         { name = 'path' },
       }),
 
+      sorting = {
+        comparators = {
+          cmp.config.compare.score,
+          cmp.config.compare.exact,
+          cmp.config.compare.offset,
+          cmp.config.compare.order,
+        }
+      },
+
       preselect = cmp.PreselectMode.None,
     })
 
