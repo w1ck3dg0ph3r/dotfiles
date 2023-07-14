@@ -63,3 +63,7 @@ util.map('n', '[d', vim.diagnostic.goto_prev)
 util.map('n', ']d', vim.diagnostic.goto_next)
 util.map('n', '<leader>df', vim.diagnostic.open_float)
 util.map('n', '<leader>dl', vim.diagnostic.setloclist)
+
+-- Folds
+util.map('n', ']z', 'zj')
+util.map('n', '[z', 'zk')
