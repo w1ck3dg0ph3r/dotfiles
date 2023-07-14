@@ -27,6 +27,7 @@ return {
           experimental = {
             test_table = true,
           },
+          args = { '-race', '-coverprofile coverage.out' },
         }),
       },
     })
@@ -38,7 +39,7 @@ return {
         uncovered = { hl = 'CoverageUncovered', text = '░' },
       },
       lang = {
-        go = { coverage_file = '.cover' },
+        go = { coverage_file = 'coverage.out' },
       },
     })
 
@@ -46,6 +47,7 @@ return {
     vim.keymap.set('n', '<leader>tl', function() neotest.run.run_last() end)
     vim.keymap.set('n', '<leader>tf', function() neotest.run.run(vim.fn.expand('%')) end)
     vim.keymap.set('n', '<leader>tp', function() neotest.run.run(vim.fn.expand('%:h')) end)
+    vim.keymap.set('n', '<leader>ta', function() neotest.run.run(vim.fn.getcwd()) end)
 
     -- Not suported yet by neotest-go, but can be run through dap directly
     vim.keymap.set('n', '<leader>tdt', function() neotest.run.run({ strategy = 'dap' }) end)
