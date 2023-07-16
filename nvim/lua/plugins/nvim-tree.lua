@@ -29,7 +29,7 @@ local plugin = {
         }
       }
     },
-    filters = { custom = { '^.git$' } },
+    filters = { custom = { '^\\.git$' } },
     diagnostics = {
       enable = true,
       show_on_dirs = true,

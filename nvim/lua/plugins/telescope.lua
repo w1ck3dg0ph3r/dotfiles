@@ -26,6 +26,8 @@ return {
           ['<esc>'] = 'close',
         },
       },
+
+      file_ignore_patterns = { '^%.git/' },
     },
   },
 
