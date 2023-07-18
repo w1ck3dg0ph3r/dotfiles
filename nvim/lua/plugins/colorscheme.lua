@@ -19,6 +19,7 @@ return {
           enabled = true,
           style = 'classic',
         },
+        harpoon = true,
         lsp_trouble = true,
         bufferline = true,
         mason = true,
