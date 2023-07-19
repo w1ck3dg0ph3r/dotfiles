@@ -28,6 +28,9 @@ util.map({ 'n', 'v' }, '<leader>D', 'D')
 util.map('v', '<', '<gv')
 util.map('v', '>', '>gv')
 
+-- Make paste in visual mode not yank replaced text
+util.map('v', 'p', 'P')
+
 -- Keep cursor centered
 util.map('n', '<c-d>', '<c-d>zz')
 util.map('n', '<c-u>', '<c-u>zz')
