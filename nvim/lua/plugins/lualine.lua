@@ -19,7 +19,14 @@ return {
         statusline = { 'alpha', 'qf', 'NvimTree', 'neo-tree', 'toggleterm', 'Trouble' },
         winbar = {},
       },
-      ignore_focus = { 'dapui_watches', 'dapui_stacks', 'dapui_breakpoints', 'dapui_scopes', 'neotest-summary', 'neotest-output-panel' },
+      ignore_focus = {
+        'dapui_watches',
+        'dapui_stacks',
+        'dapui_breakpoints',
+        'dapui_scopes',
+        'neotest-summary',
+        'neotest-output-panel',
+      },
       always_divide_middle = true,
       globalstatus = false,
       refresh = {

@@ -8,10 +8,28 @@ return {
   },
 
   config = function()
-    local dap = require('dap')
-    local dapui = require('dapui')
+    local dap, dapui = require('dap'), require('dapui')
 
-    dapui.setup({})
+    dapui.setup({
+      layouts = {
+        {
+          position = 'left',
+          size = 50,
+          elements = {
+            { id = 'stacks',  size = 0.25 },
+            { id = 'watches', size = 0.25 },
+            { id = 'scopes',  size = 0.5 },
+          },
+        },
+        {
+          position = 'bottom',
+          size = 16,
+          elements = {
+            { id = 'repl', size = 1 },
+          },
+        }
+      },
+    })
     require('nvim-dap-virtual-text').setup({})
     require('dap-go').setup()
 
@@ -37,10 +55,27 @@ return {
     vim.keymap.set('n', '<leader>dr', function() dap.repl.open() end)
     vim.keymap.set('n', '<leader>du', function() dapui.toggle() end)
 
+    vim.keymap.set('n', '<leader>de', function() dapui.eval() end)
+    vim.keymap.set('n', '<leader>dc', function()
+      vim.ui.input({ prompt = 'Eval: ' }, function(input)
+        if input == nil or input == '' then return end
+        dapui.eval(input)
+      end)
+    end)
+    vim.keymap.set('n', '<leader>db', function() dapui.float_element('breakpoints') end)
+
     -- Auto-open dap-ui
-    dap.listeners.after.event_initialized['dapui_config'] = function()
-      dapui.open()
-    end
+    -- dap.listeners.after.event_initialized['dapui_config'] = function()
+    --   dapui.open()
+    -- end
+
+    -- Auto-close dap-ui
+    -- dap.listeners.before.event_terminated['dapui_config'] = function()
+    --   dapui.close()
+    -- end
+    -- dap.listeners.before.event_exited['dapui_config'] = function()
+    --   dapui.close()
+    -- end
 
     -- Breackpoint highlights and signs
     vim.api.nvim_set_hl(0, 'DapBreakpoint', { ctermbg = 0, fg = '#993939' })

@@ -8,7 +8,20 @@ return {
     statuscol.setup({
       relculright = true,
 
-      ft_ignore = { 'alpha', 'NvimTree', 'help', 'Trouble', 'neotest-summary', 'neotest-output', 'neotest-output-panel' },
+      ft_ignore = {
+        'alpha',
+        'NvimTree',
+        'help',
+        'Trouble',
+        'dapui_watches',
+        'dapui_stacks',
+        'dapui_breakpoints',
+        'dapui_scopes',
+        'dap-repl',
+        'neotest-summary',
+        'neotest-output',
+        'neotest-output-panel',
+      },
       bt_ignore = { 'terminal' },
 
       segments = {
