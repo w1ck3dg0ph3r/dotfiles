@@ -21,6 +21,16 @@ function util.remap(modes, lhs, rhs, opts)
   })
 end
 
+function util.tbl_walk(t, ...)
+  local result = t
+  local keys = {...}
+  for _, key in ipairs(keys) do
+    local nv  = result[key]
+    if nv ~= nil then result = nv else return end
+  end
+  return result
+end
+
 function util.load_plugins()
   local dir = vim.fn.stdpath('config') .. '/lua/plugins'
   local plugins = {}

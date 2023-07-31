@@ -20,6 +20,15 @@ return {
     }, neotest_ns)
 
     local neotest = require('neotest')
+    local util = require('util')
+
+    local nvimrc = require('nvimrc').config()
+    local go_coverage_enabled = util.tbl_walk(nvimrc, 'go', 'test', 'coverage_enabled') or true
+    local go_coverage_file = util.tbl_walk(nvimrc, 'go', 'test', 'coverage_file') or 'coverage.out'
+    local neotest_go_args = { '-race' }
+    if go_coverage_enabled then
+      table.insert(neotest_go_args, '-coverprofile ' .. go_coverage_file)
+    end
 
     neotest.setup({
       adapters = {
@@ -27,7 +36,7 @@ return {
           experimental = {
             test_table = true,
           },
-          args = { '-race', '-coverprofile coverage.out' },
+          args = neotest_go_args,
         }),
       },
     })
@@ -39,7 +48,7 @@ return {
         uncovered = { hl = 'CoverageUncovered', text = '░' },
       },
       lang = {
-        go = { coverage_file = 'coverage.out' },
+        go = { coverage_file = go_coverage_file },
       },
     })
 

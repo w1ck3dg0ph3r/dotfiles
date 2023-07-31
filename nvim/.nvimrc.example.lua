@@ -17,4 +17,11 @@ M.lspconfig = {
   }
 }
 
+M.go = {
+  test = {
+    coverage_enabled = true,
+    coverage_file = 'coverage.out',
+  },
+}
+
 return M
