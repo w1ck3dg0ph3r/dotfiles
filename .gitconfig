@@ -7,7 +7,9 @@
 	rs = restore
 	b = branch
   l = log --pretty=format:"%C(yellow)%h\\ %Creset%s%C(red)%d%C(blue)\\ [%cn]\\ %cr"
-	lg = log --graph --abbrev-commit --decorate --pretty=format:"%C(yellow)%h\\ %Creset%s%C(red)%d%C(blue)\\ [%cn]\\ %cr" --all
+	lg = log --graph --abbrev-commit --decorate --pretty=format:"%C(yellow)%h\\ %Creset%s%C(red)%d%C(blue)\\ [%cn]\\ %cr"
+  la = log --pretty=format:"%C(yellow)%h\\ %Creset%s%C(red)%d%C(blue)\\ [%cn]\\ %cr" --all
+	lga = log --graph --abbrev-commit --decorate --pretty=format:"%C(yellow)%h\\ %Creset%s%C(red)%d%C(blue)\\ [%cn]\\ %cr" --all
 	c = commit -m
 	ca = commit --amend --no-edit
 	rb = rebase -i
