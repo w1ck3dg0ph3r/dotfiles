@@ -22,6 +22,7 @@ function util.remap(modes, lhs, rhs, opts)
 end
 
 function util.tbl_walk(t, ...)
+  if t == nil then return end
   local result = t
   local keys = {...}
   for _, key in ipairs(keys) do
