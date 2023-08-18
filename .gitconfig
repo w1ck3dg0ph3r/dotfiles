@@ -6,14 +6,15 @@
 	cb = switch -c
 	rs = restore
 	b = branch
-  l = log --pretty=format:"%C(yellow)%h\\ %Creset%s%C(red)%d%C(blue)\\ [%cn]\\ %cr"
+	l = log --pretty=format:"%C(yellow)%h\\ %Creset%s%C(red)%d%C(blue)\\ [%cn]\\ %cr"
 	lg = log --graph --abbrev-commit --decorate --pretty=format:"%C(yellow)%h\\ %Creset%s%C(red)%d%C(blue)\\ [%cn]\\ %cr"
-  la = log --pretty=format:"%C(yellow)%h\\ %Creset%s%C(red)%d%C(blue)\\ [%cn]\\ %cr" --all
+	la = log --pretty=format:"%C(yellow)%h\\ %Creset%s%C(red)%d%C(blue)\\ [%cn]\\ %cr" --all
 	lga = log --graph --abbrev-commit --decorate --pretty=format:"%C(yellow)%h\\ %Creset%s%C(red)%d%C(blue)\\ [%cn]\\ %cr" --all
 	c = commit -m
 	ca = commit --amend --no-edit
 	rb = rebase -i
-	fa = fetch --all --prune --prune-tags
+	fa = fetch --all
+	fap = fetch --all --prune --prune-tags
 	mc = merge --no-ff
 	mf = merge --ff-only
 	st = stash
@@ -21,11 +22,12 @@
 	pop = stash pop
 [core]
 	excludesfile = ~/.gitignore_global
-[user]
-	email = w1ck3dg0ph3r@gmail.com
-	name = w1ck3dg0ph3r
-	signingkey = E6B82D220E93965DF35BE8FE508376B17E6F5DEB
 [pull]
 	rebase = true
 [rebase]
 	autoStash = true
+
+[user]
+	email = w1ck3dg0ph3r@gmail.com
+	name = w1ck3dg0ph3r
+	signingkey = E6B82D220E93965DF35BE8FE508376B17E6F5DEB
