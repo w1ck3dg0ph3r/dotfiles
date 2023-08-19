@@ -3,8 +3,9 @@ return {
 
   dependencies = {
     'nvim-lua/plenary.nvim',
+    'nvim-treesitter/nvim-treesitter',
     'andythigpen/nvim-coverage',
-    'nvim-neotest/neotest-go',
+    { 'nvim-neotest/neotest-go', commit = '05535cb' },
   },
 
   config = function()
