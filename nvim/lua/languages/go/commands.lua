@@ -6,7 +6,7 @@ local M = {}
 M.run_package = '.'
 
 vim.api.nvim_create_user_command('GoRun', function(opts)
-  pcall(function () vim.cmd('wa') end)
+  pcall(function() vim.cmd('wa') end)
   if opts.args ~= '' then
     M.run_package = opts.args
   end
@@ -17,7 +17,7 @@ end, {
 util.map('n', '<f9>', '<cmd>GoRun<cr>')
 
 vim.api.nvim_create_user_command('GoTest', function(opts)
-  pcall(function () vim.cmd('wa') end)
+  pcall(function() vim.cmd('wa') end)
   local cmd = 'go test ./...'
   if opts.args ~= '' then
     cmd = cmd .. ' -run ' .. opts.args
@@ -33,8 +33,8 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   group = augroup,
   callback = function(ev)
     if vim.bo[ev.buf].filetype == 'go' then
-      vim.lsp.buf.format()
       M.go_organize_imports()
+      vim.lsp.buf.format()
     end
   end,
 })
@@ -43,11 +43,24 @@ M.go_organize_imports = function()
   local context = { source = { organizeImports = true } }
   local params = vim.lsp.util.make_range_params()
   params.context = context
-  local result = vim.lsp.buf_request_sync(0, 'textDocument/codeAction', params, 1000)
-  if result == nil or result[1] == nil then return end
-  result = result[1].result
-  if result == nil or result[1] == nil or result[1].edit == nil then return end
-  vim.lsp.util.apply_workspace_edit(result[1].edit, 'utf-8')
+
+  local clients = vim.lsp.buf_request_sync(0, 'textDocument/codeAction', params, 1000)
+  if clients == nil then return end
+
+  for _, result in pairs(clients) do
+    if result.err ~= nil then
+      print(result.err.message)
+      return
+    end
+    if result.result == nil then
+      return
+    end
+    for _, edit in ipairs(result.result) do
+      if edit.kind == 'source.organizeImports' then
+        vim.lsp.util.apply_workspace_edit(edit.edit, 'utf-8')
+      end
+    end
+  end
 end
 
 return M
