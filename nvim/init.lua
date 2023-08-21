@@ -19,7 +19,7 @@ local plugins = require('util').load_plugins()
 local nvimrc = require('nvimrc').config()
 if nvimrc ~= nil and nvimrc.plugins ~= nil then
   for _, spec in pairs(nvimrc.plugins) do
-    if spec[1] ~= nil and type(spec[1]) == "string" then
+    if spec[1] ~= nil and type(spec[1]) == 'string' then
       local name = spec[1]
       plugins[name] = vim.tbl_deep_extend('force', plugins[name], spec)
     end
