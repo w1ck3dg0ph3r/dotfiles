@@ -1,41 +1,155 @@
 palette = 'catppuccin_macchiato'
 add_newline = false
 
-[palettes.catppuccin_macchiato]
-rosewater = "#f4dbd6"
-flamingo = "#f0c6c6"
-pink = "#f5bde6"
-mauve = "#c6a0f6"
-red = "#ed8796"
-maroon = "#ee99a0"
-peach = "#f5a97f"
-yellow = "#eed49f"
-green = "#a6da95"
-teal = "#8bd5ca"
-sky = "#91d7e3"
-sapphire = "#7dc4e4"
-blue = "#8aadf4"
-lavender = "#b7bdf8"
-text = "#cad3f5"
-subtext1 = "#b8c0e0"
-subtext0 = "#a5adcb"
-overlay2 = "#939ab7"
-overlay1 = "#8087a2"
-overlay0 = "#6e738d"
-surface2 = "#5b6078"
-surface1 = "#494d64"
-surface0 = "#363a4f"
-base = "#24273a"
-mantle = "#1e2030"
-crust = "#181926"
+format = """
+$os\
+$username\
+$hostname\
+$directory\
+[ ](bg:surface1)[](fg:surface1 bg:surface0)\
+(\
+$git_branch\
+$c\
+$golang\
+$lua\
+$nodejs\
+$python\
+$rust\
+$cmd_duration\
+)\
+[ ](bg:surface0)[](surface0)\
+$line_break\
+$character\
+"""
 
 [character]
-success_symbol = "[❯](green)"
-error_symbol = "[❯](red)"
+success_symbol = '[❯](green)'
+error_symbol = '[❯](red)'
+
+[os]
+disabled = false
+format = '[$symbol]($style)'
+style = 'fg:surface2 bg:surface1'
+
+[username]
+format = '[$user]($style)'
+style_user = 'bold fg:yellow bg:surface1'
+style_root = 'bold fg:red bg:surface1'
+show_always = true
+
+[hostname]
+format = '[@](fg:subtext0 bg:surface1)[$ssh_symbol$hostname]($style)[:](fg:subtext0 bg:surface1)'
+style = 'bold fg:green bg:surface1'
+ssh_symbol = ' '
+ssh_only = false
 
 [directory]
 truncation_length = 4
-style = "bold blue"
+format = '[[$path]($style)](bg:surface1)'
+style = 'bold fg:blue bg:surface1'
+
+[git_branch]
+symbol = ' '
+# format = '[  ](fg:overlay0 bg:surface0)[$symbol$branch(:$remote_branch)]($style)'
+format = '[ $symbol$branch(:$remote_branch)]($style)'
+style = 'fg:purple bg:surface0'
+
+[cmd_duration]
+format = '[  ](fg:overlay0 bg:surface0)[🕙$duration ]($style)'
+style = 'fg:yellow bg:surface0'
+
+[c]
+format = '[  ](fg:overlay0 bg:surface0)[$symbol($version(-$name))]($style)'
+style = 'fg:green bg:surface0'
+detect_extensions = ['c', 'h', 'cpp', 'hpp', 'cxx', 'hxx', 'cc']
+symbol = ' '
 
 [golang]
-format = 'via [ $version](bold cyan) '
+format = '[  ](fg:overlay0 bg:surface0)[$symbol($version)]($style)'
+style = 'fg:cyan bg:surface0'
+symbol = ' '
+
+[lua]
+format = '[  ](fg:overlay0 bg:surface0)[$symbol($version)]($style)'
+style = 'fg:blue bg:surface0'
+symbol = ' '
+
+[nodejs]
+symbol = ' '
+
+[python]
+format = '[  ](fg:overlay0 bg:surface0)[${symbol}${pyenv_prefix}(${version})( \($virtualenv\))]($style)'
+style = 'bold fg:yellow bg:surface0'
+symbol = ' '
+
+[rust]
+symbol = ' '
+
+[os.symbols]
+Alpaquita = ' '
+Alpine = ' '
+Amazon = ' '
+Android = ' '
+Arch = ' '
+Artix = ' '
+CentOS = ' '
+Debian = ' '
+DragonFly = ' '
+Emscripten = ' '
+EndeavourOS = ' '
+Fedora = ' '
+FreeBSD = ' '
+Garuda = '󰛓 '
+Gentoo = ' '
+HardenedBSD = '󰞌 '
+Illumos = '󰈸 '
+Linux = ' '
+Mabox = ' '
+Macos = ' '
+Manjaro = ' '
+Mariner = ' '
+MidnightBSD = ' '
+Mint = ' '
+NetBSD = ' '
+NixOS = ' '
+OpenBSD = '󰈺 '
+openSUSE = ' '
+OracleLinux = '󰌷 '
+Pop = ' '
+Raspbian = ' '
+Redhat = ' '
+RedHatEnterprise = ' '
+Redox = '󰀘 '
+Solus = '󰠳 '
+SUSE = ' '
+Ubuntu = ' '
+Unknown = ' '
+Windows = '󰍲 '
+
+[palettes.catppuccin_macchiato]
+rosewater = '#f4dbd6'
+flamingo = '#f0c6c6'
+pink = '#f5bde6'
+mauve = '#c6a0f6'
+red = '#ed8796'
+maroon = '#ee99a0'
+peach = '#f5a97f'
+yellow = '#eed49f'
+green = '#a6da95'
+teal = '#8bd5ca'
+sky = '#91d7e3'
+sapphire = '#7dc4e4'
+blue = '#8aadf4'
+lavender = '#b7bdf8'
+text = '#cad3f5'
+subtext1 = '#b8c0e0'
+subtext0 = '#a5adcb'
+overlay2 = '#939ab7'
+overlay1 = '#8087a2'
+overlay0 = '#6e738d'
+surface2 = '#5b6078'
+surface1 = '#494d64'
+surface0 = '#363a4f'
+base = '#24273a'
+mantle = '#1e2030'
+crust = '#181926'
