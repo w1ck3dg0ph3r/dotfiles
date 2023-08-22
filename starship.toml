@@ -55,7 +55,7 @@ format = '[ $symbol$branch(:$remote_branch)]($style)'
 style = 'fg:purple bg:surface0'
 
 [cmd_duration]
-format = '[  ](fg:overlay0 bg:surface0)[🕙$duration ]($style)'
+format = '[  ](fg:overlay0 bg:surface0)[ $duration ]($style)'
 style = 'fg:yellow bg:surface0'
 
 [c]
