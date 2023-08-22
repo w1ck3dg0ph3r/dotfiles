@@ -24,9 +24,9 @@ end
 function util.tbl_walk(t, ...)
   if t == nil then return end
   local result = t
-  local keys = {...}
+  local keys = { ... }
   for _, key in ipairs(keys) do
-    local nv  = result[key]
+    local nv = result[key]
     if nv ~= nil then result = nv else return end
   end
   return result
