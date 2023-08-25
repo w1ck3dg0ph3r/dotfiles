@@ -21,6 +21,7 @@ local servers = {
 local formatters = {
   go = 'gopls',
   lua = 'lua_ls',
+  cpp = 'clangd',
 }
 for _, filetype in ipairs({ 'js', 'ts', 'vue', 'html', 'pug', 'css', 'scss', 'sass', 'json', 'yaml' }) do
   formatters[filetype] = 'null-ls'
@@ -91,12 +92,14 @@ return {
           servers[server_name] = vim.tbl_deep_extend('force', servers[server_name], nvimrc.lspconfig[server_name])
         end
 
+        if not lspconfig[server_name] then return end
+
         lspconfig[server_name].setup({
           capabilities = capabilities,
           on_attach = on_attach,
-          init_options = servers[server_name].init_options,
-          filetypes = servers[server_name].filetypes,
-          settings = servers[server_name].settings,
+          init_options = servers[server_name] and servers[server_name].init_options or nil,
+          filetypes = servers[server_name] and servers[server_name].filetypes or nil,
+          settings = servers[server_name] and servers[server_name].settings or nil,
         })
       end,
     })
