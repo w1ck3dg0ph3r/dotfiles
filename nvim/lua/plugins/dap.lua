@@ -5,6 +5,7 @@ return {
     'rcarriga/nvim-dap-ui',
     'theHamsta/nvim-dap-virtual-text',
     'leoluz/nvim-dap-go',
+    'jay-babu/mason-nvim-dap.nvim',
   },
 
   config = function()
@@ -27,11 +28,37 @@ return {
           elements = {
             { id = 'repl', size = 1 },
           },
-        }
+        },
       },
     })
     require('nvim-dap-virtual-text').setup({})
+
+    require('mason-nvim-dap').setup({
+      ensure_installed = { 'delve', 'codelldb' },
+      automatic_installation = false,
+      handlers = {
+        function(config)
+          -- all sources with no handler get passed here
+          require('mason-nvim-dap').default_setup(config)
+        end,
+      },
+    })
+
     require('dap-go').setup()
+
+    dap.configurations.c = {
+      {
+        type = 'codelldb',
+        request = 'launch',
+        program = function()
+          return vim.fn.input({ prompt = 'Path to executable: ', default = vim.fn.getcwd() .. '/', completion = 'file' })
+        end,
+        --program = '${fileDirname}/${fileBasenameNoExtension}',
+        cwd = '${workspaceFolder}',
+        terminal = 'integrated'
+      }
+    }
+    dap.configurations.cpp = dap.configurations.c
 
     -- Keymaps
     --
