@@ -47,8 +47,8 @@ return {
             ['af'] = '@function.outer',
             ['ic'] = '@class.inner',
             ['ac'] = '@class.outer',
-            ['ib'] = '@block.inner',
-            ['ab'] = '@block.outer',
+            ['ip'] = '@parameter.inner',
+            ['ap'] = '@parameter.outer',
           },
           selection_modes = {
             ['@function.outer'] = 'V',
@@ -59,14 +59,30 @@ return {
 
         move = {
           enable = true,
-          set_jumps = true,
+          set_jumps = false,
           goto_next_start = {
             [']f'] = '@function.outer',
             [']c'] = '@class.outer',
+            [']p'] = '@parameter.inner',
           },
           goto_previous_start = {
             ['[f'] = '@function.outer',
             ['[c'] = '@class.outer',
+            ['[p'] = '@parameter.inner',
+          },
+        },
+
+        swap = {
+          enable = true,
+          swap_next = {
+            ['<a-]>f'] = '@function.outer',
+            ['<a-]>c'] = '@class.outer',
+            ['<a-]>p'] = '@parameter.inner',
+          },
+          swap_previous = {
+            ['<a-[>f'] = '@function.outer',
+            ['<a-[>c'] = '@class.outer',
+            ['<a-[>p'] = '@parameter.inner',
           },
         },
       },
