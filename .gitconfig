@@ -6,6 +6,7 @@
 	cb = switch -c
 	rs = restore
 	b = branch
+	ba = branch -avv
 	l = log --pretty=format:"%C(yellow)%h\\ %Creset%s%C(red)%d%C(blue)\\ [%cn]\\ %cr"
 	lg = log --graph --abbrev-commit --decorate --pretty=format:"%C(yellow)%h\\ %Creset%s%C(red)%d%C(blue)\\ [%cn]\\ %cr"
 	la = log --pretty=format:"%C(yellow)%h\\ %Creset%s%C(red)%d%C(blue)\\ [%cn]\\ %cr" --all
@@ -26,6 +27,8 @@
 	rebase = true
 [rebase]
 	autoStash = true
+[tag]
+	sort = version:refname
 
 [user]
 	email = w1ck3dg0ph3r@gmail.com
