@@ -3,6 +3,7 @@
 [alias]
 	s = status -u
 	sw = switch
+  sf = !git sw $(git branch --format='%(refname:short)' | fzf)
 	cb = switch -c
 	rs = restore
 	b = branch
