@@ -10,7 +10,7 @@ vim.api.nvim_create_user_command('GoRun', function(opts)
   if opts.args ~= '' then
     M.run_package = opts.args
   end
-  toggleterm.exec('go run ' .. M.run_package, 1, 0, nil, 'horizontal', true)
+  toggleterm.exec('go run ' .. M.run_package, 1, 0, nil, 'horizontal', 'go', true, true)
 end, {
   nargs = '?',
 })
@@ -23,7 +23,7 @@ vim.api.nvim_create_user_command('GoTest', function(opts)
     cmd = cmd .. ' -run ' .. opts.args
   end
   cmd = cmd .. ' -v'
-  toggleterm.exec(cmd, 1, 0, nil, 'horizontal', true)
+  toggleterm.exec(cmd, 1, 0, nil, 'horizontal', 'go', true, true)
 end, {
   nargs = '?',
 })
