@@ -93,6 +93,7 @@ return {
           })[entry.source.name]
           return vim_item
         end,
+        expandable_indicator = true,
       },
 
       sources = cmp.config.sources({
@@ -103,12 +104,12 @@ return {
       }),
 
       sorting = {
-        priority_weight = 1.0,
+        priority_weight = 0.2,
         comparators = {
-          cmp.config.compare.score,
           cmp.config.compare.exact,
-          cmp.config.compare.offset,
-          cmp.config.compare.order,
+          cmp.config.compare.score,
+          cmp.config.compare.kind,
+          cmp.config.compare.locality,
         }
       },
 
