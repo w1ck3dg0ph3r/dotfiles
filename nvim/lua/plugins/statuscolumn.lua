@@ -28,7 +28,7 @@ return {
         { text = { builtin.foldfunc }, click = 'v:lua.ScFa' },
         {
           sign = {
-            name = { 'GitSigns' },
+            namespace = { 'gitsigns' },
             maxwidth = 1,
             colwidth = 1,
             auto = true,
