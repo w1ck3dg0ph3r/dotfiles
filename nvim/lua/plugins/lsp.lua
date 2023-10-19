@@ -4,9 +4,14 @@ local servers = {
   gopls = {
     settings = {
       gopls = {
-        experimentalPostfixCompletions = true,
         gofumpt = true,
+        semanticTokens = true,
+        experimentalPostfixCompletions = true,
         usePlaceholders = false,
+        hints = {
+          compositeLiteralFields = true,
+          parameterNames = true,
+        },
         directoryFilters = { '-vendor' },
       },
     },
