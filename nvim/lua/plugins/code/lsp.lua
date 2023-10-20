@@ -63,6 +63,10 @@ local on_attach = function(client, bufnr)
   else
     util.map('n', '<leader>f', function() print('no formatter configured for ' .. filetype) end, bufopts)
   end
+
+  if has_navic and client.server_capabilities.documentSymbolProvider then
+    navic.attach(client, bufnr)
+  end
 end
 
 return {
@@ -75,15 +79,20 @@ return {
     'hrsh7th/cmp-nvim-lsp',
     'nvimtools/none-ls.nvim',
     'folke/neodev.nvim',
+    'SmiteshP/nvim-navic',
   },
 
   config = function()
     local mason = require('mason')
     local lspconfig = require('lspconfig')
     local masonconfig = require('mason-lspconfig')
-    mason.setup()
+    local navic = require('nvim-navic')
 
+    mason.setup()
     require('neodev').setup({})
+
+    navic.setup({ highlight = true })
+    vim.o.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
 
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)

@@ -23,6 +23,7 @@ return {
         harpoon = true,
         lsp_trouble = true,
         bufferline = true,
+        navic = true,
         mason = true,
         dap = {
           enabled = true,
