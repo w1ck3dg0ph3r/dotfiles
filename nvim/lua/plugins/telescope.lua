@@ -32,8 +32,9 @@ return {
   },
 
   config = function(_, opts)
-    local util = require('util')
+    local telescope = require('telescope')
     local themes = require('telescope.themes')
+    local util = require('util')
 
     -- Open in trouble instead of quickfix
     local has_trouble, trouble = pcall(require, 'trouble.providers.telescope')
@@ -41,8 +42,7 @@ return {
       opts.defaults.mappings.i['<c-q>'] = trouble.open_with_trouble
     end
 
-    require('telescope').setup(opts)
-
+    telescope.setup(opts)
     local builtin = require('telescope.builtin')
 
     util.map('n', '<leader>sc', function() builtin.commands() end)
@@ -53,6 +53,7 @@ return {
     util.map('n', '<leader>ss', builtin.current_buffer_fuzzy_find)
     util.map('n', '<leader>so', builtin.lsp_document_symbols)
     util.map('n', '<leader>st', builtin.lsp_dynamic_workspace_symbols)
+    util.map('n', '<leader>sw', function() builtin.lsp_workspace_symbols({ query = vim.fn.input("Query: ") }) end)
     util.map('n', '<leader>sr', builtin.lsp_references)
     util.map('n', '<leader>si', builtin.lsp_implementations)
     util.map('n', '<leader>sd', builtin.diagnostics)
