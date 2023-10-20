@@ -13,20 +13,26 @@ util.map('n', '<leader>c', '<cmd>nohl<cr>')
 -- Fast saving with <leader> and s
 util.map('n', '<leader>s', '<cmd>w<cr>')
 
--- Fast quitting with <leader> and q
+-- Fast quitting with <leader> and q/sq
 util.map('n', '<leader>q', '<cmd>q<cr>')
+util.map('n', '<leader>sq', '<cmd>x<cr>')
 
--- Use leader + d to cut, d and x to delete
+-- Use leader + d/c to cut, d and x to delete
 util.map({ 'n', 'v' }, 'd', '"_d')
 util.map({ 'n', 'v' }, 'D', '"_D')
 util.map({ 'n', 'v' }, 'x', '"_x')
 util.map({ 'n', 'v' }, 'X', '"_X')
+util.map({ 'n', 'v' }, 'c', '"_c')
+util.map({ 'n', 'v' }, 'C', '"_C')
 util.map({ 'n', 'v' }, '<leader>d', 'd')
 util.map({ 'n', 'v' }, '<leader>D', 'D')
 
 -- Indent stay in visual mode
 util.map('v', '<', '<gv')
 util.map('v', '>', '>gv')
+-- Indent using single brackets
+util.map('n', '<', '<<')
+util.map('n', '>', '>>')
 
 -- Make paste in visual mode not yank replaced text
 util.map('v', 'p', 'P')
