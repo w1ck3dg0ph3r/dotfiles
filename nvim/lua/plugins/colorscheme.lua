@@ -27,6 +27,7 @@ return {
           enabled = true,
           enable_ui = true,
         },
+        neotest = true,
       },
     })
     vim.cmd('colorscheme catppuccin')
