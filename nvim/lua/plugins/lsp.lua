@@ -28,7 +28,7 @@ local formatters = {
   lua = 'lua_ls',
   cpp = 'clangd',
 }
-for _, filetype in ipairs({ 'js', 'ts', 'vue', 'html', 'pug', 'css', 'scss', 'sass', 'json', 'yaml' }) do
+for _, filetype in ipairs({ 'javascript', 'typescript', 'vue', 'html', 'pug', 'css', 'scss', 'sass', 'json', 'yaml' }) do
   formatters[filetype] = 'null-ls'
 end
 
@@ -70,7 +70,7 @@ return {
     'williamboman/mason-lspconfig.nvim',
     'nvim-lua/plenary.nvim',
     'hrsh7th/cmp-nvim-lsp',
-    'jose-elias-alvarez/null-ls.nvim',
+    'nvimtools/none-ls.nvim',
     'folke/neodev.nvim',
   },
 
