@@ -88,3 +88,17 @@ vim.api.nvim_create_autocmd({ 'BufLeave', 'FocusLost', 'WinLeave' }, {
     end
   end,
 })
+
+-- Handle big files
+local big_files_group = vim.api.nvim_create_augroup('big_files', { clear = true })
+vim.api.nvim_create_autocmd({ 'BufReadPre', 'FileReadPre' }, {
+  group = big_files_group,
+  callback = function(ev)
+    local fsize = vim.fn.getfsize(ev.match)
+    if fsize > 512 * 1024 then
+      vim.wo.foldmethod = 'manual'
+      vim.cmd('syntax off')
+      vim.b[ev.buf].big_file = true
+    end
+  end,
+})

@@ -10,6 +10,10 @@ return {
 
     local ts_repeat_move = require 'nvim-treesitter.textobjects.repeatable_move'
 
+    local is_big_file = function(_, bufnr)
+      return vim.b[bufnr].big_file
+    end
+
     require('nvim-treesitter.configs').setup({
       ensure_installed = {
         'c',
@@ -25,11 +29,12 @@ return {
         'vim',
       },
 
-      highlight = { enable = true },
-      indent = { enable = true, disable = { 'python' } },
+      highlight = { enable = true, disable = is_big_file },
+      indent = { enable = true, disable = is_big_file },
 
       incremental_selection = {
         enable = true,
+        disable = is_big_file,
         keymaps = {
           init_selection = '<c-space>',
           node_incremental = '<c-space>',
@@ -41,6 +46,7 @@ return {
       textobjects = {
         select = {
           enable = true,
+          disable = is_big_file,
           lookahead = true,
           keymaps = {
             ['if'] = '@function.inner',
@@ -59,6 +65,7 @@ return {
 
         move = {
           enable = true,
+          disable = is_big_file,
           set_jumps = false,
           goto_next_start = {
             [']f'] = '@function.outer',
@@ -74,6 +81,7 @@ return {
 
         swap = {
           enable = true,
+          disable = is_big_file,
           swap_next = {
             ['<a-]>f'] = '@function.outer',
             ['<a-]>c'] = '@class.outer',
