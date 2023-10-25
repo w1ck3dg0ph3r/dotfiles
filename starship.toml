@@ -75,6 +75,8 @@ style = 'fg:blue bg:surface0'
 symbol = ' '
 
 [nodejs]
+format = '[  ](fg:overlay0 bg:surface0)[$symbol($version)]($style)'
+style = 'fg:green bg:surface0'
 symbol = ' '
 
 [python]
