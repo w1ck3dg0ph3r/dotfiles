@@ -5,6 +5,8 @@ return {
     'nvim-treesitter/nvim-treesitter-textobjects',
   },
 
+  event = { 'BufNewFile', 'BufReadPost', 'FileReadPost' },
+
   config = function()
     require('nvim-treesitter.install').update({ with_sync = true })
 
@@ -14,6 +16,7 @@ return {
       return vim.b[bufnr].big_file
     end
 
+    ---@diagnostic disable-next-line: missing-fields
     require('nvim-treesitter.configs').setup({
       ensure_installed = {
         'c',

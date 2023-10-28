@@ -1,7 +1,7 @@
 return {
   'numToStr/Comment.nvim',
 
-  event = { 'BufReadPost', 'BufNew' },
+  event = { 'BufNewFile', 'BufReadPost', 'FileReadPost' },
 
   config = true,
 }

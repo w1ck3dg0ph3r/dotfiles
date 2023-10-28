@@ -1,7 +1,7 @@
 return {
   'akinsho/bufferline.nvim',
 
-  event = { 'BufReadPost', 'BufNew' },
+  event = { 'BufNewFile', 'BufReadPost', 'FileReadPost' },
 
   dependencies = {
     'nvim-tree/nvim-web-devicons',
@@ -28,8 +28,8 @@ return {
         show_buffer_close_icons = false,
         close_command = ':Bdelete',
         offsets = {
-          { filetype = 'NvimTree',    text = 'File Tree', highlight = 'Directory', separator = false },
-          { filetype = 'neo-tree',    text = 'File Tree', highlight = 'Directory', separator = false },
+          { filetype = 'NvimTree',     text = 'File Tree', highlight = 'Directory', separator = false },
+          { filetype = 'neo-tree',     text = 'File Tree', highlight = 'Directory', separator = false },
           { filetype = 'dapui_scopes', text = 'Debugger',  highlight = 'Directory', separator = false },
         },
       },

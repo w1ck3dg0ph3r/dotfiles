@@ -48,6 +48,8 @@ end
 return {
   'lewis6991/gitsigns.nvim',
 
+  event = { 'BufNewFile', 'BufReadPost', 'FileReadPost' },
+
   opts = {
     signs = {
       add          = { text = '│' },

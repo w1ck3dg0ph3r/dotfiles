@@ -8,14 +8,17 @@ return {
     'jay-babu/mason-nvim-dap.nvim',
   },
 
+  event = { 'BufNewFile', 'BufReadPost', 'FileReadPost' },
+
   config = function()
     local dap, dapui = require('dap'), require('dapui')
 
+    ---@diagnostic disable-next-line: missing-fields
     dapui.setup({
       layouts = {
         {
           position = 'left',
-          size = 50,
+          size = 75,
           elements = {
             { id = 'stacks',  size = 0.25 },
             { id = 'watches', size = 0.25 },
@@ -79,7 +82,7 @@ return {
     vim.keymap.set('n', '<f5>', function() dap.toggle_breakpoint() end)
     vim.keymap.set('n', '<f17>', function() dap.set_breakpoint(vim.fn.input('BP Condition: ')) end)
     vim.keymap.set('n', '<f29>', function() dap.set_breakpoint(nil, nil, vim.fn.input('BP Log Message: ')) end)
-    vim.keymap.set('n', '<leader>dr', function() dap.repl.open() end)
+    vim.keymap.set('n', '<leader>dr', function() dapui.toggle({ layout = 2 }) end)
     vim.keymap.set('n', '<leader>du', function() dapui.toggle() end)
 
     vim.keymap.set('n', '<leader>de', function() dapui.eval() end)
@@ -91,17 +94,17 @@ return {
     end)
     vim.keymap.set('n', '<leader>db', function() dapui.float_element('breakpoints') end)
 
-    -- Auto-open dap-ui
-    -- dap.listeners.after.event_initialized['dapui_config'] = function()
-    --   dapui.open()
-    -- end
+    -- Auto-open repl
+    dap.listeners.after.event_initialized['dapui_config'] = function()
+      dapui.open({ layout = 2 })
+    end
 
-    -- Auto-close dap-ui
+    -- Auto-close repl
     -- dap.listeners.before.event_terminated['dapui_config'] = function()
-    --   dapui.close()
+    --   dapui.close({ layout = 2 })
     -- end
     -- dap.listeners.before.event_exited['dapui_config'] = function()
-    --   dapui.close()
+    --   dapui.close({ layout = 2 })
     -- end
 
     -- Breackpoint highlights and signs
@@ -109,7 +112,8 @@ return {
     vim.api.nvim_set_hl(0, 'DapLogPoint', { ctermbg = 0, fg = '#61afef' })
     vim.api.nvim_set_hl(0, 'DapStopped', { ctermbg = 0, fg = '#98c379' })
     vim.fn.sign_define('DapBreakpoint', { text = '', texthl = 'DapBreakpoint', linehl = '', numhl = '' })
-    vim.fn.sign_define('DapBreakpointCondition', { text = '', texthl = 'DapBreakpointCondition', linehl = '', numhl = '' })
+    vim.fn.sign_define('DapBreakpointCondition',
+      { text = '', texthl = 'DapBreakpointCondition', linehl = '', numhl = '' })
     vim.fn.sign_define('DapLogPoint', { text = '', texthl = 'DapLogPoint', linehl = '', numhl = '' })
     vim.fn.sign_define('DapStopped', { text = '', texthl = 'DapStopped' })
   end,

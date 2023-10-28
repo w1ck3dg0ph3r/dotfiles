@@ -1,5 +1,11 @@
 return {
   'stevearc/dressing.nvim',
 
-  opts = {},
+  event = { 'BufNewFile', 'BufReadPost', 'FileReadPost' },
+
+  opts = {
+    input = {
+      start_in_insert = false,
+    },
+  },
 }

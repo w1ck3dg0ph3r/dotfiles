@@ -20,7 +20,6 @@ local servers = {
     filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
     settings = {},
   },
-  eslint = {},
 }
 
 local formatters = {
@@ -33,6 +32,8 @@ for _, filetype in ipairs({ 'javascript', 'typescript', 'vue', 'html', 'pug', 'c
 end
 
 local on_attach = function(client, bufnr)
+  _ = client
+
   local bufopts = { noremap = true, silent = true, buffer = bufnr }
   local has_trouble, _ = pcall(require, 'trouble')
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
@@ -73,6 +74,8 @@ return {
     'nvimtools/none-ls.nvim',
     'folke/neodev.nvim',
   },
+
+  event = { 'BufNewFile', 'BufReadPost', 'FileReadPost' },
 
   config = function()
     local mason = require('mason')

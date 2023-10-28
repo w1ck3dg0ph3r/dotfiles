@@ -45,6 +45,7 @@ return {
       TypeParameter = '󰅲',
     }
 
+    ---@diagnostic disable-next-line: missing-fields
     cmp.setup({
       snippet = {
         expand = function(args)
@@ -103,6 +104,7 @@ return {
         { name = 'path' },
       }),
 
+      ---@diagnostic disable-next-line: missing-fields
       sorting = {
         comparators = {
           cmp.config.compare.offset,

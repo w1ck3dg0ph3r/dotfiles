@@ -8,6 +8,16 @@ return {
     { 'nvim-neotest/neotest-go', commit = '05535cb' },
   },
 
+  keys = {
+    '<leader>tt',
+    '<leader>tf',
+    '<leader>tp',
+    '<leader>ta',
+    '<leader>ts',
+
+    '<leader>cs',
+  },
+
   config = function()
     local neotest_ns = vim.api.nvim_create_namespace('neotest')
     vim.diagnostic.config({
@@ -31,6 +41,7 @@ return {
       table.insert(neotest_go_args, '-coverprofile ' .. go_coverage_file)
     end
 
+    ---@diagnostic disable-next-line: missing-fields
     neotest.setup({
       adapters = {
         require('neotest-go')({
@@ -60,10 +71,12 @@ return {
     vim.keymap.set('n', '<leader>ta', function() neotest.run.run(vim.fn.getcwd()) end)
 
     -- Not suported yet by neotest-go, but can be run through dap directly
-    vim.keymap.set('n', '<leader>tdt', function() neotest.run.run({ strategy = 'dap' }) end)
-    vim.keymap.set('n', '<leader>tdl', function() neotest.run.run_last({ strategy = 'dap' }) end)
-    vim.keymap.set('n', '<leader>tdf', function() neotest.run.run({ vim.fn.expand('%'), strategy = 'dap' }) end)
-    vim.keymap.set('n', '<leader>tdp', function() neotest.run.run({ vim.fn.expand('%:h'), strategy = 'dap' }) end)
+    vim.keymap.set('n', '<leader>tdt', function() neotest.run.run({ strategy = 'dap', suite = true }) end)
+    vim.keymap.set('n', '<leader>tdl', function() neotest.run.run_last({ strategy = 'dap', suite = true }) end)
+    vim.keymap.set('n', '<leader>tdf',
+      function() neotest.run.run({ vim.fn.expand('%'), strategy = 'dap', suite = true }) end)
+    vim.keymap.set('n', '<leader>tdp',
+      function() neotest.run.run({ vim.fn.expand('%:h'), strategy = 'dap', suite = true }) end)
 
     vim.keymap.set('n', '<leader>tq', function() neotest.run.stop() end)
 
