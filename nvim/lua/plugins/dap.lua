@@ -6,6 +6,7 @@ return {
     'theHamsta/nvim-dap-virtual-text',
     'leoluz/nvim-dap-go',
     'jay-babu/mason-nvim-dap.nvim',
+    'Alighorab/stackmap.nvim',
   },
 
   event = { 'BufNewFile', 'BufReadPost', 'FileReadPost' },
@@ -82,43 +83,63 @@ return {
     -- <f1>..<f12> : <f1>..<f12>
     -- <s-f1>..<s-f12> : <f13>..<f24>
     -- <c-f1>..<c-f12> : <f25>..<f36>
+    -- <c-s-f1>..<c-s-f12> : <f37>..<f48>
     vim.keymap.set('n', '<f8>', function()
       if vim.fn.filereadable('.vscode/launch.js') then
         require('dap.ext.vscode').load_launchjs()
       end
       dap.continue()
     end)
-    vim.keymap.set('n', '<f26>', function() dap.terminate() end)
-    vim.keymap.set('n', '<f7>', function() dap.step_over() end)
-    vim.keymap.set('n', '<f6>', function() dap.step_into() end)
-    vim.keymap.set('n', '<f18>', function() dap.step_out() end)
     vim.keymap.set('n', '<f5>', function() dap.toggle_breakpoint() end)
     vim.keymap.set('n', '<f17>', function() dap.set_breakpoint(vim.fn.input('BP Condition: ')) end)
     vim.keymap.set('n', '<f29>', function() dap.set_breakpoint(nil, nil, vim.fn.input('BP Log Message: ')) end)
     vim.keymap.set('n', '<leader>dr', function() dapui.toggle({ layout = 2 }) end)
     vim.keymap.set('n', '<leader>du', function() dapui.toggle() end)
 
-    vim.keymap.set('n', '<leader>de', function() dapui.eval() end)
-    vim.keymap.set('n', '<leader>dc', function()
-      vim.ui.input({ prompt = 'Eval: ' }, function(input)
-        if input == nil or input == '' then return end
-        dapui.eval(input)
-      end)
+    local float_opts = {
+      width = 80,
+      height = 40,
+      enter = true,
+      position = 'center',
+    }
+    vim.keymap.set('n', '<leader>db', function()
+      dapui.float_element('breakpoints', float_opts)
     end)
-    vim.keymap.set('n', '<leader>db', function() dapui.float_element('breakpoints') end)
+    vim.keymap.set('n', '<leader>dw', function()
+      dapui.float_element('watches', float_opts)
+    end)
+    vim.keymap.set('n', '<leader>ds', function()
+      dapui.float_element('stacks', float_opts)
+    end)
 
-    -- Auto-open repl
     dap.listeners.after.event_initialized['dapui_config'] = function()
       dapui.open({ layout = 2 })
+
+      require('stackmap').push('debug_mode', 'n', {
+        { '<f26>', dap.terminate },
+        { '<f14>', dap.disconnect },
+        { '<f38>', dap.restart },
+        { '<f7>',  dap.step_over },
+        { '<f6>',  dap.step_into },
+        { '<f18>', dap.step_out },
+        { 'K',     dapui.eval },
+        { '<leader>dc',
+          function()
+            vim.ui.input({ prompt = 'Eval: ' }, function(input)
+              if input == nil or input == '' then return end
+              dapui.eval(input)
+            end)
+          end
+        },
+      })
     end
 
-    -- Auto-close repl
-    -- dap.listeners.before.event_terminated['dapui_config'] = function()
-    --   dapui.close({ layout = 2 })
-    -- end
-    -- dap.listeners.before.event_exited['dapui_config'] = function()
-    --   dapui.close({ layout = 2 })
-    -- end
+    dap.listeners.before.event_terminated['dapui_config'] = function()
+      dapui.close({ layout = 2 })
+      require('stackmap').pop('debug_mode', 'n')
+    end
+
+    dap.listeners.before.event_exited['dapui_config'] = dap.listeners.before.event_terminated['dapui_config']
 
     -- Breakpoint highlights and signs
     vim.api.nvim_set_hl(0, 'DapBreakpoint', { ctermbg = 0, fg = '#993939' })
