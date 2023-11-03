@@ -49,6 +49,19 @@ return {
 
     require('dap-go').setup()
 
+    dap.adapters.go_remote = {
+      type = 'server',
+      host = '127.0.0.1',
+      port = 2345,
+    }
+
+    table.insert(dap.configurations.go, {
+      type = 'go_remote',
+      name = 'Remote Debug',
+      request = 'attach',
+      mode = 'remote',
+    })
+
     dap.configurations.c = {
       {
         type = 'codelldb',
