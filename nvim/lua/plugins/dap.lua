@@ -91,8 +91,20 @@ return {
       dap.continue()
     end)
     vim.keymap.set('n', '<f5>', function() dap.toggle_breakpoint() end)
-    vim.keymap.set('n', '<f17>', function() dap.set_breakpoint(vim.fn.input('BP Condition: ')) end)
-    vim.keymap.set('n', '<f29>', function() dap.set_breakpoint(nil, nil, vim.fn.input('BP Log Message: ')) end)
+    vim.keymap.set('n', '<f17>', function()
+      vim.ui.input({ prompt = 'Breakpoint Condition' }, function(cond)
+        if cond ~= nil then
+          dap.set_breakpoint(cond)
+        end
+      end)
+    end)
+    vim.keymap.set('n', '<f29>', function()
+      vim.ui.input({ prompt = 'Breakpoint Message' }, function(msg)
+        if msg ~= nil then
+          dap.set_breakpoint(nil, nil, msg)
+        end
+      end)
+    end)
     vim.keymap.set('n', '<leader>dr', function() dapui.toggle({ layout = 2 }) end)
     vim.keymap.set('n', '<leader>du', function() dapui.toggle() end)
 
