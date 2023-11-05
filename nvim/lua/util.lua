@@ -3,7 +3,7 @@ local util = {}
 local function keymap(modes, lhs, rhs, opts, defaults)
   local options = defaults
   if opts then
-    for k, v in pairs(opts) do options[k] = v end
+    options = vim.tbl_extend('force', options, opts)
   end
   vim.keymap.set(modes, lhs, rhs, options)
 end
@@ -19,6 +19,18 @@ function util.remap(modes, lhs, rhs, opts)
   keymap(modes, lhs, rhs, opts, {
     silent = true,
   })
+end
+
+function util.delmap(modes, lhs, opts)
+  vim.keymap.del(modes, lhs, opts)
+end
+
+function util.pushmap(name, mode, mappings)
+  require('stackmap').push(name, mode, mappings)
+end
+
+function util.popmap(name, mode)
+  require('stackmap').pop(name, mode)
 end
 
 function util.tbl_walk(t, ...)

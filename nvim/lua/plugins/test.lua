@@ -64,27 +64,27 @@ return {
       },
     })
 
-    vim.keymap.set('n', '<leader>tt', function() neotest.run.run() end)
-    vim.keymap.set('n', '<leader>tl', function() neotest.run.run_last() end)
-    vim.keymap.set('n', '<leader>tf', function() neotest.run.run(vim.fn.expand('%')) end)
-    vim.keymap.set('n', '<leader>tp', function() neotest.run.run(vim.fn.expand('%:h')) end)
-    vim.keymap.set('n', '<leader>ta', function() neotest.run.run(vim.fn.getcwd()) end)
+    util.map('n', '<leader>tt', function() neotest.run.run() end)
+    util.map('n', '<leader>tl', function() neotest.run.run_last() end)
+    util.map('n', '<leader>tf', function() neotest.run.run(vim.fn.expand('%')) end)
+    util.map('n', '<leader>tp', function() neotest.run.run(vim.fn.expand('%:h')) end)
+    util.map('n', '<leader>ta', function() neotest.run.run(vim.fn.getcwd()) end)
 
     -- Not suported yet by neotest-go, but can be run through dap directly
-    vim.keymap.set('n', '<leader>tdt', function() neotest.run.run({ strategy = 'dap', suite = true }) end)
-    vim.keymap.set('n', '<leader>tdl', function() neotest.run.run_last({ strategy = 'dap', suite = true }) end)
-    vim.keymap.set('n', '<leader>tdf',
+    util.map('n', '<leader>tdt', function() neotest.run.run({ strategy = 'dap', suite = true }) end)
+    util.map('n', '<leader>tdl', function() neotest.run.run_last({ strategy = 'dap', suite = true }) end)
+    util.map('n', '<leader>tdf',
       function() neotest.run.run({ vim.fn.expand('%'), strategy = 'dap', suite = true }) end)
-    vim.keymap.set('n', '<leader>tdp',
+    util.map('n', '<leader>tdp',
       function() neotest.run.run({ vim.fn.expand('%:h'), strategy = 'dap', suite = true }) end)
 
-    vim.keymap.set('n', '<leader>tq', function() neotest.run.stop() end)
+    util.map('n', '<leader>tq', function() neotest.run.stop() end)
 
-    vim.keymap.set('n', '<leader>ts', function() neotest.summary.toggle() end)
-    vim.keymap.set('n', '<leader>to', function() neotest.output.open() end)
-    vim.keymap.set('n', '<leader>tw', function() neotest.output_panel.toggle() end)
+    util.map('n', '<leader>ts', function() neotest.summary.toggle() end)
+    util.map('n', '<leader>to', function() neotest.output.open() end)
+    util.map('n', '<leader>tw', function() neotest.output_panel.toggle() end)
 
-    vim.keymap.set('n', '<leader>cs', function() coverage.load(true) end)
-    vim.keymap.set('n', '<leader>ch', function() coverage.clear() end)
+    util.map('n', '<leader>cs', function() coverage.load(true) end)
+    util.map('n', '<leader>ch', function() coverage.clear() end)
   end,
 }

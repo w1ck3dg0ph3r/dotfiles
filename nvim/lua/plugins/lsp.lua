@@ -31,26 +31,28 @@ for _, filetype in ipairs({ 'javascript', 'typescript', 'vue', 'html', 'pug', 'c
   formatters[filetype] = 'null-ls'
 end
 
+---@diagnostic disable-next-line: unused-local
 local on_attach = function(client, bufnr)
-  _ = client
+  local util = require('util')
 
   local bufopts = { noremap = true, silent = true, buffer = bufnr }
   local has_trouble, _ = pcall(require, 'trouble')
-  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+
+  util.map('n', 'gD', vim.lsp.buf.declaration, bufopts)
+  util.map('n', 'gd', vim.lsp.buf.definition, bufopts)
+  -- util.map('n', 'K', vim.lsp.buf.hover, bufopts) -- Defined in keymap.lua
   if not has_trouble then
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+    util.map('n', 'gr', vim.lsp.buf.references, bufopts)
+    util.map('n', 'gi', vim.lsp.buf.implementation, bufopts)
   end
-  vim.keymap.set('i', '<c-k>', vim.lsp.buf.signature_help, bufopts)
-  vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set('n', '<leader>R', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
+  util.map('i', '<c-k>', vim.lsp.buf.signature_help, bufopts)
+  util.map('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
+  util.map('n', '<leader>R', vim.lsp.buf.rename, bufopts)
+  util.map('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
 
   local filetype = vim.bo[bufnr].filetype
   if formatters[filetype] ~= nil then
-    vim.keymap.set(
+    util.map(
       'n', '<leader>f',
       function()
         vim.lsp.buf.format({ name = formatters[filetype] })
@@ -59,7 +61,7 @@ local on_attach = function(client, bufnr)
       bufopts
     )
   else
-    vim.keymap.set('n', '<leader>f', function() print('no formatter configured for ' .. filetype) end, bufopts)
+    util.map('n', '<leader>f', function() print('no formatter configured for ' .. filetype) end, bufopts)
   end
 end
 

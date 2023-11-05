@@ -12,7 +12,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('settings')
-require('keymap')
 
 -- Load plugin specs and extend them with nvimrc ones
 local plugins = require('util').load_plugins()
@@ -29,6 +28,7 @@ end
 local lazy = require('lazy')
 lazy.setup(
   {
+    { 'Alighorab/stackmap.nvim' },
     vim.tbl_values(plugins),
     { import = 'languages' },
   },
@@ -36,3 +36,5 @@ lazy.setup(
     change_detection = { enabled = false },
   }
 )
+
+require('keymap')

@@ -9,6 +9,10 @@ vim.o.backup = false
 vim.o.writebackup = false
 vim.o.swapfile = false
 
+-- Configure leader
+vim.keymap.set('n', '<space>', '<nop>')
+vim.g.mapleader = ' '
+
 vim.o.mouse = 'a'
 
 vim.o.clipboard = 'unnamedplus'

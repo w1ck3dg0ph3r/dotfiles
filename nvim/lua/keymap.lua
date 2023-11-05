@@ -1,9 +1,5 @@
 local util = require('util')
 
--- Configure leader
-util.map('n', '<space>', '<nop>')
-vim.g.mapleader = ' '
-
 -- Escape insert mode quickly
 util.map('i', 'jk', '<esc>')
 
@@ -76,3 +72,15 @@ util.map('n', '<leader>dl', vim.diagnostic.setloclist)
 -- Folds
 util.map('n', ']z', 'zj')
 util.map('n', '[z', 'zk')
+util.map('n', 'ztc', '<cmd>%foldclose<cr>')
+
+-- LSP hover and DAP eval
+util.map('n', 'K', function()
+  local has_dap, dap = pcall(require, 'dap')
+  local has_dapui, dapui = pcall(require, 'dapui')
+  if has_dap and has_dapui and dap.session() ~= nil then
+    dapui.eval()
+    return
+  end
+  vim.lsp.buf.hover()
+end, { silent = true })

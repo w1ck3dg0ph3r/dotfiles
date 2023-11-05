@@ -9,8 +9,8 @@ return {
 
   config = function()
     require('nvim-treesitter.install').update({ with_sync = true })
-
-    local ts_repeat_move = require 'nvim-treesitter.textobjects.repeatable_move'
+    local ts_repeat_move = require('nvim-treesitter.textobjects.repeatable_move')
+    local util = require('util')
 
     local is_big_file = function(_, bufnr)
       return vim.b[bufnr].big_file
@@ -100,17 +100,17 @@ return {
     })
 
     -- Repeat movements
-    vim.keymap.set({ 'n', 'x', 'o' }, ';', function()
+    util.map({ 'n', 'x', 'o' }, ';', function()
       pcall(ts_repeat_move.repeat_last_move)
       vim.api.nvim_feedkeys('zz', 'n', false)
     end)
-    vim.keymap.set({ 'n', 'x', 'o' }, ',', function()
+    util.map({ 'n', 'x', 'o' }, ',', function()
       pcall(ts_repeat_move.repeat_last_move_opposite)
       vim.api.nvim_feedkeys('zz', 'n', false)
     end)
-    vim.keymap.set({ 'n', 'x', 'o' }, 'f', ts_repeat_move.builtin_f)
-    vim.keymap.set({ 'n', 'x', 'o' }, 'F', ts_repeat_move.builtin_F)
-    vim.keymap.set({ 'n', 'x', 'o' }, 't', ts_repeat_move.builtin_t)
-    vim.keymap.set({ 'n', 'x', 'o' }, 'T', ts_repeat_move.builtin_T)
+    util.map({ 'n', 'x', 'o' }, 'f', ts_repeat_move.builtin_f)
+    util.map({ 'n', 'x', 'o' }, 'F', ts_repeat_move.builtin_F)
+    util.map({ 'n', 'x', 'o' }, 't', ts_repeat_move.builtin_t)
+    util.map({ 'n', 'x', 'o' }, 'T', ts_repeat_move.builtin_T)
   end,
 }

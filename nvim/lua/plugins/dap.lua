@@ -5,13 +5,14 @@ return {
     'rcarriga/nvim-dap-ui',
     'theHamsta/nvim-dap-virtual-text',
     'leoluz/nvim-dap-go',
+    'williamboman/mason.nvim',
     'jay-babu/mason-nvim-dap.nvim',
-    'Alighorab/stackmap.nvim',
   },
 
   event = { 'BufNewFile', 'BufReadPost', 'FileReadPost' },
 
   config = function()
+    local util = require('util')
     local dap, dapui = require('dap'), require('dapui')
 
     ---@diagnostic disable-next-line: missing-fields
@@ -84,29 +85,29 @@ return {
     -- <s-f1>..<s-f12> : <f13>..<f24>
     -- <c-f1>..<c-f12> : <f25>..<f36>
     -- <c-s-f1>..<c-s-f12> : <f37>..<f48>
-    vim.keymap.set('n', '<f8>', function()
+    util.map('n', '<f8>', function()
       if vim.fn.filereadable('.vscode/launch.js') then
         require('dap.ext.vscode').load_launchjs()
       end
       dap.continue()
     end)
-    vim.keymap.set('n', '<f5>', function() dap.toggle_breakpoint() end)
-    vim.keymap.set('n', '<f17>', function()
+    util.map('n', '<f5>', function() dap.toggle_breakpoint() end)
+    util.map('n', '<f17>', function()
       vim.ui.input({ prompt = 'Breakpoint Condition' }, function(cond)
         if cond ~= nil then
           dap.set_breakpoint(cond)
         end
       end)
     end)
-    vim.keymap.set('n', '<f29>', function()
+    util.map('n', '<f29>', function()
       vim.ui.input({ prompt = 'Breakpoint Message' }, function(msg)
         if msg ~= nil then
           dap.set_breakpoint(nil, nil, msg)
         end
       end)
     end)
-    vim.keymap.set('n', '<leader>dr', function() dapui.toggle({ layout = 2 }) end)
-    vim.keymap.set('n', '<leader>du', function() dapui.toggle() end)
+    util.map('n', '<leader>dr', function() dapui.toggle({ layout = 2 }) end)
+    util.map('n', '<leader>du', function() dapui.toggle() end)
 
     local float_opts = {
       width = 80,
@@ -114,27 +115,28 @@ return {
       enter = true,
       position = 'center',
     }
-    vim.keymap.set('n', '<leader>db', function()
+    util.map('n', '<leader>db', function()
       dapui.float_element('breakpoints', float_opts)
     end)
-    vim.keymap.set('n', '<leader>dw', function()
+    util.map('n', '<leader>dw', function()
       dapui.float_element('watches', float_opts)
     end)
-    vim.keymap.set('n', '<leader>ds', function()
+    util.map('n', '<leader>ds', function()
       dapui.float_element('stacks', float_opts)
     end)
 
     dap.listeners.after.event_initialized['dapui_config'] = function()
       dapui.open({ layout = 2 })
 
-      require('stackmap').push('debug_mode', 'n', {
+      util.pushmap('debug_mode', 'n', {
         { '<f26>', dap.terminate },
         { '<f14>', dap.disconnect },
         { '<f38>', dap.restart },
         { '<f7>',  dap.step_over },
         { '<f6>',  dap.step_into },
         { '<f18>', dap.step_out },
-        { 'K',     dapui.eval },
+        { '<f4>',  dap.run_to_cursor },
+        -- { 'K',     dapui.eval }, -- Defined in keymap.lua
         { '<leader>dc',
           function()
             vim.ui.input({ prompt = 'Eval: ' }, function(input)
@@ -148,21 +150,19 @@ return {
 
     dap.listeners.before.event_terminated['dapui_config'] = function()
       dapui.close({ layout = 2 })
-      require('stackmap').pop('debug_mode', 'n')
+      util.popmap('debug_mode', 'n')
     end
 
     dap.listeners.before.event_exited['dapui_config'] = dap.listeners.before.event_terminated['dapui_config']
 
     -- Breakpoint highlights and signs
-    vim.api.nvim_set_hl(0, 'DapBreakpoint', { ctermbg = 0, fg = '#993939' })
-    vim.api.nvim_set_hl(0, 'DapLogPoint', { ctermbg = 0, fg = '#61afef' })
     vim.api.nvim_set_hl(0, 'DapStopped', { ctermbg = 0, fg = '#98c379' })
     vim.api.nvim_set_hl(0, 'DapRejected', { ctermbg = 0, fg = '#333853' })
-    vim.fn.sign_define('DapBreakpoint', { text = '', texthl = 'DapBreakpoint', linehl = '', numhl = '' })
-    vim.fn.sign_define('DapBreakpointRejected', { text = '', texthl = 'DapRejected', linehl = '', numhl = '' })
-    vim.fn.sign_define('DapBreakpointCondition',
-      { text = '', texthl = 'DapBreakpointCondition', linehl = '', numhl = '' })
-    vim.fn.sign_define('DapLogPoint', { text = '', texthl = 'DapLogPoint', linehl = '', numhl = '' })
-    vim.fn.sign_define('DapStopped', { text = '', texthl = 'DapStopped' })
+    local sign = vim.fn.sign_define
+    sign('DapBreakpoint', { text = '', texthl = 'DapBreakpoint', linehl = '', numhl = '' })
+    sign('DapBreakpointRejected', { text = '', texthl = 'DapRejected', linehl = '', numhl = '' })
+    sign('DapBreakpointCondition', { text = '', texthl = 'DapBreakpointCondition', linehl = '', numhl = '' })
+    sign('DapLogPoint', { text = '', texthl = 'DapLogPoint', linehl = '', numhl = '' })
+    sign('DapStopped', { text = '', texthl = 'DapStopped' })
   end,
 }
