@@ -44,12 +44,20 @@ function util.tbl_walk(t, ...)
   return result
 end
 
-function util.load_plugins()
-  local dir = vim.fn.stdpath('config') .. '/lua/plugins'
-  local plugins = {}
+function util.load_plugins(dir, plugins)
+  if dir == nil then
+    dir = vim.fn.stdpath('config') .. '/lua/plugins'
+  end
+
+  if plugins == nil then
+    plugins = {}
+  end
+
   for _, fn in pairs(vim.fn.readdir(dir)) do
     local path = dir .. '/' .. fn
-    if fn ~= 'init.lua' and vim.fn.filereadable(path) then
+    if vim.fn.isdirectory(path) == 1 then
+      util.load_plugins(path, plugins)
+    elseif fn ~= 'init.lua' and vim.fn.filereadable(path) then
       local ok, spec = pcall(dofile, path)
       if ok then
         local name
