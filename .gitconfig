@@ -24,6 +24,8 @@
 	pop = stash pop
 [core]
 	excludesfile = ~/.gitignore_global
+[commit]
+  gpgSign = true
 [pull]
 	rebase = true
 [rebase]
