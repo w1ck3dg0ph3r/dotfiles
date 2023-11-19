@@ -25,6 +25,7 @@ return {
         i = {
           ['<esc>'] = 'close',
         },
+        n = {},
       },
 
       file_ignore_patterns = { '^%.git/' },
@@ -36,10 +37,31 @@ return {
     local themes = require('telescope.themes')
     local util = require('util')
 
-    -- Open in trouble instead of quickfix
-    local has_trouble, trouble = pcall(require, 'trouble.providers.telescope')
+    local actions = require('telescope.actions')
+    local action_mt = require('telescope.actions.mt')
+
+    -- Set up trouble
+    local has_trouble, trouble = pcall(require, 'trouble')
+    local trouble_telescope
+    if has_trouble then trouble_telescope = require('trouble.providers.telescope') end
     if has_trouble then
-      opts.defaults.mappings.i['<c-q>'] = trouble.open_with_trouble
+      local open_trouble_quickfix = action_mt.transform('open_trouble_quickfix', action_mt.create(), _, function(_)
+        vim.schedule(function()
+          trouble.open({ mode = 'quickfix', focus = true })
+          trouble.first({ mode = 'quickfix' })
+        end)
+      end)
+
+      local open_quckfix_in_trouble = false
+      if open_quckfix_in_trouble then
+        opts.defaults.mappings.i['<c-q>'] = actions.smart_send_to_qflist + open_trouble_quickfix
+        opts.defaults.mappings.n['<c-q>'] = actions.smart_send_to_qflist + open_trouble_quickfix
+      else
+        opts.defaults.mappings.i['<c-q>'] = actions.smart_send_to_qflist + actions.open_qflist
+        opts.defaults.mappings.n['<c-q>'] = actions.smart_send_to_qflist + actions.open_qflist
+      end
+      opts.defaults.mappings.i['<c-t>'] = trouble_telescope.smart_open_with_trouble
+      opts.defaults.mappings.n['<c-t>'] = trouble_telescope.smart_open_with_trouble
     end
 
     telescope.setup(opts)
@@ -53,7 +75,7 @@ return {
     util.map('n', '<leader>ss', builtin.current_buffer_fuzzy_find)
     util.map('n', '<leader>so', builtin.lsp_document_symbols)
     util.map('n', '<leader>st', builtin.lsp_dynamic_workspace_symbols)
-    util.map('n', '<leader>sw', function() builtin.lsp_workspace_symbols({ query = vim.fn.input("Query: ") }) end)
+    util.map('n', '<leader>sw', function() builtin.lsp_workspace_symbols({ query = vim.fn.input('Query: ') }) end)
     util.map('n', '<leader>sr', builtin.lsp_references)
     util.map('n', '<leader>si', builtin.lsp_implementations)
     util.map('n', '<leader>sd', builtin.diagnostics)
