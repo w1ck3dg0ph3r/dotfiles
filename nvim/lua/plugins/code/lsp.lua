@@ -46,7 +46,7 @@ local on_attach = function(client, bufnr)
     util.map('n', 'gi', vim.lsp.buf.implementation, bufopts)
   end
   util.map('i', '<c-k>', vim.lsp.buf.signature_help, bufopts)
-  util.map('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
+  util.map('n', '<leader>T', vim.lsp.buf.type_definition, bufopts)
   util.map('n', '<leader>R', vim.lsp.buf.rename, bufopts)
   util.map('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
 
