@@ -72,7 +72,7 @@ util.map('n', '<leader>dl', vim.diagnostic.setloclist)
 -- Folds
 util.map('n', ']z', 'zj')
 util.map('n', '[z', 'zk')
-util.map('n', 'ztc', '<cmd>%foldclose<cr>')
+-- util.map('n', 'ztc', '<cmd>%foldclose<cr>') -- Makes more useful `zt` slower
 
 -- LSP hover and DAP eval
 util.map('n', 'K', function()
