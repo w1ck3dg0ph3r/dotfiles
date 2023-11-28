@@ -100,16 +100,19 @@ return {
       sources = cmp.config.sources({
         { name = 'nvim_lsp' },
         { name = 'luasnip' },
-        { name = 'buffer' },
         { name = 'path' },
+        { name = 'buffer' },
       }),
 
       ---@diagnostic disable-next-line: missing-fields
       sorting = {
         comparators = {
-          cmp.config.compare.offset,
-          cmp.config.compare.exact,
           cmp.config.compare.score,
+          cmp.config.compare.exact,
+          cmp.config.compare.kind,
+          cmp.config.compare.length,
+          cmp.config.compare.order,
+          cmp.config.compare.offset,
         }
       },
 
