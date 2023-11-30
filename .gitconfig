@@ -3,18 +3,24 @@
 [alias]
 	s = status -u
 	sw = switch
-  sf = !git sw $(git branch --format='%(refname:short)' | fzf)
+	sf = !git sw $(git branch --format='%(refname:short)' | fzf)
+	sfa = !git sw $(git branch --all --format='%(refname:short)' | grep 'origin/.*' | sed 's|origin/||' | fzf)
 	cb = switch -c
 	rs = restore
 	b = branch
 	ba = branch -avv
-	l = log --pretty=format:"%C(yellow)%h\\ %Creset%s%C(red)%d%C(blue)\\ [%cn]\\ %cr"
-	lg = log --graph --abbrev-commit --decorate --pretty=format:"%C(yellow)%h\\ %Creset%s%C(red)%d%C(blue)\\ [%cn]\\ %cr"
-	la = log --pretty=format:"%C(yellow)%h\\ %Creset%s%C(red)%d%C(blue)\\ [%cn]\\ %cr" --all
-	lga = log --graph --abbrev-commit --decorate --pretty=format:"%C(yellow)%h\\ %Creset%s%C(red)%d%C(blue)\\ [%cn]\\ %cr" --all
+	bdf = !git branch -d $(git branch --format='%(refname:short)' | fzf)
+	bDf = !git branch -D $(git branch --format='%(refname:short)' | fzf)
+	l = log --pretty=format:"%C(yellow)%h\\ %Creset%s%C(red)%d%C(blue)\\ [%an]\\ %cr"
+	lg = log --graph --abbrev-commit --decorate --pretty=format:"%C(yellow)%h\\ %Creset%s%C(red)%d%C(blue)\\ [%an]\\ %cr"
+	la = log --pretty=format:"%C(yellow)%h\\ %Creset%s%C(red)%d%C(blue)\\ [%an]\\ %cr" --all
+	lga = log --graph --abbrev-commit --decorate --pretty=format:"%C(yellow)%h\\ %Creset%s%C(red)%d%C(blue)\\ [%an]\\ %cr" --all
 	c = commit -m
 	ca = commit --amend --no-edit
 	rb = rebase -i
+	rbs = rebase --exec 'git commit --amend --no-edit --no-verify --gpg-sign' -i
+	rbc = rebase --continue
+	rba = rebase --abort
 	fa = fetch --all
 	fap = fetch --all --prune --prune-tags
 	mc = merge --no-ff
@@ -25,13 +31,13 @@
 [core]
 	excludesfile = ~/.gitignore_global
 [commit]
-  gpgSign = true
+	gpgSign = true
 [pull]
 	rebase = true
 [rebase]
 	autoStash = true
 [tag]
-	sort = version:refname
+	sort = -version:refname
 
 [user]
 	email = w1ck3dg0ph3r@gmail.com
