@@ -38,6 +38,8 @@
 	autoStash = true
 [tag]
 	sort = -version:refname
+[versionsort]
+  suffix = -
 
 [user]
 	email = w1ck3dg0ph3r@gmail.com
