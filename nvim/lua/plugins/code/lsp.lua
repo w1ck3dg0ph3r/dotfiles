@@ -77,8 +77,6 @@ return {
     'folke/neodev.nvim',
   },
 
-  event = { 'BufNewFile', 'BufReadPost', 'FileReadPost' },
-
   config = function()
     local mason = require('mason')
     local lspconfig = require('lspconfig')
