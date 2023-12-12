@@ -48,7 +48,7 @@ local on_attach = function(client, bufnr)
   util.map('i', '<c-k>', vim.lsp.buf.signature_help, bufopts)
   util.map('n', '<leader>T', vim.lsp.buf.type_definition, bufopts)
   util.map('n', '<leader>R', vim.lsp.buf.rename, bufopts)
-  util.map('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
+  util.map('n', '<leader>ac', vim.lsp.buf.code_action, bufopts)
 
   local filetype = vim.bo[bufnr].filetype
   if formatters[filetype] ~= nil then

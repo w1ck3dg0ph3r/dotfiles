@@ -15,7 +15,7 @@ return {
     '<leader>ta',
     '<leader>ts',
 
-    '<leader>cs',
+    '<leader>tcs',
   },
 
   config = function()
@@ -84,7 +84,7 @@ return {
     util.map('n', '<leader>to', function() neotest.output.open() end)
     util.map('n', '<leader>tw', function() neotest.output_panel.toggle() end)
 
-    util.map('n', '<leader>cs', function() coverage.load(true) end)
-    util.map('n', '<leader>ch', function() coverage.clear() end)
+    util.map('n', '<leader>tcs', function() coverage.load(true) end)
+    util.map('n', '<leader>tch', function() coverage.clear() end)
   end,
 }
