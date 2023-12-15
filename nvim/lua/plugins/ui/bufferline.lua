@@ -1,6 +1,8 @@
 return {
   'akinsho/bufferline.nvim',
 
+  enabled = false,
+
   event = { 'BufAdd', 'BufNewFile', 'BufReadPost', 'FileReadPost' },
 
   dependencies = {

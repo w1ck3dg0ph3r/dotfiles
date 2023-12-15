@@ -3,6 +3,8 @@ local on_attach
 local plugin = {
   'nvim-tree/nvim-tree.lua',
 
+  enabled = false,
+
   dependencies = { 'nvim-tree/nvim-web-devicons' },
 
   keys = { '<leader>e' },
