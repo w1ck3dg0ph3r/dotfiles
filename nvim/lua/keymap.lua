@@ -52,7 +52,7 @@ util.map('n', '<c-right>', '<c-w>l')
 util.map('n', '<a-h>', '<cmd>bp<cr>')
 util.map('n', '<a-g>', '<cmd>b#<cr>')
 util.map('n', '<a-l>', '<cmd>bn<cr>')
-util.map('n', '<leader>g', '<cmd>BufferLinePick<cr>')
+-- util.map('n', '<leader>g', '<cmd>BufferLinePick<cr>')
 util.map('n', '<leader>w', '<cmd>Bdelete<cr>')
 
 -- Move lines around
