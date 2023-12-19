@@ -24,12 +24,13 @@ return {
         ['g?'] = 'actions.show_help',
         ['<CR>'] = 'actions.select',
         ['<C-p>'] = 'actions.preview',
-        ['q'] = 'actions.close',
+        ['<leader>q'] = 'actions.close',
         ['gs'] = 'actions.change_sort',
         ['g.'] = 'actions.toggle_hidden',
       },
     })
 
-    util.map('n', '-', '<cmd>Oil<cr>')
+    util.map('n', '-', oil.open)
+    util.map('n', '=', function() oil.open(vim.fn.getcwd()) end)
   end,
 }
