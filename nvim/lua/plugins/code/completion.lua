@@ -106,17 +106,17 @@ return {
 
       ---@diagnostic disable-next-line: missing-fields
       sorting = {
-        priority_weight = 1.0,
+        priority_weight = 2.5,
         comparators = {
+          cmp.config.compare.offset,        -- Entries with smaller offset will be ranked higher.
+          cmp.config.compare.exact,         -- Entries with exact == true will be ranked higher.
           cmp.config.compare.score,         -- Entries with higher score will be ranked higher.
+          cmp.config.compare.length,        -- Entires with shorter label length will be ranked higher.
+          cmp.config.compare.sort_text,     -- Entries will be ranked according to the lexicographical order of sortText.
+          cmp.config.compare.order,         -- Entries with smaller id will be ranked higher.
+          cmp.config.compare.kind,          -- Entires with smaller ordinal value of 'kind' will be ranked higher.
           -- cmp.config.compare.locality,      -- Entries with higher locality (i.e., words that are closer to the cursor) will be ranked higher. See GH-183 for more details.
           -- cmp.config.compare.recently_used, -- Entries that are used recently will be ranked higher.
-          cmp.config.compare.exact,         -- Entries with exact == true will be ranked higher.
-          cmp.config.compare.length,        -- Entires with shorter label length will be ranked higher.
-          -- cmp.config.compare.kind,          -- Entires with smaller ordinal value of 'kind' will be ranked higher.
-          -- cmp.config.compare.order,         -- Entries with smaller id will be ranked higher.
-          -- cmp.config.compare.offset,        -- Entries with smaller offset will be ranked higher.
-          -- cmp.config.compare.sort_text,     -- Entries will be ranked according to the lexicographical order of sortText.
           -- cmp.config.compare.scopes,        -- Entries defined in a closer scope will be ranked higher (e.g., prefer local variables to globals).
         }
       },
