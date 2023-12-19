@@ -68,7 +68,18 @@ return {
     local builtin = require('telescope.builtin')
 
     util.map('n', '<leader>sc', function() builtin.commands() end)
-    util.map('n', '<leader>sb', function() builtin.buffers(themes.get_dropdown()) end)
+    util.map('n', '<leader>sb', function()
+      builtin.buffers(vim.tbl_extend('force', themes.get_dropdown({
+        layout_config = {
+          width = function(_, max_columns, _)
+            return math.min(max_columns, 100)
+          end,
+        },
+      }), {
+        show_all_buffers = false,
+        ignore_current_buffer = true,
+      }))
+    end)
     util.map('n', '<leader>sh', builtin.help_tags)
     util.map('n', '<leader>sf', function() builtin.find_files({ hidden = true }) end)
     util.map('n', '<leader>sg', builtin.live_grep)
