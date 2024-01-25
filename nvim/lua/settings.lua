@@ -55,6 +55,8 @@ vim.o.foldnestmax = 5
 vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.o.foldcolumn = '1'
 
+vim.g.omni_sql_no_default_maps = true -- Disable default sql completion with c-c
+
 -- Fix no folding with telescope
 vim.api.nvim_create_autocmd('BufRead', {
   callback = function()
