@@ -86,7 +86,8 @@ return {
     require('neodev').setup({})
 
     local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+    capabilities = vim.tbl_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities(capabilities))
+    capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = true
 
     masonconfig.setup({
       ensure_installed = vim.tbl_keys(servers)
