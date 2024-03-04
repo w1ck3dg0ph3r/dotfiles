@@ -26,6 +26,7 @@ local formatters = {
   go = 'gopls',
   lua = 'lua_ls',
   cpp = 'clangd',
+  c = 'clangd',
 }
 for _, filetype in ipairs({ 'javascript', 'typescript', 'vue', 'html', 'pug', 'css', 'scss', 'sass', 'json', 'yaml' }) do
   formatters[filetype] = 'null-ls'
