@@ -7,6 +7,7 @@ return {
     'leoluz/nvim-dap-go',
     'williamboman/mason.nvim',
     'jay-babu/mason-nvim-dap.nvim',
+    'nvim-neotest/nvim-nio',
   },
 
   event = { 'BufNewFile', 'BufReadPost', 'FileReadPost' },
