@@ -27,6 +27,7 @@ local formatters = {
   lua = 'lua_ls',
   cpp = 'clangd',
   c = 'clangd',
+  python = 'null-ls',
 }
 for _, filetype in ipairs({ 'javascript', 'typescript', 'vue', 'html', 'pug', 'css', 'scss', 'sass', 'json', 'yaml' }) do
   formatters[filetype] = 'null-ls'
@@ -119,6 +120,8 @@ return {
       on_attach = on_attach,
       sources = {
         nullls.builtins.formatting.prettier,
+        nullls.builtins.formatting.black,
+        nullls.builtins.formatting.isort,
       },
     })
   end,
