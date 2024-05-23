@@ -3,7 +3,7 @@ return {
 
   dependencies = {
     'nvim-tree/nvim-web-devicons',
-    'WhoIsSethDaniel/lualine-lsp-progress.nvim',
+    'linrongbin16/lsp-progress.nvim',
   },
 
   priority = 900,
@@ -47,24 +47,7 @@ return {
       lualine_b = { 'branch', 'diagnostics' },
       lualine_c = {
         { 'filename', path = 1, symbols = { modified = ' ●', readonly = '' } },
-        {
-          'lsp_progress',
-          display_components = { 'lsp_client_name', 'spinner', { 'title', 'percentage', 'message' } },
-          only_show_attached = true,
-          hide = { 'null-ls' },
-          spinner_symbols = { '⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏' },
-          colors = {
-            percentage      = '#494d64',
-            title           = '#494d64',
-            message         = '#494d64',
-            spinner         = '#cad3f5',
-            lsp_client_name = '#8aadf4',
-            use             = true,
-          },
-          timer = {
-            spinner = 250,
-          },
-        },
+        function() return require('lsp-progress').progress() end,
       },
       lualine_x = {
         'encoding',
