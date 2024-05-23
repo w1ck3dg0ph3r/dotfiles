@@ -51,7 +51,7 @@ vim.opt.listchars:append 'tab:» '
 -- Code folding
 vim.o.foldlevel = 99
 vim.o.foldmethod = 'expr'
-vim.o.foldnestmax = 5
+vim.o.foldnestmax = 10
 vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.o.foldcolumn = '1'
 
