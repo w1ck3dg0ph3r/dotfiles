@@ -27,6 +27,7 @@ local formatters = {
   lua = 'lua_ls',
   cpp = 'clangd',
   c = 'clangd',
+  rust = 'rust_analyzer',
   python = 'null-ls',
 }
 for _, filetype in ipairs({ 'javascript', 'typescript', 'vue', 'html', 'pug', 'css', 'scss', 'sass', 'json', 'yaml' }) do
@@ -81,7 +82,6 @@ return {
 
   config = function()
     local mason = require('mason')
-    local lspconfig = require('lspconfig')
     local masonconfig = require('mason-lspconfig')
     mason.setup()
 
@@ -103,7 +103,11 @@ return {
           servers[server_name] = vim.tbl_deep_extend('force', servers[server_name], nvimrc.lspconfig[server_name])
         end
 
-        if not lspconfig[server_name] then return end
+        local lspconfig = require('lspconfig')
+        if not lspconfig[server_name] then
+          print('lsp config not found for: ' .. server_name)
+          return
+        end
 
         lspconfig[server_name].setup({
           capabilities = capabilities,
