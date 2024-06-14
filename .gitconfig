@@ -1,47 +1,52 @@
-[credential]
-	helper = store
 [alias]
-	s = status -u
-	sw = switch
-	sf = !git sw $(git branch --format='%(refname:short)' | fzf)
-	sfa = !git sw $(git branch --all --format='%(refname:short)' | grep 'origin/.*' | sed 's|origin/||' | fzf)
-	cb = switch -c
-	rs = restore
-	b = branch
-	ba = branch -avv
-	bdf = !git branch -d $(git branch --format='%(refname:short)' | fzf)
-	bDf = !git branch -D $(git branch --format='%(refname:short)' | fzf)
-	l = log --pretty=format:"%C(yellow)%h\\ %Creset%s%C(red)%d%C(blue)\\ [%an]\\ %cr"
-	lg = log --graph --abbrev-commit --decorate --pretty=format:"%C(yellow)%h\\ %Creset%s%C(red)%d%C(blue)\\ [%an]\\ %cr"
-	la = log --pretty=format:"%C(yellow)%h\\ %Creset%s%C(red)%d%C(blue)\\ [%an]\\ %cr" --all
-	lga = log --graph --abbrev-commit --decorate --pretty=format:"%C(yellow)%h\\ %Creset%s%C(red)%d%C(blue)\\ [%an]\\ %cr" --all
-	c = commit -m
-	ca = commit --amend --no-edit
-	rb = rebase -i
-	rbs = rebase --exec 'git commit --amend --no-edit --no-verify --gpg-sign' -i
-	rbc = rebase --continue
-	rba = rebase --abort
-	fa = fetch --all
-	fap = fetch --all --prune --prune-tags
-	mc = merge --no-ff
-	mf = merge --ff-only
-	st = stash
-	stl = stash list
-	pop = stash pop
+  s = status -u
+  sw = switch
+  sf = !git sw $(git branch --format='%(refname:short)' | fzf)
+  sfa = !git sw $(git branch --all --format='%(refname:short)' | grep 'origin/.*' | sed 's|origin/||' | fzf)
+  cb = switch -c
+  rs = restore
+  b = branch
+  ba = branch -avv
+  bdf = !git branch -d $(git branch --format='%(refname:short)' | fzf)
+  bDf = !git branch -D $(git branch --format='%(refname:short)' | fzf)
+  l = log --pretty=format:"%C(yellow)%h\\ %Creset%s%C(red)%d%C(blue)\\ [%an]\\ %cr"
+  lg = log --graph --abbrev-commit --decorate --pretty=format:"%C(yellow)%h\\ %Creset%s%C(red)%d%C(blue)\\ [%an]\\ %cr"
+  la = log --pretty=format:"%C(yellow)%h\\ %Creset%s%C(red)%d%C(blue)\\ [%an]\\ %cr" --all
+  lga = log --graph --abbrev-commit --decorate --pretty=format:"%C(yellow)%h\\ %Creset%s%C(red)%d%C(blue)\\ [%an]\\ %cr" --all
+  c = commit -m
+  ca = commit --amend --no-edit
+  rb = rebase -i
+  rbs = rebase --exec 'git commit --amend --no-edit --no-verify --gpg-sign' -i
+  rbc = rebase --continue
+  rba = rebase --abort
+  fa = fetch --all
+  fap = fetch --all --prune --prune-tags
+  mc = merge --no-ff
+  mf = merge --ff-only
+  st = stash
+  stl = stash list
+  pop = stash pop
+  pushu = !git push -u origin $(git rev-parse --abbrev-ref HEAD)
+
 [core]
-	excludesfile = ~/.gitignore_global
+  excludesfile = ~/.gitignore_global
+[diff]
+  algorithm = histogram
 [commit]
-	gpgSign = true
+  gpgSign = true
 [pull]
-	rebase = true
+  rebase = true
 [rebase]
-	autoStash = true
+  autoStash = true
 [tag]
-	sort = -version:refname
+  sort = -version:refname
 [versionsort]
   suffix = -
 
+[credential]
+  helper = store
+
 [user]
-	email = w1ck3dg0ph3r@gmail.com
-	name = w1ck3dg0ph3r
-	signingkey = E6B82D220E93965DF35BE8FE508376B17E6F5DEB
+  email = w1ck3dg0ph3r@gmail.com
+  name = w1ck3dg0ph3r
+  signingkey = E6B82D220E93965DF35BE8FE508376B17E6F5DEB
