@@ -43,8 +43,8 @@ return {
     -- Set up trouble
     local has_trouble, trouble = pcall(require, 'trouble')
     local trouble_telescope
-    if has_trouble then trouble_telescope = require('trouble.providers.telescope') end
     if has_trouble then
+      trouble_telescope = require('trouble.sources.telescope')
       local open_trouble_quickfix = action_mt.transform('open_trouble_quickfix', action_mt.create(), _, function(_)
         vim.schedule(function()
           trouble.open({ mode = 'quickfix', focus = true })
@@ -60,8 +60,8 @@ return {
         opts.defaults.mappings.i['<c-q>'] = actions.smart_send_to_qflist + actions.open_qflist
         opts.defaults.mappings.n['<c-q>'] = actions.smart_send_to_qflist + actions.open_qflist
       end
-      opts.defaults.mappings.i['<c-t>'] = trouble_telescope.smart_open_with_trouble
-      opts.defaults.mappings.n['<c-t>'] = trouble_telescope.smart_open_with_trouble
+      opts.defaults.mappings.i['<c-t>'] = trouble_telescope.open
+      opts.defaults.mappings.n['<c-t>'] = trouble_telescope.open
     end
 
     telescope.setup(opts)

@@ -4,19 +4,25 @@ return {
   dependencies = { 'nvim-tree/nvim-web-devicons' },
 
   opts = {
-    height = 16,
+    focus = true,
+    open_no_results = true,
+    win = {
+      type = 'split',
+      position = 'bottom',
+      size = 16,
+    },
   },
 
   config = function(_, opts)
     require('trouble').setup(opts)
 
     local util = require('util')
-    util.map('n', '<leader>xx', '<cmd>TroubleToggle<cr>')
-    util.map('n', '<leader>xw', '<cmd>TroubleToggle workspace_diagnostics<cr>')
-    util.map('n', '<leader>xd', '<cmd>TroubleToggle document_diagnostics<cr>')
-    util.map('n', '<leader>xl', '<cmd>TroubleToggle loclist<cr>')
-    util.map('n', '<leader>xq', '<cmd>TroubleToggle quickfix<cr>')
-    util.map('n', 'gr', '<cmd>TroubleToggle lsp_references<cr>')
-    util.map('n', 'gi', '<cmd>TroubleToggle lsp_implementations<cr>')
+    util.map('n', '<leader>xx', '<cmd>Trouble close<cr>')
+    util.map('n', '<leader>xw', '<cmd>Trouble diagnostics toggle<cr>')
+    util.map('n', '<leader>xd', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>')
+    util.map('n', '<leader>xl', '<cmd>Trouble loclist toggle<cr>')
+    util.map('n', '<leader>xq', '<cmd>Trouble qflist toggle<cr>')
+    util.map('n', 'gr', '<cmd>Trouble lsp_references toggle<cr>')
+    util.map('n', 'gi', '<cmd>Trouble lsp_implementations toggle<cr>')
   end,
 }
