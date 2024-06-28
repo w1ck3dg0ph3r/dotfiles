@@ -47,8 +47,8 @@ return {
       trouble_telescope = require('trouble.sources.telescope')
       local open_trouble_quickfix = action_mt.transform('open_trouble_quickfix', action_mt.create(), _, function(_)
         vim.schedule(function()
-          trouble.open({ mode = 'quickfix', focus = true })
-          trouble.first({ mode = 'quickfix' })
+          local tv = trouble.open({ mode = 'quickfix', focus = true })
+          if tv then trouble.first(tv, {}) end
         end)
       end)
 
