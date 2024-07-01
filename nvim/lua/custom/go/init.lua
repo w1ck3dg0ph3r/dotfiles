@@ -9,7 +9,7 @@ return {
   ft = 'go',
 
   config = function()
-    require('languages.go.snippets')
-    require('languages.go.commands')
+    require('custom.go.snippets')
+    require('custom.go.commands')
   end,
 }

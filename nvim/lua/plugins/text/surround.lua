@@ -1,7 +1,7 @@
 return {
   'kylechui/nvim-surround',
 
-  event = 'InsertEnter',
+  event = { 'BufNewFile', 'BufReadPost', 'FileReadPost' },
 
   config = true,
 }

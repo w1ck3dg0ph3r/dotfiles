@@ -15,7 +15,7 @@ return {
         gitsigns = true,
         nvimtree = true,
         treesitter = true,
-        -- treesitter_context = true, -- Undelines are broken in alacritty with this
+        treesitter_context = true,
         telescope = {
           enabled = true,
           style = 'classic',
@@ -24,10 +24,7 @@ return {
         lsp_trouble = true,
         bufferline = true,
         mason = true,
-        dap = {
-          enabled = true,
-          enable_ui = true,
-        },
+        dap = true,
         neotest = true,
       },
     })

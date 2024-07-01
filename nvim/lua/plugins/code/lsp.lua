@@ -98,7 +98,7 @@ return {
     masonconfig.setup_handlers({
       function(server_name)
         -- Apply lspconfig from .nvimrc.lua
-        local nvimrc = require('nvimrc').config()
+        local nvimrc = require('config.nvimrc').config()
         if nvimrc ~= nil and nvimrc.lspconfig ~= nil and nvimrc.lspconfig[server_name] ~= nil then
           servers[server_name] = vim.tbl_deep_extend('force', servers[server_name], nvimrc.lspconfig[server_name])
         end
