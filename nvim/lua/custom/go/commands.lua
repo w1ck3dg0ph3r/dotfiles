@@ -111,8 +111,8 @@ M.go_organize_imports = function()
   if clients == nil then return end
 
   for _, result in pairs(clients) do
-    if result.err ~= nil then
-      print(result.err.message)
+    if result.error ~= nil then
+      print(result.error.message)
       return
     end
     if result.result == nil then

@@ -42,18 +42,12 @@ util.map('n', '<c-h>', '<c-w>h')
 util.map('n', '<c-j>', '<c-w>j')
 util.map('n', '<c-k>', '<c-w>k')
 util.map('n', '<c-l>', '<c-w>l')
--- Move around splits using Ctrl + {left,down,up,right}
-util.map('n', '<c-left>', '<c-w>h')
-util.map('n', '<c-down>', '<c-w>j')
-util.map('n', '<c-up>', '<c-w>k')
-util.map('n', '<c-right>', '<c-w>l')
 
 -- Buffers
 util.map('n', '<a-h>', '<cmd>bp<cr>')
 util.map('n', '<a-g>', '<cmd>b#<cr>')
 util.map('n', '<a-l>', '<cmd>bn<cr>')
--- util.map('n', '<leader>g', '<cmd>BufferLinePick<cr>')
-util.map('n', '<leader>w', '<cmd>Bdelete<cr>')
+util.map('n', '<leader>w', '<cmd>:Bdelete<cr>')
 
 -- Move lines around
 util.map('n', '<a-j>', '<cmd>m .+1<cr>==')
@@ -72,7 +66,6 @@ util.map('n', '<leader>dl', vim.diagnostic.setloclist)
 -- Folds
 util.map('n', ']z', 'zj')
 util.map('n', '[z', 'zk')
--- util.map('n', 'ztc', '<cmd>%foldclose<cr>') -- Makes more useful `zt` slower
 
 -- LSP hover and DAP eval
 util.map('n', 'K', function()
