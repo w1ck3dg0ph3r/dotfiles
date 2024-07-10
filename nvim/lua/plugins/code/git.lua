@@ -9,17 +9,13 @@ local on_attach = function(bufnr)
   end
 
   -- Navigation
-  map('n', ']h', function()
-    if vim.wo.diff then return ']h' end
-    vim.schedule(function() gs.next_hunk() end)
-    return '<ignore>'
-  end, { expr = true })
-
-  map('n', '[h', function()
-    if vim.wo.diff then return '[h' end
-    vim.schedule(function() gs.prev_hunk() end)
-    return '<ignore>'
-  end, { expr = true })
+  local has_repeat_move, ts_repeat_move = pcall(require, 'nvim-treesitter.textobjects.repeatable_move')
+  local gs_next_hunk, gs_prev_hunk = gs.next_hunk, gs.prev_hunk
+  if has_repeat_move then
+    gs_next_hunk, gs_prev_hunk = ts_repeat_move.make_repeatable_move_pair(gs.next_hunk, gs.prev_hunk)
+  end
+  map('n', ']h', gs_next_hunk, {})
+  map('n', '[h', gs_prev_hunk, {})
 
   -- Actions
   map('n', '<leader>hs', gs.stage_hunk)
