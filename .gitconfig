@@ -9,14 +9,15 @@
   ba = branch -avv
   bdf = !git branch -d $(git branch --format='%(refname:short)' | fzf)
   bDf = !git branch -D $(git branch --format='%(refname:short)' | fzf)
-  l = log --pretty=format:"%C(yellow)%h\\ %Creset%s%C(red)%d%C(blue)\\ [%an]\\ %cr"
-  lg = log --graph --abbrev-commit --decorate --pretty=format:"%C(yellow)%h\\ %Creset%s%C(red)%d%C(blue)\\ [%an]\\ %cr"
-  la = log --pretty=format:"%C(yellow)%h\\ %Creset%s%C(red)%d%C(blue)\\ [%an]\\ %cr" --all
-  lga = log --graph --abbrev-commit --decorate --pretty=format:"%C(yellow)%h\\ %Creset%s%C(red)%d%C(blue)\\ [%an]\\ %cr" --all
+  l = log --pretty=format:"%C(yellow)%h\\ %Creset%s%C(red)%d%C(blue)\\ [%an]\\ %C(black)%cd" --date=iso
+  lg = log --graph --abbrev-commit --decorate --pretty=format:"%C(yellow)%h\\ %Creset%s%C(red)%d%C(blue)\\ [%an]\\ %C(black)%cd" --date=iso
+  la = log --pretty=format:"%C(yellow)%h\\ %Creset%s%C(red)%d%C(blue)\\ [%an]\\ %C(black)%cd" --date=iso --all
+  lga = log --graph --abbrev-commit --decorate --pretty=format:"%C(yellow)%h\\ %Creset%s%C(red)%d%C(blue)\\ [%an]\\ %C(black)%cd" --date=iso --all
   c = commit -m
   ca = commit --amend --no-edit
-  rb = rebase -i
-  rbs = rebase --exec 'git commit --amend --no-edit --no-verify --gpg-sign' -i
+  rebase = rebase --rebase-merges
+  rb = rebase --interactive --rebase-merges
+  rbs = rebase --exec 'git commit --amend --no-edit --no-verify --gpg-sign' --interactive
   rbc = rebase --continue
   rba = rebase --abort
   fa = fetch --all
@@ -30,6 +31,8 @@
 
 [core]
   excludesfile = ~/.gitignore_global
+[init]
+  defaultBranch = main
 [diff]
   algorithm = histogram
 [commit]
@@ -38,6 +41,8 @@
   rebase = true
 [rebase]
   autoStash = true
+[rerere]
+  enabled = true
 [tag]
   sort = -version:refname
 [versionsort]
