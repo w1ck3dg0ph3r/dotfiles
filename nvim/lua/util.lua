@@ -33,6 +33,26 @@ function util.popmap(name, mode)
   require('stackmap').pop(name, mode)
 end
 
+function util.make_repeatable_move(forward, backward)
+  local has_repeat_move, ts_repeat_move = pcall(require, 'nvim-treesitter.textobjects.repeatable_move')
+  if not has_repeat_move then
+    return forward, backward
+  end
+  if type(forward) == 'string' then
+    local keys = forward
+    forward = function ()
+      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(keys, true, false, true), 'n', false)
+    end
+  end
+  if type(backward) == 'string' then
+    local keys = backward
+    backward = function ()
+      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(keys, true, false, true), 'n', false)
+    end
+  end
+  return ts_repeat_move.make_repeatable_move_pair(forward, backward)
+end
+
 function util.tbl_walk(t, ...)
   if t == nil then return end
   local result = t

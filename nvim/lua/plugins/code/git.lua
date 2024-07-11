@@ -9,11 +9,7 @@ local on_attach = function(bufnr)
   end
 
   -- Navigation
-  local has_repeat_move, ts_repeat_move = pcall(require, 'nvim-treesitter.textobjects.repeatable_move')
-  local gs_next_hunk, gs_prev_hunk = gs.next_hunk, gs.prev_hunk
-  if has_repeat_move then
-    gs_next_hunk, gs_prev_hunk = ts_repeat_move.make_repeatable_move_pair(gs.next_hunk, gs.prev_hunk)
-  end
+  local gs_next_hunk, gs_prev_hunk = util.make_repeatable_move(gs.next_hunk, gs.prev_hunk)
   map('n', ']h', gs_next_hunk, {})
   map('n', '[h', gs_prev_hunk, {})
 

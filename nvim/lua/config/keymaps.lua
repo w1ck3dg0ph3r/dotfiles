@@ -58,14 +58,16 @@ util.map('v', '<a-j>', ':m \'>+1<cr>gv=gv')
 util.map('v', '<a-k>', ':m \'<-2<cr>gv=gv')
 
 -- Diagnostics
-util.map('n', '[d', vim.diagnostic.goto_prev)
-util.map('n', ']d', vim.diagnostic.goto_next)
+local next_diagnostic, prev_diagnostic = util.make_repeatable_move(vim.diagnostic.goto_next, vim.diagnostic.goto_prev)
+util.map('n', ']d', next_diagnostic)
+util.map('n', '[d', prev_diagnostic)
 util.map('n', '<leader>df', vim.diagnostic.open_float)
 util.map('n', '<leader>dl', vim.diagnostic.setloclist)
 
 -- Folds
-util.map('n', ']z', 'zj')
-util.map('n', '[z', 'zk')
+local next_fold, prev_fold = util.make_repeatable_move('zj', 'zk')
+util.map('n', ']z', next_fold)
+util.map('n', '[z', prev_fold)
 
 -- LSP hover and DAP eval
 util.map('n', 'K', function()
