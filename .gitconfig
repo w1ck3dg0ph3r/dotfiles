@@ -16,7 +16,7 @@
   c = commit -m
   ca = commit --amend --no-edit
   rebase = rebase --rebase-merges
-  rb = rebase --interactive --rebase-merges
+  rb = rebase --interactive
   rbs = rebase --exec 'git commit --amend --no-edit --no-verify --gpg-sign' --interactive
   rbc = rebase --continue
   rba = rebase --abort
