@@ -91,6 +91,10 @@ return {
       util.map('n', '<leader>R', vim.lsp.buf.rename, bufopts)
       util.map('n', '<leader>ac', vim.lsp.buf.code_action, bufopts)
 
+      if client.name == 'clangd' then
+        util.map('n', '<f4>', ':ClangdSwitchSourceHeader<cr>')
+      end
+
       local filetype = vim.bo[bufnr].filetype
       if formatters[filetype] ~= nil then
         util.map(
