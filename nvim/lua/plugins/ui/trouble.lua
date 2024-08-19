@@ -5,7 +5,8 @@ return {
 
   opts = {
     focus = true,
-    open_no_results = true,
+    auto_jump = true,
+    auto_refresh = false,
     win = {
       type = 'split',
       position = 'bottom',
@@ -22,7 +23,7 @@ return {
     util.map('n', '<leader>xd', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>')
     util.map('n', '<leader>xl', '<cmd>Trouble loclist toggle<cr>')
     util.map('n', '<leader>xq', '<cmd>Trouble qflist toggle<cr>')
-    util.map('n', 'gr', '<cmd>Trouble lsp_references toggle<cr>')
-    util.map('n', 'gi', '<cmd>Trouble lsp_implementations toggle<cr>')
+    util.map('n', 'gr', '<cmd>Trouble lsp_references open<cr>')
+    util.map('n', 'gi', '<cmd>Trouble lsp_implementations open<cr>')
   end,
 }
