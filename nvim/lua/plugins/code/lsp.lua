@@ -101,7 +101,6 @@ return {
           'n', '<leader>f',
           function()
             vim.lsp.buf.format({ name = formatters[filetype] })
-            vim.api.nvim_feedkeys('zx', 'n', false)
           end,
           bufopts
         )
