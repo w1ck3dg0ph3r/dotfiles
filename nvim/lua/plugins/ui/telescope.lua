@@ -84,10 +84,16 @@ return {
     util.map('n', '<leader>sf', function() builtin.find_files({ hidden = true }) end)
     util.map('n', '<leader>sg', builtin.live_grep)
     util.map('n', '<leader>ss', builtin.current_buffer_fuzzy_find)
-    util.map('n', '<leader>so', function() builtin.lsp_document_symbols({ ignore_symbols = {} }) end)
+    util.map('n', '<leader>so', function()
+      builtin.lsp_document_symbols({
+        ignore_symbols = { 'field', 'constant', 'variable', 'enummember' },
+      })
+    end)
     util.map('n', '<leader>st', builtin.lsp_dynamic_workspace_symbols)
     util.map('n', '<leader>sw', function() builtin.lsp_workspace_symbols({ query = vim.fn.input('Query: ') }) end)
     util.map('n', '<leader>sr', builtin.lsp_references)
+    util.map('n', '<leader>sci', builtin.lsp_incoming_calls)
+    util.map('n', '<leader>sco', builtin.lsp_outgoing_calls)
     util.map('n', '<leader>si', builtin.lsp_implementations)
     util.map('n', '<leader>sd', builtin.diagnostics)
 
