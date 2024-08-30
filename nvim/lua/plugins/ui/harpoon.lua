@@ -1,7 +1,7 @@
+local use_v1 = true
+
 local v1config = {
-  -- 'ThePrimeagen/harpoon',
-  'w1ck3dg0ph3r/nvim-harpoon',
-  branch = 'fix-nav-file-column',
+  'ThePrimeagen/harpoon',
 
   dependencies = {
     'nvim-lua/plenary.nvim',
@@ -46,4 +46,8 @@ local v2config =  {
   end
 }
 
-return v1config
+if use_v1 then
+  return v1config
+else
+  return v2config
+end
