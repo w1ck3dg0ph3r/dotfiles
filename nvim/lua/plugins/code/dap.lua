@@ -37,7 +37,8 @@ return {
         },
       },
     })
-    require('nvim-dap-virtual-text').setup({})
+
+    require('nvim-dap-virtual-text').setup({ enabled = false })
 
     require('mason-nvim-dap').setup({
       ensure_installed = { 'delve', 'codelldb' },
@@ -47,27 +48,29 @@ return {
           -- all sources with no handler get passed here
           require('mason-nvim-dap').default_setup(config)
         end,
+        delve = function(_) --[[ let dap-go do it's thing ]] end,
       },
     })
 
     require('dap-go').setup()
-
     dap.adapters.go_remote = {
       type = 'server',
       host = '127.0.0.1',
       port = 2345,
     }
-
     table.insert(dap.configurations.go, {
       type = 'go_remote',
       name = 'Remote Debug',
       request = 'attach',
       mode = 'remote',
     })
+    vim.api.nvim_create_user_command('GoDebugTest', require('dap-go').debug_test, {})
+    vim.api.nvim_create_user_command('GoDebugLastTest', require('dap-go').debug_last_test, {})
 
     dap.configurations.c = {
       {
         type = 'codelldb',
+        name = 'LLDB',
         request = 'launch',
         program = function()
           return vim.fn.input({ prompt = 'Path to executable: ', default = vim.fn.getcwd() .. '/', completion = 'file' })
@@ -91,6 +94,9 @@ return {
         require('dap.ext.vscode').load_launchjs()
       end
       dap.continue()
+    end)
+    util.map('n', '<f32>', function()
+      require('dap-go').debug_test()
     end)
     util.map('n', '<f5>', function() dap.toggle_breakpoint() end)
     util.map('n', '<f17>', function()
