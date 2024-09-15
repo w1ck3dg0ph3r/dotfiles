@@ -16,6 +16,11 @@ return {
     local util = require('util')
     local dap, dapui = require('dap'), require('dapui')
 
+    local layouts = {
+      sidebar = 1,
+      repl = 2,
+    }
+
     ---@diagnostic disable-next-line: missing-fields
     dapui.setup({
       layouts = {
@@ -69,15 +74,11 @@ return {
 
     dap.configurations.c = {
       {
+        name = 'LLDB: Current File',
         type = 'codelldb',
-        name = 'LLDB',
         request = 'launch',
-        program = function()
-          return vim.fn.input({ prompt = 'Path to executable: ', default = vim.fn.getcwd() .. '/', completion = 'file' })
-        end,
-        --program = '${fileDirname}/${fileBasenameNoExtension}',
+        program = '${fileDirname}/${fileBasenameNoExtension}',
         cwd = '${workspaceFolder}',
-        terminal = 'integrated'
       }
     }
     dap.configurations.cpp = dap.configurations.c
@@ -89,16 +90,9 @@ return {
     -- <s-f1>..<s-f12> : <f13>..<f24>
     -- <c-f1>..<c-f12> : <f25>..<f36>
     -- <c-s-f1>..<c-s-f12> : <f37>..<f48>
-    util.map('n', '<f8>', function()
-      if vim.fn.filereadable('.vscode/launch.js') then
-        require('dap.ext.vscode').load_launchjs()
-      end
-      dap.continue()
-    end)
-    util.map('n', '<f32>', function()
-      require('dap-go').debug_test()
-    end)
-    util.map('n', '<f5>', function() dap.toggle_breakpoint() end)
+    util.map('n', '<f8>', dap.continue)
+    util.map('n', '<f32>', function() require('dap-go').debug_test() end)
+    util.map('n', '<f5>', dap.toggle_breakpoint)
     util.map('n', '<f17>', function()
       vim.ui.input({ prompt = 'Breakpoint Condition' }, function(cond)
         if cond ~= nil then
@@ -113,8 +107,15 @@ return {
         end
       end)
     end)
-    util.map('n', '<leader>dr', function() dapui.toggle({ layout = 2 }) end)
-    util.map('n', '<leader>du', function() dapui.toggle() end)
+    util.map('n', '<leader>dr', function() dapui.toggle({ layout = layouts.repl }) end)
+    util.map('n', '<leader>du', function()
+      dapui.toggle({ layout = layouts.sidebar })
+      if require('dapui.windows').layouts[layouts.sidebar]:is_open() then
+        dapui.open({ layout = layouts.repl })
+      else
+        dapui.close({ layout = layouts.repl })
+      end
+    end)
 
     local float_opts = {
       width = 80,
@@ -133,7 +134,7 @@ return {
     end)
 
     dap.listeners.after.event_initialized['dapui_config'] = function()
-      dapui.open({ layout = 2 })
+      dapui.open({ layout = layouts.repl })
 
       util.pushmap('debug_mode', 'n', {
         { '<f26>', dap.terminate },
@@ -156,7 +157,9 @@ return {
     end
 
     dap.listeners.before.event_terminated['dapui_config'] = function()
-      dapui.close({ layout = 2 })
+      if not require('dapui.windows').layouts[layouts.sidebar]:is_open() then
+        dapui.close({ layout = layouts.repl })
+      end
       util.popmap('debug_mode', 'n')
     end
 
