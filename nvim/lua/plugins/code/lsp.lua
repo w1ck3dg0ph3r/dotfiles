@@ -7,7 +7,6 @@ return {
     'nvim-lua/plenary.nvim',
     'hrsh7th/cmp-nvim-lsp',
     'nvimtools/none-ls.nvim',
-    'folke/neodev.nvim',
   },
 
   config = function()
@@ -108,8 +107,6 @@ return {
         util.map('n', '<leader>f', function() print('no formatter configured for ' .. filetype) end, bufopts)
       end
     end
-
-    require('neodev').setup({})
 
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = vim.tbl_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities(capabilities))
