@@ -7,16 +7,31 @@ function M.config()
     return nvimrc_config
   end
 
-  local nvimrc_path = vim.fn.findfile('.nvimrc.lua', '.;')
-  if nvimrc_path ~= nil and nvimrc_path ~= '' then
+  nvimrc_config = {}
+
+  local nvimrc_paths = vim.fn.findfile('.nvimrc.lua', '.;', -1)
+  if nvimrc_paths == nil or next(nvimrc_paths) == nil then
+    return nvimrc_config
+  end
+
+  local loaded = nil
+  for i = #nvimrc_paths, 1, -1 do
+    local nvimrc_path = nvimrc_paths[i]
     local ok, config = pcall(dofile, nvimrc_path)
     if ok then
-      nvimrc_config = config or {}
-      print("loaded " .. nvimrc_path)
+      if config then
+        nvimrc_config = vim.tbl_deep_extend('force', nvimrc_config, config)
+      end
+      if not loaded then loaded = nvimrc_path end
     else
-      print('error loading "' .. nvimrc_path .. '": ' .. config)
-      nvimrc_config = {}
+      vim.print('error loading "' .. nvimrc_path .. '": ' .. config)
     end
+  end
+
+  if #nvimrc_paths > 1 then
+    vim.print('loaded ' .. #nvimrc_paths .. ' .nvimrc.lua files')
+  else
+    vim.print('loaded ' .. loaded)
   end
 
   return nvimrc_config
