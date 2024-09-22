@@ -44,7 +44,6 @@
 [rerere]
   enabled = true
 [tag]
-  gpgSign = true
   sort = -version:refname
 [versionsort]
   suffix = -
