@@ -30,6 +30,7 @@ vim.o.relativenumber = true
 vim.o.cursorline = true
 
 vim.o.wrap = false
+vim.o.formatoptions = 'cronjq'
 
 vim.o.tabstop = 2
 vim.o.softtabstop = 2
