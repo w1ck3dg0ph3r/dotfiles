@@ -67,7 +67,7 @@ return {
       rust = 'rust_analyzer',
       python = 'null-ls',
     }
-    for _, filetype in ipairs({ 'typescript', 'javascript', 'vue', 'html', 'pug', 'css', 'scss', 'sass', 'json', 'yaml' }) do
+    for _, filetype in ipairs({ 'typescript', 'javascript', 'vue', 'html', 'pug', 'css', 'scss', 'sass', 'json', 'jsonc', 'yaml' }) do
       formatters[filetype] = 'null-ls'
     end
 
