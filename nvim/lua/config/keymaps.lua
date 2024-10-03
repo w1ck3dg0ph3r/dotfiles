@@ -57,6 +57,17 @@ util.map('i', '<a-k>', '<esc><cmd>m .-2<cr>==gi')
 util.map('v', '<a-j>', ':m \'>+1<cr>gv=gv')
 util.map('v', '<a-k>', ':m \'<-2<cr>gv=gv')
 
+-- Keep jumps when navigating
+util.map('n', '{', '<cmd>keepjumps norm! {<cr>')
+util.map('n', '}', '<cmd>keepjumps norm! }<cr>')
+util.map('n', '(', '<cmd>keepjumps norm! (<cr>')
+util.map('n', ')', '<cmd>keepjumps norm! )<cr>')
+
+-- Add jumps when j/k >= 5 lines
+local mark_if_count = function(count) return (count >= 5 and 'm\'' .. count or '') end
+util.map('n', 'j', function() return mark_if_count(vim.v.count) .. 'j' end, { expr = true })
+util.map('n', 'k', function() return mark_if_count(vim.v.count) .. 'k' end, { expr = true })
+
 -- Diagnostics
 local next_diagnostic, prev_diagnostic = util.make_repeatable_move(vim.diagnostic.goto_next, vim.diagnostic.goto_prev)
 util.map('n', ']d', next_diagnostic)
