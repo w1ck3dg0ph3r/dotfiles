@@ -72,12 +72,12 @@ return {
           set_jumps = false,
           goto_next_start = {
             [']f'] = '@function.outer',
-            [']c'] = '@class.outer',
+            [']t'] = '@class.outer',
             [']p'] = '@parameter.inner',
           },
           goto_previous_start = {
             ['[f'] = '@function.outer',
-            ['[c'] = '@class.outer',
+            ['[t'] = '@class.outer',
             ['[p'] = '@parameter.inner',
           },
         },
@@ -87,12 +87,12 @@ return {
           disable = is_big_file,
           swap_next = {
             ['<a-]>f'] = '@function.outer',
-            ['<a-]>c'] = '@class.outer',
+            ['<a-]>t'] = '@class.outer',
             ['<a-]>p'] = '@parameter.inner',
           },
           swap_previous = {
             ['<a-[>f'] = '@function.outer',
-            ['<a-[>c'] = '@class.outer',
+            ['<a-[>t'] = '@class.outer',
             ['<a-[>p'] = '@parameter.inner',
           },
         },
