@@ -9,10 +9,10 @@
   ba = branch -avv
   bdf = !git branch -d $(git branch --format='%(refname:short)' | fzf)
   bDf = !git branch -D $(git branch --format='%(refname:short)' | fzf)
-  l = log --pretty=format:"%C(yellow)%h\\ %Creset%s%C(red)%d%C(blue)\\ [%an]\\ %C(black)%cd" --date=iso
-  lg = log --graph --abbrev-commit --decorate --pretty=format:"%C(yellow)%h\\ %Creset%s%C(red)%d%C(blue)\\ [%an]\\ %C(black)%cd" --date=iso
-  la = log --pretty=format:"%C(yellow)%h\\ %Creset%s%C(red)%d%C(blue)\\ [%an]\\ %C(black)%cd" --date=iso --all
-  lga = log --graph --abbrev-commit --decorate --pretty=format:"%C(yellow)%h\\ %Creset%s%C(red)%d%C(blue)\\ [%an]\\ %C(black)%cd" --date=iso --all
+  l = log --pretty='format:"%C(yellow bold)%h %C(reset)%s%C(auto)%(decorate:prefix= (,suffix=%x29,tag=,separator= | ) %C(black)[%al] %C(black)%cd"' --date=iso-strict
+  lg = log --graph --abbrev-commit --decorate --pretty='format:"%C(yellow bold)%h %C(reset)%s%C(auto)%(decorate:prefix= (,suffix=%x29,tag=,separator= | ) %C(black)[%al] %C(black)%cd"' --date=iso-strict
+  la = log --pretty='format:"%C(yellow bold)%h %C(reset)%s%C(auto)%(decorate:prefix= (,suffix=%x29,tag=,separator= | ) %C(black)[%al] %C(black)%cd"' --date=iso-strict --all
+  lga = log --graph --abbrev-commit --decorate --pretty='format:"%C(yellow bold)%h %C(reset)%s%C(auto)%(decorate:prefix= (,suffix=%x29,tag=,separator= | ) %C(black)[%al] %C(black)%cd"'  --date=iso-strict --all
   c = commit -m
   ca = commit --amend --no-edit
   rebase = rebase --rebase-merges
@@ -28,6 +28,13 @@
   stl = stash list
   pop = stash pop
   pushu = !git push -u origin $(git rev-parse --abbrev-ref HEAD)
+
+[color.decorate]
+  separator = red
+  HEAD = yellow
+  branch = green
+  remoteBranch = blue
+  tag = red
 
 [core]
   excludesfile = ~/.gitignore_global
