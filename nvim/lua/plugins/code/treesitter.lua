@@ -54,8 +54,8 @@ return {
           keymaps = {
             ['if'] = '@function.inner',
             ['af'] = '@function.outer',
-            ['ic'] = '@class.inner',
-            ['ac'] = '@class.outer',
+            ['it'] = '@class.inner',
+            ['at'] = '@class.outer',
             ['ip'] = '@parameter.inner',
             ['ap'] = '@parameter.outer',
           },
