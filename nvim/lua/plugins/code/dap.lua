@@ -83,6 +83,12 @@ return {
     }
     dap.configurations.cpp = dap.configurations.c
 
+    -- Apply dapconfig from .nvimrc.lua
+    local rc = require('config.nvimrc').config()
+    if rc.dapconfig ~= nil and type(rc.dapconfig) == 'function' then
+      rc.dapconfig(dap)
+    end
+
     -- Keymaps
     --
     -- F-keys mapping:
