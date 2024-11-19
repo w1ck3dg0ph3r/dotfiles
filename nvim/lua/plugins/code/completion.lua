@@ -88,9 +88,11 @@ return {
         format = function(entry, vim_item)
           vim_item.kind = string.format('%s', kind_icons[vim_item.kind])
           vim_item.menu = ({
+            nvim_lsp = '[LSP]',
+            lazydev = '[Lazydev]',
             luasnip = '[Snippet]',
-            buffer = '[Buffer]',
             path = '[Path]',
+            buffer = '[Buffer]',
           })[entry.source.name]
           return vim_item
         end,
@@ -112,7 +114,7 @@ return {
           cmp.config.compare.offset,    -- Entries with smaller offset will be ranked higher.
           cmp.config.compare.exact,     -- Entries with exact == true will be ranked higher.
           cmp.config.compare.score,     -- Entries with higher score will be ranked higher.
-          -- cmp.config.compare.length,    -- Entires with shorter label length will be ranked higher.
+          cmp.config.compare.length,    -- Entires with shorter label length will be ranked higher.
           cmp.config.compare.sort_text, -- Entries will be ranked according to the lexicographical order of sortText.
           cmp.config.compare.order,     -- Entries with smaller id will be ranked higher.
           cmp.config.compare.kind,      -- Entires with smaller ordinal value of 'kind' will be ranked higher.
