@@ -2,7 +2,8 @@ return {
   'mfussenegger/nvim-dap',
 
   dependencies = {
-    'rcarriga/nvim-dap-ui',
+    -- 'rcarriga/nvim-dap-ui',
+    { 'w1ck3dg0ph3r/nvim-dap-ui', branch = 'fix-float-element' },
     'theHamsta/nvim-dap-virtual-text',
     'leoluz/nvim-dap-go',
     'williamboman/mason.nvim',
