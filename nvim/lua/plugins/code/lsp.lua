@@ -143,6 +143,7 @@ return {
     local nullls = require('null-ls')
     nullls.setup({
       on_attach = on_attach,
+      timeout_ms = 5000,
       sources = {
         nullls.builtins.formatting.prettier,
         nullls.builtins.formatting.black,
