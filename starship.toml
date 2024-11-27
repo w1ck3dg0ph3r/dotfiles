@@ -15,6 +15,7 @@ $lua\
 $nodejs\
 $python\
 $rust\
+$zig\
 $cmd_duration\
 )\
 [ ](bg:surface0)[](surface0)\
@@ -88,6 +89,11 @@ symbol = ' '
 format = '[  ](fg:overlay0 bg:surface0)[${symbol}${pyenv_prefix}(${version})( \($virtualenv\))]($style)'
 style = 'bold fg:red bg:surface0'
 symbol = ' '
+
+[zig]
+format = '[  ](fg:overlay0 bg:surface0)[${symbol}${pyenv_prefix}(${version})( \($virtualenv\))]($style)'
+style = 'bold fg:yellow bg:surface0'
+symbol = '↯ '
 
 [os.symbols]
 Alpaquita = ' '

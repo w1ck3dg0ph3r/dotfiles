@@ -65,6 +65,7 @@ return {
       cpp = 'clangd',
       c = 'clangd',
       rust = 'rust_analyzer',
+      zig = 'zls',
       python = 'null-ls',
     }
     for _, filetype in ipairs({ 'typescript', 'javascript', 'vue', 'html', 'pug', 'css', 'scss', 'sass', 'json', 'jsonc', 'yaml' }) do
