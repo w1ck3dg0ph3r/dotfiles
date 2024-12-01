@@ -11,6 +11,7 @@ return {
 
   config = function()
     local mason = require('mason')
+    local lspconfig = require('lspconfig')
     local masonconfig = require('mason-lspconfig')
     mason.setup()
 
@@ -57,6 +58,7 @@ return {
           },
         },
       },
+      rust_analyzer = {},
     }
 
     local formatters = {
@@ -72,7 +74,10 @@ return {
       formatters[filetype] = 'null-ls'
     end
 
-    ---@diagnostic disable-next-line: unused-local
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
+    capabilities = vim.tbl_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities(capabilities))
+    capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = true
+
     local on_attach = function(client, bufnr)
       local util = require('util')
 
@@ -109,37 +114,34 @@ return {
       end
     end
 
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities = vim.tbl_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities(capabilities))
-    capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = true
+    local setup_server = function(server_name)
+      -- Apply lspconfig from .nvimrc.lua
+      local nvimrc = require('config.nvimrc').config()
+      if nvimrc ~= nil and nvimrc.lspconfig ~= nil and nvimrc.lspconfig[server_name] ~= nil then
+        servers[server_name] = vim.tbl_deep_extend('force', servers[server_name], nvimrc.lspconfig[server_name])
+      end
 
-    masonconfig.setup({
-      ensure_installed = vim.tbl_keys(servers)
-    })
+      if not lspconfig[server_name] then
+        print('lsp config not found for: ' .. server_name)
+        return
+      end
 
-    masonconfig.setup_handlers({
-      function(server_name)
-        -- Apply lspconfig from .nvimrc.lua
-        local nvimrc = require('config.nvimrc').config()
-        if nvimrc ~= nil and nvimrc.lspconfig ~= nil and nvimrc.lspconfig[server_name] ~= nil then
-          servers[server_name] = vim.tbl_deep_extend('force', servers[server_name], nvimrc.lspconfig[server_name])
-        end
+      lspconfig[server_name].setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+        init_options = servers[server_name] and servers[server_name].init_options or nil,
+        filetypes = servers[server_name] and servers[server_name].filetypes or nil,
+        settings = servers[server_name] and servers[server_name].settings or nil,
+      })
+    end
 
-        local lspconfig = require('lspconfig')
-        if not lspconfig[server_name] then
-          print('lsp config not found for: ' .. server_name)
-          return
-        end
+    masonconfig.setup_handlers({ setup_server })
 
-        lspconfig[server_name].setup({
-          capabilities = capabilities,
-          on_attach = on_attach,
-          init_options = servers[server_name] and servers[server_name].init_options or nil,
-          filetypes = servers[server_name] and servers[server_name].filetypes or nil,
-          settings = servers[server_name] and servers[server_name].settings or nil,
-        })
-      end,
-    })
+    for _, server_name in ipairs({
+      'rust_analyzer',
+    }) do
+      setup_server(server_name)
+    end
 
     local nullls = require('null-ls')
     nullls.setup({
