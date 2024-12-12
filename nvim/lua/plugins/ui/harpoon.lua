@@ -8,7 +8,11 @@ local v1config = {
   },
 
   config = function()
-    require('harpoon').setup({})
+    require('harpoon').setup({
+      menu = {
+        width = 100,
+      }
+    })
     local util = require('util')
 
     util.map('n', 'mm', function() require('harpoon.ui').toggle_quick_menu() end)
@@ -22,7 +26,7 @@ local v1config = {
   end
 }
 
-local v2config =  {
+local v2config = {
   'ThePrimeagen/harpoon',
   branch = 'harpoon2',
 
