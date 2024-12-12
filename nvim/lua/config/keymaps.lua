@@ -2,6 +2,7 @@ local util = require('util')
 
 -- Escape insert mode quickly
 util.map('i', 'jk', '<esc>')
+util.map('i', '<c-c>', '<esc>')
 
 -- Clear search highlighting with <leader> and c
 util.map('n', '<leader>c', '<cmd>nohl<cr>')
