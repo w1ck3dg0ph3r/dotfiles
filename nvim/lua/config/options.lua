@@ -31,6 +31,7 @@ vim.opt.relativenumber = true
 vim.opt.cursorline = true
 
 vim.opt.wrap = false
+vim.opt.sidescroll = 1
 vim.opt.formatoptions = 'cronjq'
 
 vim.opt.tabstop = 2
