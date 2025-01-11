@@ -9,7 +9,8 @@ require('lazy').setup({
   spec = {
     { 'Alighorab/stackmap.nvim' },
     vim.tbl_values(plugin_specs),
-    { import = 'custom' },
+    require('custom.go'),
+    require('custom.cpp'),
   },
   change_detection = { enabled = false },
 })
