@@ -105,7 +105,7 @@ return {
         util.map(
           'n', '<leader>f',
           function()
-            vim.lsp.buf.format({ name = formatters[filetype] })
+            vim.lsp.buf.format({ name = formatters[filetype], timeout_ms = 5000 })
           end,
           bufopts
         )
