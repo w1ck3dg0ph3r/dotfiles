@@ -38,6 +38,10 @@
 
 [core]
   excludesfile = ~/.gitignore_global
+  # Diff filter: https://github.com/mookid/diffr
+  pager = diffr --colors refine-added:none:background:0x53,0x67,0x5b --colors added:none:background:0x3b,0x47,0x4a --colors refine-removed:none:background:0x6c,0x4a,0x5b --colors removed:none:background:0x48,0x38,0x4b | less -R
+[interactive]
+  diffFilter = diffr --colors refine-added:none:background:0x53,0x67,0x5b --colors added:none:background:0x3b,0x47,0x4a --colors refine-removed:none:background:0x6c,0x4a,0x5b --colors removed:none:background:0x48,0x38,0x4b
 [init]
   defaultBranch = main
 [diff]
