@@ -9,7 +9,10 @@ local on_attach = function(bufnr)
   end
 
   -- Navigation
-  local gs_next_hunk, gs_prev_hunk = util.make_repeatable_move(gs.next_hunk, gs.prev_hunk)
+  local gs_next_hunk, gs_prev_hunk = util.make_repeatable_move(
+    function() gs.nav_hunk('next') end,
+    function() gs.nav_hunk('prev') end
+  )
   map('n', ']h', gs_next_hunk, {})
   map('n', '[h', gs_prev_hunk, {})
 
@@ -19,9 +22,9 @@ local on_attach = function(bufnr)
   map('v', '<leader>hs', function() gs.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') }) end)
   map('v', '<leader>hr', function() gs.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') }) end)
   map('n', '<leader>hS', gs.stage_buffer)
-  map('n', '<leader>hu', gs.undo_stage_hunk)
   map('n', '<leader>hR', gs.reset_buffer)
   map('n', '<leader>hp', gs.preview_hunk)
+  map('n', '<leader>hi', gs.preview_hunk_inline)
   map('n', '<leader>hb', function() gs.blame_line({ full = true }) end)
   map('n', '<leader>hd', function()
     gs.diffthis()
@@ -32,7 +35,6 @@ local on_attach = function(bufnr)
     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<c-w>h', true, false, true), 'n', false)
   end)
   map('n', '<leader>hts', gs.toggle_signs)
-  map('n', '<leader>htd', gs.toggle_deleted)
 
   -- Text object
   map({ 'o', 'x' }, 'ih', ':<c-u>Gitsigns select_hunk<cr>')
