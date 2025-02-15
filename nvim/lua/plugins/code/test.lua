@@ -5,7 +5,7 @@ return {
     'nvim-lua/plenary.nvim',
     'nvim-treesitter/nvim-treesitter',
     'andythigpen/nvim-coverage',
-    { 'nvim-neotest/neotest-go', commit = '05535cb' },
+    'fredrikaverpil/neotest-golang',
   },
 
   keys = {
@@ -14,6 +14,12 @@ return {
     '<leader>tp',
     '<leader>ta',
     '<leader>ts',
+
+    '<leader>td',
+    '<leader>tdt',
+    '<leader>tdl',
+    '<leader>tdf',
+    '<leader>tdp',
 
     '<leader>tcs',
   },
@@ -36,19 +42,18 @@ return {
     local nvimrc = require('config.nvimrc').config()
     local go_coverage_enabled = util.tbl_walk(nvimrc, 'go', 'test', 'coverage_enabled') or true
     local go_coverage_file = util.tbl_walk(nvimrc, 'go', 'test', 'coverage_file') or 'coverage.out'
-    local neotest_go_args = { '-race' }
+    local go_args = { '-race' }
     if go_coverage_enabled then
-      table.insert(neotest_go_args, '-coverprofile ' .. go_coverage_file)
+      table.insert(go_args, '-coverprofile')
+      table.insert(go_args, go_coverage_file)
     end
 
     ---@diagnostic disable-next-line: missing-fields
     neotest.setup({
       adapters = {
-        require('neotest-go')({
-          experimental = {
-            test_table = false,
-          },
-          args = neotest_go_args,
+        require("neotest-golang")({
+          go_test_args = go_args,
+          dap_go_enabled = true,
         }),
       },
     })
@@ -70,8 +75,8 @@ return {
     util.map('n', '<leader>tp', function() neotest.run.run(vim.fn.expand('%:h')) end)
     util.map('n', '<leader>ta', function() neotest.run.run(vim.fn.getcwd()) end)
 
-    -- Not suported yet by neotest-go, but can be run through dap directly
-    util.map('n', '<leader>tdt', function() neotest.run.run({ strategy = 'dap', suite = true }) end)
+    util.map('n', '<leader>td', function() neotest.run.run({ strategy = 'dap', suite = false }) end)
+    util.map('n', '<leader>tdt', function() neotest.run.run({ strategy = 'dap', suite = false }) end)
     util.map('n', '<leader>tdl', function() neotest.run.run_last({ strategy = 'dap', suite = true }) end)
     util.map('n', '<leader>tdf',
       function() neotest.run.run({ vim.fn.expand('%'), strategy = 'dap', suite = true }) end)
