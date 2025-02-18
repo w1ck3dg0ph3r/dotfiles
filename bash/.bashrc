@@ -52,6 +52,15 @@ export EDITOR=vi
 ########################################################################
 append_path ~/.local/bin
 
+# Load fragments from ~/.bashrc.d
+for conf in ~/.bashrc.d/*.sh; do
+  if [ -x $conf ]; then
+    source $conf
+  fi
+done
+
+unset -f append_path
+
 ########################################################################
 # Completion and utilities
 ########################################################################
@@ -61,12 +70,3 @@ type -P kubectl &>/dev/null && source <(kubectl completion bash)
 type -P helm &>/dev/null && source <(helm completion bash)
 # type -P starship &>/dev/null && source <(starship init bash)
 type -P zoxide &>/dev/null && source <(zoxide init bash)
-
-# Load fragments from ~/.bashrc.d
-for conf in ~/.bashrc.d/*.sh; do
-  if [ -x $conf ]; then
-    source $conf
-  fi
-done
-
-unset -f append_path
