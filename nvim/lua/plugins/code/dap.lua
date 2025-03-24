@@ -46,7 +46,7 @@ return {
     require('nvim-dap-virtual-text').setup({ enabled = false })
 
     require('mason-nvim-dap').setup({
-      ensure_installed = { 'delve', 'codelldb' },
+      ensure_installed = {},
       automatic_installation = false,
       handlers = {
         function(config)
