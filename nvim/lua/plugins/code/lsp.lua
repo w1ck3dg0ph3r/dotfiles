@@ -21,7 +21,7 @@ return {
       gopls = {
         settings = {
           gopls = {
-            gofumpt = true,
+            gofumpt = false,
             semanticTokens = true,
             experimentalPostfixCompletions = true,
             usePlaceholders = false,
