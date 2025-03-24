@@ -86,7 +86,7 @@ return {
     util.map('n', '<leader>ss', builtin.current_buffer_fuzzy_find)
     util.map('n', '<leader>so', function()
       builtin.lsp_document_symbols({
-        ignore_symbols = { 'field', 'constant', 'variable', 'enummember' },
+        ignore_symbols = { 'field', 'enummember' },
       })
     end)
     util.map('n', '<leader>st', builtin.lsp_dynamic_workspace_symbols)
