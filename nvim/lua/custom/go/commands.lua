@@ -103,9 +103,12 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 })
 
 M.go_organize_imports = function()
-  local context = { source = { organizeImports = true } }
-  local params = vim.lsp.util.make_range_params()
-  params.context = context
+  local range_params = vim.lsp.util.make_range_params(0, "utf-8")
+  local params = {
+    range = range_params.range,
+    textDocument = range_params.textDocument,
+    context = { source = { organizeImports = true } },
+  }
 
   local clients = vim.lsp.buf_request_sync(0, 'textDocument/codeAction', params, 1000)
   if clients == nil then return end

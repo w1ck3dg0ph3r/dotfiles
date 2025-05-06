@@ -70,7 +70,10 @@ util.map('n', 'j', function() return mark_if_count(vim.v.count) .. 'j' end, { ex
 util.map('n', 'k', function() return mark_if_count(vim.v.count) .. 'k' end, { expr = true })
 
 -- Diagnostics
-local next_diagnostic, prev_diagnostic = util.make_repeatable_move(vim.diagnostic.goto_next, vim.diagnostic.goto_prev)
+local next_diagnostic, prev_diagnostic = util.make_repeatable_move(
+  function() vim.diagnostic.jump({ count = 1 }) end,
+  function() vim.diagnostic.jump({ count = -1 }) end
+)
 util.map('n', ']d', next_diagnostic)
 util.map('n', '[d', prev_diagnostic)
 util.map('n', '<leader>df', vim.diagnostic.open_float)

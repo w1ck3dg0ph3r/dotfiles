@@ -100,7 +100,7 @@ return {
         util.map('n', '<f4>', ':ClangdSwitchSourceHeader<cr>')
       end
 
-      local filetype = vim.bo[bufnr].filetype
+      local filetype = vim.bo[bufnr].ft
       if formatters[filetype] ~= nil then
         util.map(
           'n', '<leader>f',
@@ -137,7 +137,9 @@ return {
 
     masonconfig.setup_handlers({ setup_server })
 
+    -- Setup servers not managed by mason
     for _, server_name in ipairs({
+      'gopls',
       'rust_analyzer',
     }) do
       setup_server(server_name)
