@@ -48,7 +48,7 @@ util.map('n', '<c-l>', '<c-w>l')
 util.map('n', '<a-h>', '<cmd>bp<cr>')
 util.map('n', '<a-g>', '<cmd>b#<cr>')
 util.map('n', '<a-l>', '<cmd>bn<cr>')
-util.map('n', '<leader>w', '<cmd>:Bdelete<cr>')
+util.map('n', '<leader>w', '<cmd>:bd<cr>')
 
 -- Move lines around
 util.map('n', '<a-j>', '<cmd>m .+1<cr>==')
