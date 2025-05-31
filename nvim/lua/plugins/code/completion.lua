@@ -114,7 +114,7 @@ return {
           cmp.config.compare.offset,    -- Entries with smaller offset will be ranked higher.
           cmp.config.compare.exact,     -- Entries with exact == true will be ranked higher.
           cmp.config.compare.score,     -- Entries with higher score will be ranked higher.
-          cmp.config.compare.length,    -- Entires with shorter label length will be ranked higher.
+          -- cmp.config.compare.length,    -- Entires with shorter label length will be ranked higher.
           cmp.config.compare.sort_text, -- Entries will be ranked according to the lexicographical order of sortText.
           cmp.config.compare.order,     -- Entries with smaller id will be ranked higher.
           cmp.config.compare.kind,      -- Entires with smaller ordinal value of 'kind' will be ranked higher.

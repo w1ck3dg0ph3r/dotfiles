@@ -40,7 +40,7 @@ return {
     local util = require('util')
 
     local nvimrc = require('config.nvimrc').config()
-    local go_coverage_enabled = util.tbl_walk(nvimrc, 'go', 'test', 'coverage_enabled') or true
+    local go_coverage_enabled = util.tbl_walk(nvimrc, 'go', 'test', 'coverage_enabled') or false
     local go_coverage_file = util.tbl_walk(nvimrc, 'go', 'test', 'coverage_file') or 'coverage.out'
     local go_args = { '-race' }
     if go_coverage_enabled then

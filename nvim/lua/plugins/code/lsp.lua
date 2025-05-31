@@ -2,8 +2,8 @@ return {
   'neovim/nvim-lspconfig',
 
   dependencies = {
-    'williamboman/mason.nvim',
-    'williamboman/mason-lspconfig.nvim',
+    'mason-org/mason.nvim',
+    'mason-org/mason-lspconfig.nvim',
     'nvim-lua/plenary.nvim',
     'hrsh7th/cmp-nvim-lsp',
     'nvimtools/none-ls.nvim',
@@ -11,143 +11,108 @@ return {
 
   config = function()
     local mason = require('mason')
-    local lspconfig = require('lspconfig')
     local masonconfig = require('mason-lspconfig')
     mason.setup()
+    masonconfig.setup()
 
-    local servers = {
-      lua_ls = {},
-      bashls = {},
-      gopls = {
-        settings = {
-          gopls = {
-            gofumpt = false,
-            semanticTokens = true,
-            experimentalPostfixCompletions = true,
-            usePlaceholders = false,
-            hints = {
-              compositeLiteralFields = true,
-              parameterNames = true,
-            },
-            directoryFilters = { '-vendor' },
-          },
+    vim.lsp.config('ts_ls', {
+      filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+      init_options = {
+        plugins = {
+          {
+            name = '@vue/typescript-plugin',
+            location = vim.fn.expand('$MASON/packages/vue-language-server/node_modules/@vue/language-server'),
+            languages = { 'vue' },
+          }
         },
       },
-      ts_ls = {
-        filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
-        init_options = {
-          plugins = {
-            {
-              name = '@vue/typescript-plugin',
-              location = require('mason-registry').get_package('vue-language-server'):get_install_path()
-                  .. '/node_modules/@vue/language-server',
-              languages = { 'vue' },
-            }
-          },
-        },
-      },
-      volar = {
-        settings = {
-          vue = {
-            complete = {
-              casing = {
-                tags = 'pascal',
-                props = 'camel',
-              },
+    })
+
+    vim.lsp.config('vue_ls', {
+      settings = {
+        vue = {
+          complete = {
+            casing = {
+              tags = 'pascal',
+              props = 'camel',
             },
           },
         },
       },
-      rust_analyzer = {},
-    }
+    })
 
-    local formatters = {
-      go = 'gopls',
-      lua = 'lua_ls',
-      cpp = 'clangd',
-      c = 'clangd',
-      rust = 'rust_analyzer',
-      zig = 'zls',
-      python = 'null-ls',
-    }
-    for _, filetype in ipairs({ 'typescript', 'javascript', 'vue', 'html', 'pug', 'css', 'scss', 'sass', 'json', 'jsonc', 'yaml' }) do
-      formatters[filetype] = 'null-ls'
-    end
+    vim.lsp.config('gopls', {
+      settings = {
+        gopls = {
+          gofumpt = false,
+          semanticTokens = true,
+          experimentalPostfixCompletions = true,
+          usePlaceholders = false,
+          hints = {
+            compositeLiteralFields = true,
+            parameterNames = true,
+          },
+        },
+      },
+    })
 
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities = vim.tbl_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities(capabilities))
-    capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = true
-
-    local on_attach = function(client, bufnr)
-      local util = require('util')
-
-      local bufopts = { noremap = true, silent = true, buffer = bufnr }
-      local has_trouble, _ = pcall(require, 'trouble')
-
-      util.map('n', 'gD', vim.lsp.buf.declaration, bufopts)
-      util.map('n', 'gd', vim.lsp.buf.definition, bufopts)
-      -- util.map('n', 'K', vim.lsp.buf.hover, bufopts) -- Defined in keymap.lua
-      if not has_trouble then
-        util.map('n', 'gr', vim.lsp.buf.references, bufopts)
-        util.map('n', 'gi', vim.lsp.buf.implementation, bufopts)
-      end
-      util.map('i', '<c-k>', vim.lsp.buf.signature_help, bufopts)
-      util.map('n', '<leader>T', vim.lsp.buf.type_definition, bufopts)
-      util.map('n', '<leader>R', vim.lsp.buf.rename, bufopts)
-      util.map('n', '<leader>ac', vim.lsp.buf.code_action, bufopts)
-
-      if client.name == 'clangd' then
-        util.map('n', '<f4>', ':ClangdSwitchSourceHeader<cr>')
-      end
-
-      local filetype = vim.bo[bufnr].ft
-      if formatters[filetype] ~= nil then
-        util.map(
-          'n', '<leader>f',
-          function()
-            vim.lsp.buf.format({ name = formatters[filetype], timeout_ms = 5000 })
-          end,
-          bufopts
-        )
-      else
-        util.map('n', '<leader>f', function() print('no formatter configured for ' .. filetype) end, bufopts)
+    -- Apply lspconfig from .nvimrc.lua
+    local nvimrc = require('config.nvimrc').config()
+    if nvimrc ~= nil and nvimrc.lspconfig ~= nil then
+      for key, value in pairs(nvimrc.lspconfig) do
+        vim.lsp.config(key, value)
       end
     end
 
-    local setup_server = function(server_name)
-      -- Apply lspconfig from .nvimrc.lua
-      local nvimrc = require('config.nvimrc').config()
-      if nvimrc ~= nil and nvimrc.lspconfig ~= nil and nvimrc.lspconfig[server_name] ~= nil then
-        servers[server_name] = vim.tbl_deep_extend('force', servers[server_name], nvimrc.lspconfig[server_name])
-      end
+    vim.api.nvim_create_autocmd('LspAttach', {
+      group = vim.api.nvim_create_augroup('lsp.group', {}),
+      callback = function(args)
+        local util = require('util')
+        local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+        local bufopts = { noremap = true, silent = true, buffer = args.buf }
+        local has_trouble, _ = pcall(require, 'trouble')
 
-      if not lspconfig[server_name] then
-        print('lsp config not found for: ' .. server_name)
-        return
-      end
+        util.map('n', 'gD', vim.lsp.buf.declaration, bufopts)
+        util.map('n', 'gd', vim.lsp.buf.definition, bufopts)
+        -- util.map('n', 'K', vim.lsp.buf.hover, bufopts) -- Defined in keymap.lua
+        if not has_trouble then
+          util.map('n', 'gr', vim.lsp.buf.references, bufopts)
+          util.map('n', 'gi', vim.lsp.buf.implementation, bufopts)
+        end
+        util.map('i', '<c-k>', vim.lsp.buf.signature_help, bufopts)
+        util.map('n', '<leader>T', vim.lsp.buf.type_definition, bufopts)
+        util.map('n', '<leader>R', vim.lsp.buf.rename, bufopts)
+        util.map('n', '<leader>ac', vim.lsp.buf.code_action, bufopts)
 
-      lspconfig[server_name].setup({
-        capabilities = capabilities,
-        on_attach = on_attach,
-        init_options = servers[server_name] and servers[server_name].init_options or nil,
-        filetypes = servers[server_name] and servers[server_name].filetypes or nil,
-        settings = servers[server_name] and servers[server_name].settings or nil,
-      })
-    end
+        if client:supports_method('textDocument/foldingRange') then
+          local win = vim.api.nvim_get_current_win()
+          vim.wo[win][0].foldexpr = 'v:lua.vim.lsp.foldexpr()'
+        end
 
-    masonconfig.setup_handlers({ setup_server })
+        if client.name == 'clangd' then
+          util.map('n', '<f4>', ':LspClangdSwitchSourceHeader<cr>')
+        end
 
-    -- Setup servers not managed by mason
-    for _, server_name in ipairs({
+        if client:supports_method('textDocument/formatting') then
+          util.map('n', '<leader>f', function()
+            vim.lsp.buf.format({ bufnr = args.buf, id = client.id, timeout_ms = 5000 })
+          end, bufopts)
+        end
+      end,
+    })
+
+    vim.lsp.enable({
+      'bashls',
+      'clangd',
       'gopls',
+      'lua_ls',
       'rust_analyzer',
-    }) do
-      setup_server(server_name)
-    end
+      'ts_ls',
+      'vue_ls',
+    })
 
     local nullls = require('null-ls')
     nullls.setup({
-      on_attach = on_attach,
       timeout_ms = 5000,
       sources = {
         nullls.builtins.formatting.prettier,
