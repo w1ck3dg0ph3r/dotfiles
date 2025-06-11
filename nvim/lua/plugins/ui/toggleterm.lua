@@ -8,6 +8,7 @@ return {
       open_mapping = [[<c-\>]],
       direction = 'horizontal',
       size = 16,
+      persist_size = false,
     })
     local util = require('util')
 
