@@ -15,6 +15,10 @@ return {
     mason.setup()
     masonconfig.setup()
 
+    vim.lsp.config('clangd', {
+      cmd = { 'clangd', '--header-insertion=never' },
+    })
+
     vim.lsp.config('ts_ls', {
       filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
       init_options = {
