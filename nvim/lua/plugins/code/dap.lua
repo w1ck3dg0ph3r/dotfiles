@@ -5,7 +5,7 @@ return {
     'rcarriga/nvim-dap-ui',
     'theHamsta/nvim-dap-virtual-text',
     'leoluz/nvim-dap-go',
-    'williamboman/mason.nvim',
+    'mason-org/mason.nvim',
     'jay-babu/mason-nvim-dap.nvim',
     'nvim-neotest/nvim-nio',
   },
