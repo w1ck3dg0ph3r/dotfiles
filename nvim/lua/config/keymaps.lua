@@ -48,7 +48,32 @@ util.map('n', '<c-l>', '<c-w>l')
 util.map('n', '<a-h>', '<cmd>bp<cr>')
 util.map('n', '<a-g>', '<cmd>b#<cr>')
 util.map('n', '<a-l>', '<cmd>bn<cr>')
-util.map('n', '<leader>w', '<cmd>:bd<cr>')
+-- util.map('n', '<leader>w', '<cmd>:bn<cr>:bd#<cr>')
+
+util.map('n', '<leader>w', function()
+  local loaded_n_listed = function(buf)
+    local listed = vim.api.nvim_get_option_value('buflisted', { buf = buf })
+    return vim.api.nvim_buf_is_loaded(buf) and listed
+  end
+  local bufs = vim.tbl_filter(loaded_n_listed, vim.api.nvim_list_bufs())
+  local wins = vim.api.nvim_list_wins()
+
+  if #wins == 1 then
+    if #bufs == 1 then
+      vim.cmd('q')
+    else
+      vim.cmd('bd')
+    end
+  else
+    if #bufs == 1 then
+      vim.cmd('q')
+      vim.cmd('q')
+    else
+      vim.cmd('bn')
+      vim.cmd('bd#')
+    end
+  end
+end)
 
 -- Move lines around
 util.map('n', '<a-j>', '<cmd>m .+1<cr>==')
