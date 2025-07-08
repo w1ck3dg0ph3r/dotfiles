@@ -109,6 +109,11 @@ local next_fold, prev_fold = util.make_repeatable_move('zj', 'zk')
 util.map('n', ']z', next_fold)
 util.map('n', '[z', prev_fold)
 
+-- Spelling
+local next_spell, prev_spell = util.make_repeatable_move(']s', '[s')
+util.map('n', ']s', next_spell)
+util.map('n', '[s', prev_spell)
+
 -- LSP hover and DAP eval
 util.map('n', 'K', function()
   local has_dap, dap = pcall(require, 'dap')
