@@ -16,7 +16,7 @@ return {
       section_separators = { left = '', right = '' },
 
       disabled_filetypes = {
-        statusline = { 'alpha', 'qf', 'NvimTree', 'neo-tree', 'toggleterm', 'Trouble' },
+        statusline = { 'alpha', 'qf', 'toggleterm', 'Trouble' },
         winbar = {},
       },
       ignore_focus = {
@@ -37,7 +37,6 @@ return {
     },
 
     extentions = {
-      'nvim-tree',
       'nvim-dap-ui',
       'toggleterm',
     },
