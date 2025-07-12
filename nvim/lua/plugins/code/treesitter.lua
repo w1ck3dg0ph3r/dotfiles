@@ -100,14 +100,8 @@ return {
     })
 
     -- Repeat movements
-    util.map({ 'n', 'x', 'o' }, ';', function()
-      pcall(ts_repeat_move.repeat_last_move)
-      vim.api.nvim_feedkeys('zz', 'n', false)
-    end)
-    util.map({ 'n', 'x', 'o' }, ',', function()
-      pcall(ts_repeat_move.repeat_last_move_opposite)
-      vim.api.nvim_feedkeys('zz', 'n', false)
-    end)
+    util.map({ 'n', 'x', 'o' }, ';', function() pcall(ts_repeat_move.repeat_last_move) end)
+    util.map({ 'n', 'x', 'o' }, ',', function() pcall(ts_repeat_move.repeat_last_move_opposite) end)
     util.map({ 'n', 'x', 'o' }, 'f', ts_repeat_move.builtin_f_expr, { expr = true })
     util.map({ 'n', 'x', 'o' }, 'F', ts_repeat_move.builtin_F_expr, { expr = true })
     util.map({ 'n', 'x', 'o' }, 't', ts_repeat_move.builtin_t_expr, { expr = true })

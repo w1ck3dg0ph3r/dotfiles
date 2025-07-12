@@ -34,10 +34,6 @@ util.map('n', '>', '>>')
 -- Make paste in visual mode not yank replaced text
 util.map('v', 'p', 'P')
 
--- Keep cursor centered
-util.map('n', '<c-d>', '<c-d>zz')
-util.map('n', '<c-u>', '<c-u>zz')
-
 -- Move around splits using Ctrl + {h,j,k,l}
 util.map('n', '<c-h>', '<c-w>h')
 util.map('n', '<c-j>', '<c-w>j')
@@ -48,7 +44,6 @@ util.map('n', '<c-l>', '<c-w>l')
 util.map('n', '<a-h>', '<cmd>bp<cr>')
 util.map('n', '<a-g>', '<cmd>b#<cr>')
 util.map('n', '<a-l>', '<cmd>bn<cr>')
--- util.map('n', '<leader>w', '<cmd>:bn<cr>:bd#<cr>')
 
 util.map('n', '<leader>w', function()
   local loaded_n_listed = function(buf)
@@ -113,6 +108,11 @@ util.map('n', '[z', prev_fold)
 local next_spell, prev_spell = util.make_repeatable_move(']s', '[s')
 util.map('n', ']s', next_spell)
 util.map('n', '[s', prev_spell)
+
+-- Changes
+local next_change, prev_change = util.make_repeatable_move(']c', '[c')
+util.map('n', ']c', next_change)
+util.map('n', '[c', prev_change)
 
 -- LSP hover and DAP eval
 util.map('n', 'K', function()
