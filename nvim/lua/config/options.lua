@@ -61,7 +61,22 @@ vim.opt.foldcolumn = '1'
 vim.g.omni_sql_no_default_maps = true -- Disable default sql completion with c-c
 
 -- Diagnostic icons
-local signs = { Error = '', Warn = '', Hint = '', Info = '' }
+vim.diagnostic.config({
+  virtual_text = {
+    prefix = "●",
+  },
+  severity_sort = true,
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = "",
+      [vim.diagnostic.severity.WARN] = "",
+      [vim.diagnostic.severity.INFO] = "",
+      [vim.diagnostic.severity.HINT] = "",
+    },
+  },
+})
+-- Telescope still uses those:
+local signs = { Error = '', Warn = '', Info = '', Hint = '' }
 for type, icon in pairs(signs) do
   local hl = 'DiagnosticSign' .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })

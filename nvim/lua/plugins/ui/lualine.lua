@@ -44,7 +44,10 @@ return {
 
     sections = {
       lualine_a = { 'mode' },
-      lualine_b = { 'branch', 'diagnostics' },
+      lualine_b = {
+        'branch',
+        { 'diagnostics', symbols = { error = ' ', warn = ' ', info = ' ', hint = ' ' } },
+      },
       lualine_c = {
         { 'filename', path = 1, symbols = { modified = ' ●', readonly = '' } },
         function() return require('lsp-progress').progress() end,
