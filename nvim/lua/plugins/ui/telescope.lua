@@ -96,6 +96,7 @@ return {
     util.map('n', '<leader>sco', builtin.lsp_outgoing_calls)
     util.map('n', '<leader>si', builtin.lsp_implementations)
     util.map('n', '<leader>sd', builtin.diagnostics)
+    util.map('n', '<leader>sD', function() builtin.diagnostics({ bufnr = 0 }) end)
 
     -- Workaroud for telescope opening files in insert mode
     vim.api.nvim_create_autocmd('WinLeave', {
