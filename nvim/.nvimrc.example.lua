@@ -1,12 +1,13 @@
-local M = {}
+require('config.nvimrc')
 
-M.plugins = {
-  { 'akinsho/bufferline.nvim',       enabled = false },
+---@type nvimrc.Config
+local cfg = {}
+
+cfg.plugins = {
   { 'nvim-telescope/telescope.nvim', opts = { defaults = { file_ignore_patterns = { '^%.git/', '^vendor/' } } } },
-  { 'nvim-tree/nvim-tree.lua',       opts = { filters = { custom = { '^\\.git$', '^vendor$' } } } },
 }
 
-M.lspconfig = {
+cfg.lspconfig = {
   gopls = {
     settings = {
       gopls = {
@@ -17,11 +18,11 @@ M.lspconfig = {
   }
 }
 
-M.go = {
+cfg.go = {
   test = {
     coverage_enabled = true,
     coverage_file = 'coverage.out',
   },
 }
 
-return M
+return cfg

@@ -85,7 +85,7 @@ return {
 
     -- Apply dapconfig from .nvimrc.lua
     local rc = require('config.nvimrc').config()
-    if rc.dapconfig ~= nil and type(rc.dapconfig) == 'function' then
+    if rc.dapconfig ~= nil then
       rc.dapconfig(dap)
     end
 

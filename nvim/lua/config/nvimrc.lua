@@ -1,8 +1,33 @@
-local M = {}
+require('lazy.types')
 
+local nvimrc = {}
+
+---Local nvim configuration.
+---@class nvimrc.Config
+---@field plugins? LazyPluginSpec[] Plugin spec overrides. Those will be applied using |vim.tbl_deep_extend|.
+---@field lspconfig? table<string,vim.lsp.Config> LSP configuration overrides.
+---@field dapconfig? fun(dap: nvimrc.DAP) DAP configuration overrides.
+---@field go? nvimrc.Go Configuration of custom.go module.
+
+---@class nvimrc.DAP
+---@field adapters table<string, dap.Adapter|dap.AdapterFactory>
+---@field configurations table<string, dap.Configuration[]>
+
+---@class nvimrc.Go
+---@field test? nvimrc.Go.Test
+
+---@class nvimrc.Go.Test
+---@field coverage_enabled boolean Enable coverage for neotest.
+---@field coverage_file string Name of the coverage report file, default is 'coverage.out'.
+
+---Cached nvimrc config.
+---@type nvimrc.Config
 local nvimrc_config
 
-function M.config()
+---Returns local nvim configuration loaded from .nvimrc.lua file found in
+---current directory and any parent directory.
+---@return nvimrc.Config
+function nvimrc.config()
   if nvimrc_config ~= nil then
     return nvimrc_config
   end
@@ -37,15 +62,15 @@ function M.config()
   return nvimrc_config
 end
 
-function M.extend_plugin_specs(plugin_specs)
-  local cfg = M.config()
+function nvimrc.extend_plugin_specs(plugin_specs)
+  local cfg = nvimrc.config()
   if cfg == nil or cfg.plugins == nil then
     return
   end
 
   for _, spec in pairs(cfg.plugins) do
-    if spec[1] ~= nil and type(spec[1]) == 'string' then
-      local name = spec[1]
+    local name = spec[1]
+    if name ~= nil and type(name) == 'string' then
       if plugin_specs[name] ~= nil then
         -- print('extending plugin ' .. name .. ' with:\n' .. vim.inspect(spec))
         plugin_specs[name] = vim.tbl_deep_extend('force', plugin_specs[name], spec)
@@ -54,4 +79,4 @@ function M.extend_plugin_specs(plugin_specs)
   end
 end
 
-return M
+return nvimrc
