@@ -70,6 +70,22 @@ util.map('n', '<leader>w', function()
   end
 end)
 
+util.map('n', '<leader>o', function()
+  local loaded_n_listed = function(buf)
+    local listed = vim.api.nvim_get_option_value('buflisted', { buf = buf })
+    return vim.api.nvim_buf_is_loaded(buf) and listed
+  end
+  local bufs = vim.tbl_filter(loaded_n_listed, vim.api.nvim_list_bufs())
+
+  local current = vim.api.nvim_win_get_buf(0)
+
+  for _, buf in ipairs(bufs) do
+    if buf ~= current then
+      vim.api.nvim_buf_delete(buf, {})
+    end
+  end
+end)
+
 -- Move lines around
 util.map('n', '<a-j>', '<cmd>m .+1<cr>==')
 util.map('n', '<a-k>', '<cmd>m .-2<cr>==')
