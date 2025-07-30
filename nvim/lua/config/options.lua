@@ -58,6 +58,9 @@ vim.opt.foldnestmax = 10
 vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 vim.opt.foldcolumn = '1'
 
+-- Spelling
+vim.opt.spellfile = vim.fn.stdpath('data') .. '/spell/en.utf-8.add'
+
 -- Diagnostic icons
 vim.diagnostic.config({
   virtual_text = {
