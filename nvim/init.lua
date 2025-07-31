@@ -15,5 +15,5 @@ require('lazy').setup({
   change_detection = { enabled = false },
 })
 
-require('config.keymaps')
-require('config.autocmds')
+require('config.keymaps').setup()
+require('config.autocmds').setup()
