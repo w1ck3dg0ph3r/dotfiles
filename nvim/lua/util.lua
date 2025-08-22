@@ -63,6 +63,20 @@ function util.popmap(name, mode)
   require('stackmap').pop(name, mode)
 end
 
+---Returns filepath of the current lua file.
+---@return string
+function util.script_path()
+  local path = debug.getinfo(2, 'S').source:sub(2)
+  return path
+end
+
+---Returns directory of the current lua file.
+---@return string
+function util.script_dir()
+  local dir = debug.getinfo(2, 'S').source:sub(2):match('(.*)/')
+  return dir
+end
+
 ---Makes forward and backward movements repeatable with ';' and ',' using
 ---nvim-treesitter.textobjects.repeatable_move.
 ---@param forward string|function Forward movement keycodes or function.

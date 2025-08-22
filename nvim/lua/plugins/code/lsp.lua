@@ -6,7 +6,6 @@ return {
     'mason-org/mason-lspconfig.nvim',
     'nvim-lua/plenary.nvim',
     'hrsh7th/cmp-nvim-lsp',
-    'nvimtools/none-ls.nvim',
   },
 
   config = function()
@@ -96,12 +95,6 @@ return {
         if client.name == 'clangd' then
           util.map('n', '<f4>', ':LspClangdSwitchSourceHeader<cr>')
         end
-
-        if client:supports_method('textDocument/formatting') then
-          util.map('n', '<leader>f', function()
-            vim.lsp.buf.format({ bufnr = args.buf, id = client.id, timeout_ms = 5000 })
-          end, bufopts)
-        end
       end,
     })
 
@@ -113,16 +106,6 @@ return {
       'rust_analyzer',
       'ts_ls',
       'vue_ls',
-    })
-
-    local nullls = require('null-ls')
-    nullls.setup({
-      timeout_ms = 5000,
-      sources = {
-        nullls.builtins.formatting.prettier,
-        nullls.builtins.formatting.black,
-        nullls.builtins.formatting.isort,
-      },
     })
   end,
 }

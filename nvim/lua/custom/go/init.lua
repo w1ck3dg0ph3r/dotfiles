@@ -1,5 +1,5 @@
 return {
-  dir = vim.fn.stdpath('config') .. '/lua/custom/go',
+  dir = require('util').script_dir(),
   name = 'custom-go',
   dependencies = {
     'akinsho/toggleterm.nvim',

@@ -1,5 +1,5 @@
 return {
-  dir = vim.fn.stdpath('config') .. '/lua/custom/cpp',
+  dir = require('util').script_dir(),
   name = 'custom-cpp',
   dependencies = {
     'L3MON4D3/LuaSnip',
