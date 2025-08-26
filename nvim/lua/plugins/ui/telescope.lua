@@ -87,6 +87,8 @@ return {
     util.map('n', '<leader>so', function()
       builtin.lsp_document_symbols({
         ignore_symbols = { 'field', 'enummember' },
+        symbol_width = 60,
+        symbol_type_width = 8,
       })
     end)
     util.map('n', '<leader>st', builtin.lsp_dynamic_workspace_symbols)

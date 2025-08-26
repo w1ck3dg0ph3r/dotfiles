@@ -118,7 +118,7 @@ function M.delete_buffer()
     if #bufs == 1 then
       vim.cmd('qa')
     else
-      vim.cmd('bp')
+      vim.cmd('b#')
       vim.cmd('bd#')
     end
   end
