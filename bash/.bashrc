@@ -68,5 +68,5 @@ unset -f append_path
 [ -f /usr/share/fzf/completion.bash ] && source /usr/share/fzf/completion.bash
 type -P kubectl &>/dev/null && source <(kubectl completion bash)
 type -P helm &>/dev/null && source <(helm completion bash)
-# type -P starship &>/dev/null && source <(starship init bash)
 type -P zoxide &>/dev/null && source <(zoxide init bash)
+type -P tms &>/dev/null && bind '"\C-f":"tms\n"'
