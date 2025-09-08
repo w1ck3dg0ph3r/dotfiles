@@ -91,42 +91,4 @@ end, {
   nargs = '?',
 })
 
-local augroup = vim.api.nvim_create_augroup('format_on_save', { clear = true })
-vim.api.nvim_create_autocmd('BufWritePre', {
-  group = augroup,
-  callback = function(ev)
-    if vim.bo[ev.buf].filetype == 'go' then
-      M.go_organize_imports()
-      vim.lsp.buf.format()
-    end
-  end,
-})
-
-M.go_organize_imports = function()
-  local range_params = vim.lsp.util.make_range_params(0, "utf-8")
-  local params = {
-    range = range_params.range,
-    textDocument = range_params.textDocument,
-    context = { source = { organizeImports = true } },
-  }
-
-  local clients = vim.lsp.buf_request_sync(0, 'textDocument/codeAction', params, 1000)
-  if clients == nil then return end
-
-  for _, result in pairs(clients) do
-    if result.error ~= nil then
-      print(result.error.message)
-      return
-    end
-    if result.result == nil then
-      return
-    end
-    for _, edit in ipairs(result.result) do
-      if edit.kind == 'source.organizeImports' then
-        vim.lsp.util.apply_workspace_edit(edit.edit, 'utf-8')
-      end
-    end
-  end
-end
-
 return M

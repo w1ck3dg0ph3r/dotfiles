@@ -7,6 +7,7 @@ local nvimrc = {}
 ---@field plugins? LazyPluginSpec[] Plugin spec overrides. Those will be applied using |vim.tbl_deep_extend|.
 ---@field lspconfig? table<string,vim.lsp.Config> LSP configuration overrides.
 ---@field dapconfig? fun(dap: nvimrc.DAP) DAP configuration overrides.
+---@field conform? conform.setupOpts Conform configuration overrides.
 ---@field go? nvimrc.Go Configuration of custom.go module.
 
 ---@class nvimrc.DAP

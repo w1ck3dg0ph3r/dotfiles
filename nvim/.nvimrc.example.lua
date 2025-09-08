@@ -25,4 +25,10 @@ cfg.go = {
   },
 }
 
+cfg.conform = {
+  formatters_by_ft = {
+    go = { 'goimports', 'golangci-lint', lsp_format = 'first' }
+  },
+}
+
 return cfg
