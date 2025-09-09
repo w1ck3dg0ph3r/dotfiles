@@ -8,25 +8,14 @@ return {
   config = function()
     require('catppuccin').setup({
       flavour = 'macchiato',
-      no_bold = true,
-      no_italic = true,
-      integrations = {
-        cmp = true,
-        gitsigns = true,
-        nvimtree = true,
-        treesitter = true,
-        treesitter_context = true,
-        telescope = {
-          enabled = true,
-          style = 'classic',
-        },
-        harpoon = true,
-        lsp_trouble = true,
-        bufferline = true,
-        mason = true,
-        dap = true,
-        neotest = true,
+      no_bold = false,
+      no_italic = false,
+      no_underline = false,
+      float = {
+        transparent = true,
+        solid = true,
       },
+      auto_integrations = true,
     })
     vim.cmd('colorscheme catppuccin')
   end,
