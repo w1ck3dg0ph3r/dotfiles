@@ -25,12 +25,12 @@ function M.config()
       lsp_format = 'first',
     },
     formatters = {
-      golangci_lint = {
-        prepend_args = { "run", "--fix", "--out=stdout", "--enable", "gci" },
-      },
+      gci = {
+        append_args = { '--custom-order', '-s', 'standard', '-s', 'default', '-s', 'localmodule', '-s', 'dot' },
+      }
     },
     formatters_by_ft = {
-      go = { 'goimports', 'golangci-lint', lsp_format = 'first' }
+      go = { 'goimports', 'gci', lsp_format = 'first' }
     },
     format_on_save = function(buf)
       local autofmt = { 'go' }
