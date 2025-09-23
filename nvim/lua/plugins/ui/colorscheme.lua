@@ -12,7 +12,7 @@ return {
       no_italic = false,
       no_underline = false,
       float = {
-        transparent = true,
+        transparent = false,
         solid = true,
       },
       auto_integrations = true,
