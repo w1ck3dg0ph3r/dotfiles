@@ -1,4 +1,6 @@
-require('lazy.types')
+---@module "lazy.types"
+---@module "conform.types"
+---@module "dap"
 
 local nvimrc = {}
 

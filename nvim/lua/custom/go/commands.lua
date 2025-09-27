@@ -1,5 +1,4 @@
 local toggleterm = require('toggleterm')
-local ts_utils = require('nvim-treesitter.ts_utils')
 
 local util = require('util')
 
@@ -37,7 +36,7 @@ vim.api.nvim_create_user_command('GoTag', function(opts)
   end
 
   -- Find nearest struct outside the cursor
-  local struct_node = ts_utils.get_node_at_cursor()
+  local struct_node = vim.treesitter.get_node()
   if struct_node == nil then return end
   while struct_node ~= nil and struct_node:type() ~= 'type_declaration' do
     struct_node = struct_node:parent()

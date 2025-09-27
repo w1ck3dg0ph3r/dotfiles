@@ -84,7 +84,7 @@ end
 ---@return string|function forward repeatable forward movement.
 ---@return string|function backward repeatable backward movement.
 function util.make_repeatable_move(forward, backward)
-  local has_repeat_move, ts_repeat_move = pcall(require, 'nvim-treesitter.textobjects.repeatable_move')
+  local has_repeat_move, repeatable_move = pcall(require, 'nvim-treesitter-textobjects.repeatable_move')
   if not has_repeat_move then
     return forward, backward
   end
@@ -100,7 +100,10 @@ function util.make_repeatable_move(forward, backward)
       vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(keys, true, false, true), 'n', false)
     end
   end
-  return ts_repeat_move.make_repeatable_move_pair(forward, backward)
+  local repeatable = repeatable_move.make_repeatable_move(function(opts)
+    if opts.forward then forward() else backward() end
+  end)
+  return function() repeatable({ forward = true }) end, function() repeatable({ forward = false }) end
 end
 
 ---Returns value in table at path or nil.
