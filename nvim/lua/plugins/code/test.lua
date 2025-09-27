@@ -1,11 +1,12 @@
 return {
   'nvim-neotest/neotest',
+  version = '5',
 
   dependencies = {
-    'nvim-lua/plenary.nvim',
+    { 'andythigpen/nvim-coverage',     branch = 'main' },
+    { 'fredrikaverpil/neotest-golang', version = '2' },
     'nvim-treesitter/nvim-treesitter',
-    'andythigpen/nvim-coverage',
-    'fredrikaverpil/neotest-golang',
+    'nvim-lua/plenary.nvim',
   },
 
   keys = {

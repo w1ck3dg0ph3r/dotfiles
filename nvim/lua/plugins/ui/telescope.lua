@@ -1,9 +1,11 @@
 return {
   'nvim-telescope/telescope.nvim',
+  branch = 'master',
 
   dependencies = {
+    { 'nvim-telescope/telescope-fzf-native.nvim', branch = 'main' },
+    'nvim-treesitter/nvim-treesitter',
     'nvim-lua/plenary.nvim',
-    'nvim-telescope/telescope-fzf-native.nvim',
   },
 
   keys = {

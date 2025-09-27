@@ -42,6 +42,7 @@ end
 
 return {
   'lewis6991/gitsigns.nvim',
+  version = '1',
 
   event = { 'BufNewFile', 'BufReadPost', 'FileReadPost' },
 

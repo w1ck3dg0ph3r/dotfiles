@@ -1,5 +1,6 @@
 return {
   'cbochs/grapple.nvim',
+  version = '*',
 
   config = function()
     local grapple = require('grapple')

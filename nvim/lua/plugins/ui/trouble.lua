@@ -1,7 +1,10 @@
 return {
   'folke/trouble.nvim',
+  version = '3',
 
-  dependencies = { 'nvim-tree/nvim-web-devicons' },
+  dependencies = {
+    'nvim-tree/nvim-web-devicons',
+  },
 
   opts = {
     focus = true,

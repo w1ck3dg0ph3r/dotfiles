@@ -1,16 +1,17 @@
 return {
   'hrsh7th/nvim-cmp',
+  version = '*',
 
   event = 'InsertEnter',
 
   dependencies = {
-    'hrsh7th/cmp-nvim-lsp',
-    'hrsh7th/cmp-buffer',
-    'hrsh7th/cmp-path',
-    'hrsh7th/cmp-cmdline',
-    'saadparwaiz1/cmp_luasnip',
-    { 'L3MON4D3/LuaSnip', build = 'make install_jsregexp' },
-    'rafamadriz/friendly-snippets',
+    { 'hrsh7th/cmp-nvim-lsp',         branch = 'main' },
+    { 'hrsh7th/cmp-buffer',           branch = 'main' },
+    { 'hrsh7th/cmp-path',             branch = 'main' },
+    { 'hrsh7th/cmp-cmdline',          branch = 'main' },
+    { 'saadparwaiz1/cmp_luasnip',     branch = 'master' },
+    { 'L3MON4D3/LuaSnip',             version = '2',    build = 'make install_jsregexp' },
+    { 'rafamadriz/friendly-snippets', branch = 'main' },
   },
 
   config = function()

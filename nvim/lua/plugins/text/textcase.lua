@@ -1,5 +1,6 @@
 return {
   'johmsalas/text-case.nvim',
+  version = '1',
 
   event = { 'BufNewFile', 'BufReadPost', 'FileReadPost' },
 

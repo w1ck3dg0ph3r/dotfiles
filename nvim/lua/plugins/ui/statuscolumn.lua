@@ -1,5 +1,6 @@
 return {
   'luukvbaal/statuscol.nvim',
+  branch = 'main',
 
   event = { 'BufNewFile', 'BufReadPost', 'FileReadPost' },
 

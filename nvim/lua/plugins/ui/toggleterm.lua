@@ -1,5 +1,6 @@
 return {
   'akinsho/toggleterm.nvim',
+  branch = 'main',
 
   keys = { [[<c-\>]] },
 

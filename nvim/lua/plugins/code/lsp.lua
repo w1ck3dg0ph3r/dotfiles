@@ -1,11 +1,12 @@
 return {
   'neovim/nvim-lspconfig',
+  version = '2',
 
   dependencies = {
-    'mason-org/mason.nvim',
-    'mason-org/mason-lspconfig.nvim',
-    'nvim-lua/plenary.nvim',
+    { 'mason-org/mason.nvim',           version = '2' },
+    { 'mason-org/mason-lspconfig.nvim', version = '2' },
     'hrsh7th/cmp-nvim-lsp',
+    'nvim-lua/plenary.nvim',
   },
 
   config = function()

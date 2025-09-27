@@ -1,13 +1,14 @@
 return {
   'mfussenegger/nvim-dap',
+  version = '*',
 
   dependencies = {
-    'rcarriga/nvim-dap-ui',
-    'theHamsta/nvim-dap-virtual-text',
-    'leoluz/nvim-dap-go',
-    'mason-org/mason.nvim',
-    'jay-babu/mason-nvim-dap.nvim',
+    { 'rcarriga/nvim-dap-ui',            branch = 'master' },
+    { 'theHamsta/nvim-dap-virtual-text', branch = 'master' },
+    { 'leoluz/nvim-dap-go',              branch = 'main' },
+    { 'jay-babu/mason-nvim-dap.nvim',    version = '2' },
     'nvim-neotest/nvim-nio',
+    'mason-org/mason.nvim',
   },
 
   event = { 'BufNewFile', 'BufReadPost', 'FileReadPost' },

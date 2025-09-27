@@ -1,5 +1,8 @@
 return {
+  -- TODO: Archived, replace with `folke/snacks.nvim`:
+  -- https://github.com/stevearc/dressing.nvim/issues/190.
   'stevearc/dressing.nvim',
+  branch = 'master',
 
   event = { 'BufNewFile', 'BufReadPost', 'FileReadPost' },
 

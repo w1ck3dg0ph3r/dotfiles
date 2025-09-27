@@ -18,6 +18,25 @@ function M.load_plugin_specs(dir, plugins)
     plugins = {}
   end
 
+  local add_plugin
+  add_plugin = function(spec)
+    local name
+    if spec[1] ~= nil then
+      if type(spec[1]) == 'string' then
+        name = spec[1]
+      elseif type(spec[1] == 'table') then
+        for _, ispec in ipairs(spec) do
+          add_plugin(ispec)
+        end
+      end
+    else
+      name = spec.name
+    end
+    if name ~= nil then
+      plugins[name] = spec
+    end
+  end
+
   for _, fn in pairs(vim.fn.readdir(dir)) do
     local path = dir .. '/' .. fn
     if vim.fn.isdirectory(path) == 1 then
@@ -25,15 +44,7 @@ function M.load_plugin_specs(dir, plugins)
     elseif fn ~= 'init.lua' and vim.fn.filereadable(path) then
       local ok, spec = pcall(dofile, path)
       if ok then
-        local name
-        if spec[1] ~= nil and type(spec[1]) == 'string' then
-          name = spec[1]
-        else
-          name = spec.name
-        end
-        if name ~= nil then
-          plugins[name] = spec
-        end
+        add_plugin(spec)
       end
     end
   end

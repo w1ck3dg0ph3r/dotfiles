@@ -1,5 +1,7 @@
 return {
   'catppuccin/nvim',
+  branch = 'main',
+
   name = 'catppuccin',
 
   lazy = false,

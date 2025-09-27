@@ -1,5 +1,6 @@
 local M = {
   'stevearc/conform.nvim',
+  version = '9',
 
   dependencies = {
     'nvimtools/none-ls.nvim',

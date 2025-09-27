@@ -1,11 +1,10 @@
 return {
   'nvim-treesitter/nvim-treesitter',
-
   branch = 'main',
 
   dependencies = {
-    { 'nvim-treesitter/nvim-treesitter-textobjects', branch = 'main' },
-    'MeanderingProgrammer/treesitter-modules.nvim',
+    { 'nvim-treesitter/nvim-treesitter-textobjects',  branch = 'main' },
+    { 'MeanderingProgrammer/treesitter-modules.nvim', branch = 'main' },
   },
 
   config = function()

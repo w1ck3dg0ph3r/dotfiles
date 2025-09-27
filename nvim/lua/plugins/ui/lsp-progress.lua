@@ -1,5 +1,6 @@
 return {
   'linrongbin16/lsp-progress.nvim',
+  version = '1',
 
   config = function()
     local lspprogres = require('lsp-progress')
