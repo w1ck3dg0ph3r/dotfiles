@@ -2,6 +2,8 @@ return {
   'cbochs/grapple.nvim',
   version = '*',
 
+  event = 'UIEnter',
+
   config = function()
     local grapple = require('grapple')
     grapple.setup({

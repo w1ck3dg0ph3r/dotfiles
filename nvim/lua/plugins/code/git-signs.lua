@@ -1,4 +1,22 @@
-local on_attach = function(bufnr)
+local M = {
+  'lewis6991/gitsigns.nvim',
+  version = '1',
+
+  event = { 'BufNewFile', 'BufReadPost', 'FileReadPost' },
+
+  opts = {
+    signs = {
+      add          = { text = '│' },
+      change       = { text = '│' },
+      delete       = { text = '_' },
+      topdelete    = { text = '‾' },
+      changedelete = { text = '~' },
+      untracked    = { text = '┆' },
+    },
+  },
+}
+
+M.opts.on_attach = function(bufnr)
   local util = require('util')
   local gs = require('gitsigns')
 
@@ -40,21 +58,4 @@ local on_attach = function(bufnr)
   map({ 'o', 'x' }, 'ih', ':<c-u>Gitsigns select_hunk<cr>')
 end
 
-return {
-  'lewis6991/gitsigns.nvim',
-  version = '1',
-
-  event = { 'BufNewFile', 'BufReadPost', 'FileReadPost' },
-
-  opts = {
-    signs = {
-      add          = { text = '│' },
-      change       = { text = '│' },
-      delete       = { text = '_' },
-      topdelete    = { text = '‾' },
-      changedelete = { text = '~' },
-      untracked    = { text = '┆' },
-    },
-    on_attach = on_attach,
-  },
-}
+return M

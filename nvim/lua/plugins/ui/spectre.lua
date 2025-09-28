@@ -2,9 +2,7 @@ return {
   'nvim-pack/nvim-spectre',
   branch = 'master',
 
-  dependencies = {
-    'nvim-lua/plenary.nvim',
-  },
+  keys = { '<leader>S' },
 
   config = function()
     local spectre = require('spectre')

@@ -9,6 +9,8 @@ return {
     'nvim-lua/plenary.nvim',
   },
 
+  event = 'UIEnter',
+
   config = function()
     local mason = require('mason')
     local masonconfig = require('mason-lspconfig')

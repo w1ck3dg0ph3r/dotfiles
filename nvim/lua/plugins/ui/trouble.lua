@@ -2,9 +2,7 @@ return {
   'folke/trouble.nvim',
   version = '3',
 
-  dependencies = {
-    'nvim-tree/nvim-web-devicons',
-  },
+  event = { 'BufNewFile', 'BufReadPost', 'FileReadPost' },
 
   opts = {
     focus = true,

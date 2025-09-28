@@ -3,11 +3,15 @@ local M = {
   version = '9',
 
   dependencies = {
-    'nvimtools/none-ls.nvim',
+    { 'nvimtools/none-ls.nvim', branch = 'main' },
   },
+
+  event = { 'BufNewFile', 'BufReadPost', 'FileReadPost' },
 }
 
-function M.config()
+---@param _ LazyPlugin
+---@param opts conform.setupOpts
+function M.config(_ --[[plugin--]], opts)
   local nullls = require('null-ls')
   nullls.setup({
     timeout_ms = 5000,
@@ -20,8 +24,7 @@ function M.config()
 
   local conform = require('conform')
 
-  ---@type conform.setupOpts
-  local opts = {
+  opts = {
     default_format_opts = {
       lsp_format = 'first',
     },

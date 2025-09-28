@@ -1,11 +1,14 @@
 return {
   'nvim-treesitter/nvim-treesitter',
   branch = 'main',
+  build = ':TSUpdate',
 
   dependencies = {
     { 'nvim-treesitter/nvim-treesitter-textobjects',  branch = 'main' },
     { 'MeanderingProgrammer/treesitter-modules.nvim', branch = 'main' },
   },
+
+  event = 'UIEnter',
 
   config = function()
     require('nvim-treesitter.install').update({ with_sync = true })

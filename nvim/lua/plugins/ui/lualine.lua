@@ -2,12 +2,7 @@ return {
   'nvim-lualine/lualine.nvim',
   branch = 'master',
 
-  dependencies = {
-    'nvim-tree/nvim-web-devicons',
-    'linrongbin16/lsp-progress.nvim',
-  },
-
-  priority = 900,
+  event = 'UIEnter',
 
   opts = {
     options = {

@@ -7,7 +7,6 @@ require('config.nvimrc').extend_plugin_specs(plugin_specs)
 
 require('lazy').setup({
   spec = {
-    { 'Alighorab/stackmap.nvim' },
     vim.tbl_values(plugin_specs),
     require('custom.go'),
     require('custom.cpp'),
