@@ -76,7 +76,7 @@ return {
     })
 
     local select = require('nvim-treesitter-textobjects.select')
-    util.map({ 'x', 'o' }, 'if', function() select.select_textobject('@fuction.inner') end)
+    util.map({ 'x', 'o' }, 'if', function() select.select_textobject('@function.inner') end)
     util.map({ 'x', 'o' }, 'af', function() select.select_textobject('@function.outer') end)
     util.map({ 'x', 'o' }, 'it', function() select.select_textobject('@class.inner') end)
     util.map({ 'x', 'o' }, 'at', function() select.select_textobject('@class.outer') end)
