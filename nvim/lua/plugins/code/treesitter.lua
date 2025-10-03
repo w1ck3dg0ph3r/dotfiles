@@ -4,7 +4,7 @@ return {
   build = ':TSUpdate',
 
   dependencies = {
-    { 'nvim-treesitter/nvim-treesitter-textobjects',  branch = 'main' },
+    { 'w1ck3dg0ph3r/nvim-treesitter-textobjects',  branch = 'main' },
     { 'MeanderingProgrammer/treesitter-modules.nvim', branch = 'main' },
   },
 
@@ -25,11 +25,6 @@ return {
     require('nvim-treesitter-textobjects').setup({
       select = {
         lookahead = true,
-        selection_modes = {
-          ['@function.outer'] = 'V',
-          ['@class.outer'] = 'V',
-          ['@block.outer'] = 'V',
-        },
       },
       move = {
         set_jumps = false,
@@ -106,5 +101,11 @@ return {
     util.map({ 'n', 'x', 'o' }, 'F', repeatable_move.builtin_F_expr, { expr = true })
     util.map({ 'n', 'x', 'o' }, 't', repeatable_move.builtin_t_expr, { expr = true })
     util.map({ 'n', 'x', 'o' }, 'T', repeatable_move.builtin_T_expr, { expr = true })
+
+    vim.api.nvim_create_user_command('TSInspectTree', function()
+      vim.treesitter.inspect_tree({
+        command = '120vnew',
+      })
+    end, {})
   end,
 }
