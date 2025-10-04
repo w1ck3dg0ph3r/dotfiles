@@ -106,6 +106,21 @@ function util.make_repeatable_move(forward, backward)
   return function() repeatable({ forward = true }) end, function() repeatable({ forward = false }) end
 end
 
+---Reads entire file into string.
+---@param path string
+---@return string
+function util.read_file(path)
+  local file = io.open(path, 'r')
+  if file then
+    local content = file:read('*all')
+    file:close()
+    return content
+  else
+    vim.notify("Error: Could not open file " .. path, vim.log.levels.ERROR)
+    return ''
+  end
+end
+
 ---Returns value in table at path or nil.
 ---
 ---Example:

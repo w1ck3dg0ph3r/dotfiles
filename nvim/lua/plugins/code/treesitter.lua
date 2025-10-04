@@ -4,7 +4,7 @@ return {
   build = ':TSUpdate',
 
   dependencies = {
-    { 'w1ck3dg0ph3r/nvim-treesitter-textobjects',  branch = 'main' },
+    { 'w1ck3dg0ph3r/nvim-treesitter-textobjects',     branch = 'main' },
     { 'MeanderingProgrammer/treesitter-modules.nvim', branch = 'main' },
   },
 
@@ -25,6 +25,11 @@ return {
     require('nvim-treesitter-textobjects').setup({
       select = {
         lookahead = true,
+        selection_modes = {
+          ['@function.outer'] = 'v',
+          ['@class.outer'] = 'v',
+          ['@block.outer'] = 'v',
+        },
       },
       move = {
         set_jumps = false,
@@ -69,6 +74,9 @@ return {
         vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
       end
     })
+
+    vim.treesitter.query.set('go', 'textobjects',
+      util.read_file(vim.fn.stdpath('config') .. '/lua/custom/go/textobjects.scm'))
 
     local select = require('nvim-treesitter-textobjects.select')
     util.map({ 'x', 'o' }, 'if', function() select.select_textobject('@function.inner') end)
