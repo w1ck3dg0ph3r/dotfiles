@@ -69,4 +69,4 @@ unset -f append_path
 type -P kubectl &>/dev/null && source <(kubectl completion bash)
 type -P helm &>/dev/null && source <(helm completion bash)
 type -P zoxide &>/dev/null && source <(zoxide init bash)
-type -P tms &>/dev/null && bind '"\C-f":"tms\n"'
+type -P tmux-sessionizer &>/dev/null && bind '"\C-f":"tmux-sessionizer\n"'
