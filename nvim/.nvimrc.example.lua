@@ -1,4 +1,4 @@
-require('config.nvimrc')
+---@module 'config.nvimrc'
 
 ---@type nvimrc.Config
 local cfg = {}
