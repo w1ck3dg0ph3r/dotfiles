@@ -1,3 +1,5 @@
+---@module 'lazy'
+
 local M = {
   'stevearc/conform.nvim',
   version = '9',
@@ -41,7 +43,7 @@ function M.config(_ --[[plugin--]], opts)
       if not vim.tbl_contains(autofmt, vim.bo[buf].filetype) then
         return
       end
-      return { timeout_ms = 500 }
+      return { timeout_ms = 3000 }
     end,
   }
 
