@@ -50,10 +50,14 @@ return {
     ---@diagnostic disable-next-line: missing-fields
     neotest.setup({
       adapters = {
-        require("neotest-golang")({
-          go_test_args = go_args,
-          dap_go_enabled = true,
-        }),
+        require('neotest-golang')(
+        ---@type NeotestGolangOptions
+          {
+            go_test_args = go_args,
+            dap_go_enabled = true,
+            warn_test_name_dupes = false,
+          }
+        ),
       },
     })
 
