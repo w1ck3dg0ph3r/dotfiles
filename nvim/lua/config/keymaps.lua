@@ -100,12 +100,14 @@ end
 
 ---Delete current buffer, preserving window if there are other buffers present.
 function M.delete_buffer()
-  if not M.buf_loaded_n_listed(vim.api.nvim_get_current_buf()) then
+  local current_buf = vim.api.nvim_get_current_buf()
+
+  if not M.normal_buffer(current_buf) then
     vim.cmd('q')
     return
   end
 
-  local bufs = vim.tbl_filter(M.buf_loaded_n_listed, vim.api.nvim_list_bufs())
+  local bufs = vim.tbl_filter(M.normal_buffer, vim.api.nvim_list_bufs())
   local wins = vim.api.nvim_list_wins()
 
   if #wins == 1 then
@@ -118,15 +120,21 @@ function M.delete_buffer()
     if #bufs == 1 then
       vim.cmd('qa')
     else
-      vim.cmd('b#')
-      vim.cmd('bd#')
+      vim.cmd('bp')
+      local previous_buf = vim.api.nvim_get_current_buf()
+      for _, win in ipairs(wins) do
+        if vim.api.nvim_win_get_buf(win) == current_buf then
+          vim.api.nvim_win_set_buf(win, previous_buf)
+        end
+      end
+      vim.api.nvim_buf_delete(current_buf, {})
     end
   end
 end
 
 ---Deletes all buffers not visible in windows on a current tab.
 function M.delete_other_buffers()
-  local bufs = vim.tbl_filter(M.buf_loaded_n_listed, vim.api.nvim_list_bufs())
+  local bufs = vim.tbl_filter(M.normal_buffer, vim.api.nvim_list_bufs())
 
   ---@type integer[]
   local visible_bufs = {}
@@ -160,12 +168,14 @@ function M.symbol_hover()
   vim.lsp.buf.hover()
 end
 
----Returns true if buf is loaded and listed buffer.
+---Returns true if buf is a normal buffer.
 ---@param buf integer
 ---@return boolean
-function M.buf_loaded_n_listed(buf)
+function M.normal_buffer(buf)
   local listed = vim.api.nvim_get_option_value('buflisted', { buf = buf })
-  return vim.api.nvim_buf_is_loaded(buf) and listed
+  local type = vim.api.nvim_get_option_value('buftype', { buf = buf })
+  local hidden = vim.api.nvim_get_option_value('bufhidden', { buf = buf })
+  return vim.api.nvim_buf_is_loaded(buf) and listed and type == '' and hidden == ''
 end
 
 return M
