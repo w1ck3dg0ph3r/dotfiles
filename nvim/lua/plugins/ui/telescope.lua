@@ -99,14 +99,5 @@ return {
     util.map('n', '<leader>si', builtin.lsp_implementations)
     util.map('n', '<leader>sd', builtin.diagnostics)
     util.map('n', '<leader>sD', function() builtin.diagnostics({ bufnr = 0 }) end)
-
-    -- Workaroud for telescope opening files in insert mode
-    vim.api.nvim_create_autocmd('WinLeave', {
-      callback = function()
-        if vim.bo.ft == 'TelescopePrompt' and vim.fn.mode() == 'i' then
-          vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<esc>', true, false, true), 'i', false)
-        end
-      end,
-    })
   end,
 }
