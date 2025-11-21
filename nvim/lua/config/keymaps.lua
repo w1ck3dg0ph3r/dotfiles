@@ -95,7 +95,7 @@ function M.setup()
   util.map('n', '[c', prev_change)
 
   -- LSP hover and DAP eval
-  util.map('n', 'K', M.symbol_hover, { silent = true })
+  util.map({'n', 'v'}, 'K', M.symbol_hover, { silent = true })
 end
 
 ---Delete current buffer, preserving window if there are other buffers present.
