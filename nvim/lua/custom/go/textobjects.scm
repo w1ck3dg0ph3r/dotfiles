@@ -84,10 +84,6 @@
   name: (identifier)
   type: (_)) @parameter.inner
 
-(parameter_declaration
-  name: (identifier)
-  type: (_)) @parameter.inner
-
 (parameter_list
   "," @parameter.outer
   .
