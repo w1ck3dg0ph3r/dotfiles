@@ -63,6 +63,9 @@ return {
       type = 'server',
       host = '127.0.0.1',
       port = 2345,
+      options = {
+        initialize_timeout_sec = 30,
+      },
     }
     table.insert(dap.configurations.go, {
       type = 'go_remote',
