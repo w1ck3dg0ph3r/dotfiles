@@ -1,6 +1,6 @@
 return {
   'linrongbin16/lsp-progress.nvim',
-  version = '1',
+  version = '2',
 
   lazy = true,
 

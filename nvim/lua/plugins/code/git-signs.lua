@@ -1,6 +1,6 @@
 local M = {
   'lewis6991/gitsigns.nvim',
-  version = '1',
+  version = '2',
 
   event = { 'BufNewFile', 'BufReadPost', 'FileReadPost' },
 
