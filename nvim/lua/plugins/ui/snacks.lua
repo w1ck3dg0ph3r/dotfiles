@@ -12,6 +12,7 @@ return {
           vim.api.nvim_feedkeys('', 't', false)
         end,
       }
-    }
+    },
+    picker = {},
   }
 }
