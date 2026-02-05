@@ -15,11 +15,6 @@ return {
     local repeatable_move = require('nvim-treesitter-textobjects.repeatable_move')
     local util = require('util')
 
-    --- @param ctx ts.mod.Context
-    local is_big_file = function(ctx)
-      return vim.b[ctx.buf].big_file
-    end
-
     require('nvim-treesitter').setup()
 
     require('nvim-treesitter-textobjects').setup({
@@ -39,7 +34,6 @@ return {
     require('treesitter-modules').setup({
       incremental_selection = {
         enable = true,
-        disable = is_big_file,
         keymaps = {
           init_selection = '<c-space>',
           node_incremental = '<c-space>',
@@ -53,9 +47,6 @@ return {
       group = vim.api.nvim_create_augroup('treesitter.setup', { clear = true }),
       callback = function(args)
         local buf = args.buf
-        if is_big_file({ buf = buf, language = '' }) then
-          return
-        end
 
         local filetype = args.match
         local language = vim.treesitter.language.get_lang(filetype) or filetype
