@@ -95,62 +95,53 @@ function M.setup()
   util.map('n', '[c', prev_change)
 
   -- LSP hover and DAP eval
-  util.map({'n', 'v'}, 'K', M.symbol_hover, { silent = true })
+  util.map({ 'n', 'v' }, 'K', M.symbol_hover, { silent = true })
 end
 
 ---Delete current buffer, preserving window if there are other buffers present.
 function M.delete_buffer()
   local current_buf = vim.api.nvim_get_current_buf()
 
-  if not M.normal_buffer(current_buf) then
-    vim.cmd('q')
+  if not vim.api.nvim_buf_is_valid(current_buf) then
     return
   end
 
-  local bufs = vim.tbl_filter(M.normal_buffer, vim.api.nvim_list_bufs())
-  local wins = vim.api.nvim_list_wins()
-
-  if #wins == 1 then
-    if #bufs == 1 then
-      vim.cmd('q')
-    else
-      vim.cmd('bd')
-    end
-  else
-    if #bufs == 1 then
-      vim.cmd('qa')
-    else
-      vim.cmd('bp')
-      local previous_buf = vim.api.nvim_get_current_buf()
-      for _, win in ipairs(wins) do
-        if vim.api.nvim_win_get_buf(win) == current_buf then
-          vim.api.nvim_win_set_buf(win, previous_buf)
-        end
-      end
-      vim.api.nvim_buf_delete(current_buf, {})
-    end
+  if not M.is_normal_buffer(current_buf) then
+    vim.cmd('bdelete!')
+    return
   end
+
+  local last_buf = M.last_used_buffer(current_buf)
+  if not last_buf then
+    vim.cmd('qall')
+    return
+  end
+
+  for _, win in ipairs(vim.fn.win_findbuf(current_buf)) do
+    local new_buf = last_buf
+    vim.api.nvim_win_call(win, function()
+      local alt_buf = vim.fn.bufnr("#")
+      if alt_buf >= 0 and alt_buf ~= current_buf and vim.bo[alt_buf].buflisted then
+        new_buf = alt_buf
+      end
+    end)
+    vim.api.nvim_win_set_buf(win, new_buf)
+  end
+  vim.api.nvim_buf_delete(current_buf, {})
 end
 
 ---Deletes all buffers not visible in windows on a current tab.
 function M.delete_other_buffers()
-  local bufs = vim.tbl_filter(M.normal_buffer, vim.api.nvim_list_bufs())
+  local bufs = vim.tbl_filter(M.is_normal_buffer, vim.api.nvim_list_bufs())
 
-  ---@type integer[]
+  ---@type table<integer,boolean>
   local visible_bufs = {}
   for _, win in ipairs(vim.api.nvim_tabpage_list_wins(vim.api.nvim_get_current_tabpage())) do
-    table.insert(visible_bufs, vim.api.nvim_win_get_buf(win))
+    visible_bufs[vim.api.nvim_win_get_buf(win)] = true
   end
 
   for _, buf in ipairs(bufs) do
-    local delete = true
-    for _, visible_buf in ipairs(visible_bufs) do
-      if buf == visible_buf then
-        delete = false
-        break
-      end
-    end
-    if delete then
+    if not visible_bufs[buf] then
       vim.api.nvim_buf_delete(buf, {})
     end
   end
@@ -171,11 +162,26 @@ end
 ---Returns true if buf is a normal buffer.
 ---@param buf integer
 ---@return boolean
-function M.normal_buffer(buf)
+function M.is_normal_buffer(buf)
   local listed = vim.api.nvim_get_option_value('buflisted', { buf = buf })
   local type = vim.api.nvim_get_option_value('buftype', { buf = buf })
   local hidden = vim.api.nvim_get_option_value('bufhidden', { buf = buf })
   return vim.api.nvim_buf_is_loaded(buf) and listed and type == '' and hidden == ''
+end
+
+---Returns last used buffer that is not current_buf.
+---@param current_buf number
+---@return number|nil
+function M.last_used_buffer(current_buf)
+  local bufs = vim.fn.getbufinfo({ buflisted = 1 })
+  ---@param b vim.fn.getbufinfo.ret.item
+  bufs = vim.tbl_filter(function(b)
+    return b.bufnr ~= current_buf and M.is_normal_buffer(b.bufnr)
+  end, bufs)
+  table.sort(bufs, function(a, b)
+    return a.lastused > b.lastused
+  end)
+  return bufs[1] and bufs[1].bufnr or nil
 end
 
 return M
