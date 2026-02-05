@@ -88,6 +88,8 @@ function M.setup()
   local next_spell, prev_spell = util.make_repeatable_move(']s', '[s')
   util.map('n', ']s', next_spell)
   util.map('n', '[s', prev_spell)
+  local picker = require('snacks.picker')
+  util.map('n', 'z=', picker.spelling)
 
   -- Changes
   local next_change, prev_change = util.make_repeatable_move(']c', '[c')
