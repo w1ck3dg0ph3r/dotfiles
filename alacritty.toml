@@ -1,5 +1,6 @@
 [env]
-TERM = "xterm-256color"
+# tic -xe alacritty,alacritty-direct ./alacritty.info
+TERM = "alacritty"
 
 [window]
 decorations = "None"
