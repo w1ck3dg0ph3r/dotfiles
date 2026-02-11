@@ -15,7 +15,6 @@ function M.setup()
 
   -- Fast quitting with <leader> and q/sq
   util.map('n', '<leader>q', '<cmd>q<cr>')
-  util.map('n', '<leader>sq', '<cmd>x<cr>')
 
   -- Use leader + d/c to cut, d and x to delete
   util.map({ 'n', 'v' }, 'd', '"_d')

@@ -77,12 +77,6 @@ vim.diagnostic.config({
     },
   },
 })
--- Telescope still uses those:
-local signs = { Error = '', Warn = '', Info = '', Hint = '' }
-for type, icon in pairs(signs) do
-  local hl = 'DiagnosticSign' .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-end
 
 -- Some hacks
 vim.g.omni_sql_no_default_maps = true -- Disable default sql completion with c-c
