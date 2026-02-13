@@ -58,6 +58,16 @@ return {
             compositeLiteralFields = true,
             parameterNames = true,
           },
+          analyses = {
+            unusedparams = false,
+          },
+        },
+      },
+      capabilities = {
+        workspace = {
+          didChangeWatchedFiles = {
+            dynamicRegistration = true,
+          },
         },
       },
     })
