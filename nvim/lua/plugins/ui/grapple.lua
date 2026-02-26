@@ -4,11 +4,13 @@ return {
 
   event = 'UIEnter',
 
-  config = function()
+  opts = {
+    scope = 'git_branch',
+  },
+
+  config = function(_, opts)
     local grapple = require('grapple')
-    grapple.setup({
-      scope = 'git_branch',
-    });
+    grapple.setup(opts);
 
     local util = require('util')
     util.map('n', 'mm', grapple.toggle_tags)
