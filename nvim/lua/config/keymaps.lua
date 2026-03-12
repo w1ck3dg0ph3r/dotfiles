@@ -78,6 +78,9 @@ function M.setup()
   util.map('n', '<leader>df', vim.diagnostic.open_float)
   util.map('n', '<leader>dl', vim.diagnostic.setloclist)
 
+  -- Inlay hints
+  util.map('n', '<leader>i', function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end)
+
   -- Folds
   local next_fold, prev_fold = util.make_repeatable_move('zj', 'zk')
   util.map('n', ']z', next_fold)
