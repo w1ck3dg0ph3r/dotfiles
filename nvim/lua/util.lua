@@ -52,7 +52,7 @@ function util.remap(modes, lhs, rhs, opts)
 end
 
 function util.delmap(modes, lhs, opts)
-  vim.keymap.del(modes, lhs, opts)
+  pcall(vim.keymap.del, modes, lhs, opts)
 end
 
 function util.pushmap(name, mode, mappings)
