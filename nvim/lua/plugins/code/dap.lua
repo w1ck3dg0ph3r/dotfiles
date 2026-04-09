@@ -7,8 +7,6 @@ return {
     { 'theHamsta/nvim-dap-virtual-text', branch = 'master' },
     { 'leoluz/nvim-dap-go',              branch = 'main' },
     { 'jay-babu/mason-nvim-dap.nvim',    version = '2' },
-    'nvim-neotest/nvim-nio',
-    'mason-org/mason.nvim',
   },
 
   event = { 'BufNewFile', 'BufReadPost', 'FileReadPost' },

@@ -15,4 +15,4 @@ require('lazy').setup({
 })
 
 require('config.keymaps').setup()
-require('config.autocmds').setup()
+require('config.commands').setup()

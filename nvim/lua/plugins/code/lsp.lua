@@ -5,8 +5,6 @@ return {
   dependencies = {
     { 'mason-org/mason.nvim',           version = '2' },
     { 'mason-org/mason-lspconfig.nvim', version = '2' },
-    'hrsh7th/cmp-nvim-lsp',
-    'nvim-lua/plenary.nvim',
   },
 
   event = 'UIEnter',
@@ -87,6 +85,17 @@ return {
         local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
         local bufopts = { noremap = true, silent = true, buffer = args.buf }
         local has_trouble, _ = pcall(require, 'trouble')
+
+        -- Remove default keymaps (see `:h lsp-defaults`).
+        util.delmap('n', 'gra')
+        util.delmap('n', 'gri')
+        util.delmap('n', 'grn')
+        util.delmap('n', 'grr')
+        util.delmap('n', 'grt')
+        util.delmap('n', 'grx')
+        util.delmap('n', 'gO')
+        util.delmap('n', 'gx')
+        util.delmap('i', '<c-s>')
 
         util.map('n', 'gD', vim.lsp.buf.declaration, bufopts)
         util.map('n', 'gd', vim.lsp.buf.definition, bufopts)

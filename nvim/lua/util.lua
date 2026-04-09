@@ -1,16 +1,5 @@
 local util = {}
 
----@class util.keymap.opts
----@field noremap? boolean
----@field nowait? boolean
----@field silent? boolean
----@field script? boolean
----@field expr? boolean
----@field unique? boolean
----@field callback? function
----@field desc? string
----@field replace_keycodes? boolean
-
 ---Sets keymap using |vim.keymap.set|.
 ---@param modes string|string[] Mode "short-name" (see |nvim_set_keymap()|), or a list thereof.
 ---@param lhs string Left-hand side |{lhs}| of the mapping.
@@ -40,6 +29,22 @@ end
 ---@param opts? vim.keymap.set.Opts
 function util.map(modes, lhs, rhs, opts)
   keymap(modes, lhs, rhs, opts, {
+    noremap = true,
+    silent = true,
+  })
+end
+
+---Defines a buffer local |mapping| of |keycodes| to a function or keycodes.
+---Default opts is { noremap = true, silent = true }.
+---
+---@param buf integer Buffer number.
+---@param modes string|string[] Mode "short-name" (see |nvim_set_keymap()|), or a list thereof.
+---@param lhs string Left-hand side |{lhs}| of the mapping.
+---@param rhs string|function Right-hand side |{rhs}| of the mapping, can be a Lua function.
+---@param opts? vim.keymap.set.Opts
+function util.bufmap(buf, modes, lhs, rhs, opts)
+  keymap(modes, lhs, rhs, opts, {
+    buf = buf,
     noremap = true,
     silent = true,
   })

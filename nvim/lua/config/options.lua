@@ -14,8 +14,9 @@ vim.opt.swapfile = false
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.clipboard = 'unnamedplus'
-vim.opt.completeopt = { 'menuone', 'noselect' }
 vim.opt.formatoptions = 'cronjq'
+require('vim._core.ui2').enable({})
+vim.opt.shortmess:append('I')
 
 -- Leader
 vim.keymap.set('n', '<space>', '<nop>')
@@ -56,6 +57,10 @@ vim.opt.fillchars:append({ eob = ' ' })
 vim.opt.foldlevel = 99
 vim.opt.foldnestmax = 10
 vim.opt.foldcolumn = '1'
+
+-- Completion
+vim.opt.completeopt = { 'menu', 'menuone', 'noselect', 'popup' }
+-- vim.o.autocomplete = true
 
 -- Spelling
 vim.opt.spellfile = {

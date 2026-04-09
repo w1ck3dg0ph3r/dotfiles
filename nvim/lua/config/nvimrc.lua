@@ -38,7 +38,7 @@ function nvimrc.config()
   nvimrc_config = {}
 
   local nvimrc_paths = vim.fn.findfile('.nvimrc.lua', '.;', -1)
-  if nvimrc_paths == nil or next(nvimrc_paths) == nil then
+  if nvimrc_paths == nil or #nvimrc_paths == 0 then
     return nvimrc_config
   end
 
@@ -73,10 +73,15 @@ function nvimrc.extend_plugin_specs(plugin_specs)
 
   for _, spec in pairs(cfg.plugins) do
     local name = spec[1]
+    local extend = spec[2]
     if name ~= nil and type(name) == 'string' then
       if plugin_specs[name] ~= nil then
         -- print('extending plugin ' .. name .. ' with:\n' .. vim.inspect(spec))
-        plugin_specs[name] = vim.tbl_deep_extend('force', plugin_specs[name], spec)
+        if extend ~= nil and type(extend) == 'function' then
+          plugin_specs[name] = extend(plugin_specs[name])
+        else
+          plugin_specs[name] = vim.tbl_deep_extend('force', plugin_specs[name], spec)
+        end
       end
     end
   end

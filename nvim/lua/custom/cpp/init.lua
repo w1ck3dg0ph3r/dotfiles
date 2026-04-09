@@ -1,9 +1,6 @@
 return {
   dir = require('util').script_dir(),
   name = 'custom-cpp',
-  dependencies = {
-    'L3MON4D3/LuaSnip',
-  },
   ft = 'cpp',
   config = function()
     local luasnip = require('luasnip')

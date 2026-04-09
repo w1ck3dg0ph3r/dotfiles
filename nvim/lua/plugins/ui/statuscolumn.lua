@@ -12,9 +12,12 @@ return {
       relculright = true,
 
       ft_ignore = {
-        'alpha',
-        'NvimTree',
+        'cmd',
+        'msg',
+        'pager',
+        'dialog',
         'help',
+        'alpha',
         'Trouble',
         'dapui_watches',
         'dapui_stacks',
@@ -25,7 +28,9 @@ return {
         'neotest-output',
         'neotest-output-panel',
       },
-      bt_ignore = { 'terminal' },
+      bt_ignore = {
+        'terminal'
+      },
 
       segments = {
         { text = { builtin.foldfunc }, click = 'v:lua.ScFa' },
