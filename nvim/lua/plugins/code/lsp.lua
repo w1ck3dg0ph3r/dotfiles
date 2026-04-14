@@ -83,7 +83,7 @@ return {
       callback = function(args)
         local util = require('util')
         local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
-        local bufopts = { noremap = true, silent = true, buffer = args.buf }
+        local buf = args.buf
         local has_trouble, _ = pcall(require, 'trouble')
 
         -- Remove default keymaps (see `:h lsp-defaults`).
@@ -97,17 +97,17 @@ return {
         util.delmap('n', 'gx')
         util.delmap('i', '<c-s>')
 
-        util.map('n', 'gD', vim.lsp.buf.declaration, bufopts)
-        util.map('n', 'gd', vim.lsp.buf.definition, bufopts)
-        -- util.map('n', 'K', vim.lsp.buf.hover, bufopts) -- Defined in keymap.lua
+        util.map('n', 'gD', vim.lsp.buf.declaration, { buf = buf, desc = 'LSP: Goto declaration' })
+        util.map('n', 'gd', vim.lsp.buf.definition, { buf = buf, desc = 'LSP: Goto definition' })
+        -- util.map('n', 'K', vim.lsp.buf.hover, { buf = buf, desc = 'LSP: Hover' }) -- Defined in keymap.lua
         if not has_trouble then
-          util.map('n', 'gr', vim.lsp.buf.references, bufopts)
-          util.map('n', 'gi', vim.lsp.buf.implementation, bufopts)
+          util.map('n', 'gr', vim.lsp.buf.references, { buf = buf, desc = 'LSP: Goto references' })
+          util.map('n', 'gi', vim.lsp.buf.implementation, { buf = buf, desc = 'LSP Goto implementation' })
         end
-        util.map('i', '<c-k>', vim.lsp.buf.signature_help, bufopts)
-        util.map('n', '<leader>T', vim.lsp.buf.type_definition, bufopts)
-        util.map('n', '<leader>R', vim.lsp.buf.rename, bufopts)
-        util.map('n', '<leader>ac', vim.lsp.buf.code_action, bufopts)
+        util.map('i', '<c-k>', vim.lsp.buf.signature_help, { buf = buf, desc = 'LSP: Show signature help' })
+        util.map('n', '<leader>T', vim.lsp.buf.type_definition, { buf = buf, desc = 'LSP: Goto type definition' })
+        util.map('n', '<leader>R', vim.lsp.buf.rename, { buf = buf, desc = 'LSP: Rename' })
+        util.map('n', '<leader>ac', vim.lsp.buf.code_action, { buf = buf, desc = 'LSP: Code action' })
 
         if client:supports_method('textDocument/foldingRange') then
           local win = vim.api.nvim_get_current_win()
@@ -115,7 +115,7 @@ return {
         end
 
         if client.name == 'clangd' then
-          util.map('n', '<f4>', ':LspClangdSwitchSourceHeader<cr>')
+          util.map('n', '<f4>', ':LspClangdSwitchSourceHeader<cr>', { buf = buf, desc = 'LSP: Switch between source/header files' })
         end
       end,
     })

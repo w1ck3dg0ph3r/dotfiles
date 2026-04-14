@@ -8,13 +8,13 @@ function M.setup()
   util.map('i', '<c-c>', '<esc>')
 
   -- Clear search highlighting with <leader> and c
-  util.map('n', '<leader>c', '<cmd>nohl<cr>')
+  util.map('n', '<leader>c', '<cmd>nohl<cr>', { desc = 'Clear highlighting' })
 
   -- Fast saving with <leader> and s
-  util.map('n', '<leader>s', '<cmd>w<cr>')
+  util.map('n', '<leader>s', '<cmd>w<cr>', { desc = 'Write' })
 
   -- Fast quitting with <leader> and q/sq
-  util.map('n', '<leader>q', '<cmd>q<cr>')
+  util.map('n', '<leader>q', '<cmd>q<cr>', { desc = 'Quit' })
 
   -- Use leader + d/c to cut, d and x to delete
   util.map({ 'n', 'v' }, 'd', '"_d')
@@ -36,26 +36,26 @@ function M.setup()
   -- Make paste in visual mode not yank replaced text
   util.map('v', 'p', 'P')
 
-  -- Move around splits using Ctrl + {h,j,k,l}
-  util.map('n', '<c-h>', '<c-w>h')
-  util.map('n', '<c-j>', '<c-w>j')
-  util.map('n', '<c-k>', '<c-w>k')
-  util.map('n', '<c-l>', '<c-w>l')
+  -- Move around windows using Ctrl + {h,j,k,l}
+  util.map('n', '<c-h>', '<c-w>h', { desc = 'Move left' })
+  util.map('n', '<c-j>', '<c-w>j', { desc = 'Move down' })
+  util.map('n', '<c-k>', '<c-w>k', { desc = 'Move up' })
+  util.map('n', '<c-l>', '<c-w>l', { desc = 'Move right' })
 
   -- Buffers
-  util.map('n', '<a-h>', '<cmd>bp<cr>')
-  util.map('n', '<a-g>', '<cmd>b#<cr>')
-  util.map('n', '<a-l>', '<cmd>bn<cr>')
-  util.map('n', '<leader>w', M.delete_buffer)
-  util.map('n', '<leader>o', M.delete_other_buffers)
+  util.map('n', '<a-h>', '<cmd>bp<cr>', { desc = 'Previous buffer' })
+  util.map('n', '<a-g>', '<cmd>b#<cr>', { desc = 'Alternate buffer' })
+  util.map('n', '<a-l>', '<cmd>bn<cr>', { desc = 'Next buffer' })
+  util.map('n', '<leader>w', M.delete_buffer, { desc = 'Delete buffer' })
+  util.map('n', '<leader>o', M.delete_other_buffers, { desc = 'Delete other buffers' })
 
   -- Move lines around
-  util.map('n', '<a-j>', '<cmd>m .+1<cr>==')
-  util.map('n', '<a-k>', '<cmd>m .-2<cr>==')
-  util.map('i', '<a-j>', '<esc><cmd>m .+1<cr>==gi')
-  util.map('i', '<a-k>', '<esc><cmd>m .-2<cr>==gi')
-  util.map('v', '<a-j>', ':m \'>+1<cr>gv=gv')
-  util.map('v', '<a-k>', ':m \'<-2<cr>gv=gv')
+  util.map('n', '<a-j>', '<cmd>m .+1<cr>==', { desc = 'Move lines down' })
+  util.map('n', '<a-k>', '<cmd>m .-2<cr>==', { desc = 'Move lines up' })
+  util.map('i', '<a-j>', '<esc><cmd>m .+1<cr>==gi', { desc = 'Move lines down' })
+  util.map('i', '<a-k>', '<esc><cmd>m .-2<cr>==gi', { desc = 'Move lines up' })
+  util.map('v', '<a-j>', ':m \'>+1<cr>gv=gv', { desc = 'Move lines down' })
+  util.map('v', '<a-k>', ':m \'<-2<cr>gv=gv', { desc = 'Move lines up' })
 
   -- Keep jumps when navigating
   util.map('n', '{', '<cmd>keepjumps norm! {<cr>')
@@ -73,33 +73,35 @@ function M.setup()
     function() vim.diagnostic.jump({ count = 1 }) end,
     function() vim.diagnostic.jump({ count = -1 }) end
   )
-  util.map('n', ']d', next_diagnostic)
-  util.map('n', '[d', prev_diagnostic)
-  util.map('n', '<leader>df', vim.diagnostic.open_float)
-  util.map('n', '<leader>dl', vim.diagnostic.setloclist)
+  util.map('n', ']d', next_diagnostic, { desc = 'Next diagnostic' })
+  util.map('n', '[d', prev_diagnostic, { desc = 'Previous diagnostic' })
+  util.map('n', '<leader>df', vim.diagnostic.open_float, { desc = 'Open diagnostic float' })
+  util.map('n', '<leader>dl', vim.diagnostic.setqflist, { desc = 'Open diagnostics quickfix list' })
 
   -- Inlay hints
-  util.map('n', '<leader>i', function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end)
+  util.map('n', '<leader>i', function()
+    vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+  end, { desc = 'Toogle inline hints' })
 
   -- Folds
   local next_fold, prev_fold = util.make_repeatable_move('zj', 'zk')
-  util.map('n', ']z', next_fold)
-  util.map('n', '[z', prev_fold)
+  util.map('n', ']z', next_fold, { desc = 'Next fold' })
+  util.map('n', '[z', prev_fold, { desc = 'Previous fold' })
 
   -- Spelling
   local next_spell, prev_spell = util.make_repeatable_move(']s', '[s')
-  util.map('n', ']s', next_spell)
-  util.map('n', '[s', prev_spell)
+  util.map('n', ']s', next_spell, { desc = 'Next spelling error' })
+  util.map('n', '[s', prev_spell, { desc = 'Previous spelling error' })
   local picker = require('snacks.picker')
-  util.map('n', 'z=', picker.spelling)
+  util.map('n', 'z=', picker.spelling, { desc = 'Choose spelling correction' })
 
   -- Changes
   local next_change, prev_change = util.make_repeatable_move(']c', '[c')
-  util.map('n', ']c', next_change)
-  util.map('n', '[c', prev_change)
+  util.map('n', ']c', next_change, { desc = 'Next change' })
+  util.map('n', '[c', prev_change, { desc = 'Previous change' })
 
   -- LSP hover and DAP eval
-  util.map({ 'n', 'v' }, 'K', M.symbol_hover, { silent = true })
+  util.map({ 'n', 'v' }, 'K', M.symbol_hover, { silent = true, desc = 'Symbol hover (LSP or DAP)' })
 end
 
 ---Delete current buffer, preserving window if there are other buffers present.

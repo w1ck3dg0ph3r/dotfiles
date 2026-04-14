@@ -16,11 +16,11 @@ return {
         ['send_to_qf'] = {
           map = "<leader>f",
           cmd = "<cmd>lua require('spectre.actions').send_to_qf(); require('spectre').toggle()<cr>",
-          desc = "send all items to quickfix"
+          desc = "Send all items to quickfix"
         },
       },
       use_trouble_qf = has_trouble,
     })
-    util.map('n', '<leader>S', function() spectre.toggle() end)
+    util.map('n', '<leader>S', function() spectre.toggle() end, { desc = 'Spectre' })
   end,
 }

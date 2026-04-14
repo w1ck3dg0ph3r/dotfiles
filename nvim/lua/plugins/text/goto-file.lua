@@ -19,7 +19,7 @@ return {
     gf.setup(opts)
 
     local util = require('util')
-    util.map('n', 'gf', gf.goto_file)
-    util.map('n', 'gF', gf.goto_file_range)
+    util.map('n', 'gf', gf.goto_file, { desc = 'Goto file' })
+    util.map('n', 'gF', gf.goto_file_range, { desc = 'Goto file range' })
   end,
 }

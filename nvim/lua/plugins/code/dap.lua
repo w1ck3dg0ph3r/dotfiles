@@ -98,24 +98,23 @@ return {
     -- <s-f1>..<s-f12> : <f13>..<f24>
     -- <c-f1>..<c-f12> : <f25>..<f36>
     -- <c-s-f1>..<c-s-f12> : <f37>..<f48>
-    util.map('n', '<f8>', dap.continue)
-    util.map('n', '<f32>', function() require('dap-go').debug_test() end)
-    util.map('n', '<f5>', dap.toggle_breakpoint)
+    util.map('n', '<f8>', dap.continue, { desc = 'Debug: Continue' })
+    util.map('n', '<f5>', dap.toggle_breakpoint, { desc = 'Debug: Toggle breakpoint' })
     util.map('n', '<f17>', function()
       vim.ui.input({ prompt = 'Breakpoint Condition' }, function(cond)
         if cond ~= nil then
           dap.set_breakpoint(cond)
         end
       end)
-    end)
+    end, { desc = 'Debug: Set conditional breakpoint' })
     util.map('n', '<f29>', function()
       vim.ui.input({ prompt = 'Breakpoint Message' }, function(msg)
         if msg ~= nil then
           dap.set_breakpoint(nil, nil, msg)
         end
       end)
-    end)
-    util.map('n', '<leader>dr', function() dapui.toggle({ layout = layouts.repl }) end)
+    end, { desc = 'Debug: Set logpoint' })
+    util.map('n', '<leader>dr', function() dapui.toggle({ layout = layouts.repl }) end, { desc = 'Debug: Toggle repl' })
     util.map('n', '<leader>du', function()
       dapui.toggle({ layout = layouts.sidebar })
       if require('dapui.windows').layouts[layouts.sidebar]:is_open() then
@@ -123,7 +122,7 @@ return {
       else
         dapui.close({ layout = layouts.repl })
       end
-    end)
+    end, { desc = 'Debug: Toggle UI' })
 
     local float_opts = {
       width = 80,
@@ -133,33 +132,34 @@ return {
     }
     util.map('n', '<leader>db', function()
       dapui.float_element('breakpoints', float_opts)
-    end)
+    end, { desc = 'Debug: Show breakpoints' })
     util.map('n', '<leader>dw', function()
       dapui.float_element('watches', float_opts)
-    end)
+    end, { desc = 'Debug: Show watches' })
     util.map('n', '<leader>ds', function()
       dapui.float_element('stacks', float_opts)
-    end)
+    end, { desc = 'Debug: Show stacks' })
 
     dap.listeners.after.event_initialized['dapui_config'] = function()
       dapui.open({ layout = layouts.repl })
 
       util.pushmap('debug_mode', 'n', {
-        { '<f26>', dap.terminate },
-        { '<f14>', dap.disconnect },
-        { '<f38>', dap.restart },
-        { '<f7>',  dap.step_over },
-        { '<f6>',  dap.step_into },
-        { '<f18>', dap.step_out },
-        { '<f4>',  dap.run_to_cursor },
-        -- { 'K',     dapui.eval }, -- Defined in keymap.lua
+        { '<f26>', dap.terminate,     { desc = 'Debug: Terminate' } },
+        { '<f14>', dap.disconnect,    { desc = 'Debug: Disconnect' } },
+        { '<f38>', dap.restart,       { desc = 'Debug: Restart' } },
+        { '<f7>',  dap.step_over,     { desc = 'Debug: Step over' } },
+        { '<f6>',  dap.step_into,     { desc = 'Debug: Step into' } },
+        { '<f18>', dap.step_out,      { desc = 'Debug: Step out' } },
+        { '<f4>',  dap.run_to_cursor, { desc = 'Debug: Run to cursor' } },
+        -- { 'K',     dapui.eval,        { desc = 'Debug: Eval hover' } }, -- Defined in keymap.lua
         { '<leader>dc',
           function()
             vim.ui.input({ prompt = 'Eval: ' }, function(input)
               if input == nil or input == '' then return end
               dapui.eval(input)
             end)
-          end
+          end,
+          { desc = 'Debug: Eval' },
         },
       })
     end

@@ -67,7 +67,7 @@ return {
     telescope.setup(opts)
     local builtin = require('telescope.builtin')
 
-    util.map('n', '<leader>sc', function() builtin.commands() end)
+    util.map('n', '<leader>sc', function() builtin.commands() end, { desc = 'Search: Commands' })
     util.map('n', '<leader>sb', function()
       builtin.buffers(vim.tbl_extend('force', themes.get_dropdown({
         layout_config = {
@@ -79,25 +79,27 @@ return {
         show_all_buffers = false,
         ignore_current_buffer = true,
       }))
-    end)
-    util.map('n', '<leader>sh', builtin.help_tags)
-    util.map('n', '<leader>sf', function() builtin.find_files({ hidden = true }) end)
-    util.map('n', '<leader>sg', builtin.live_grep)
-    util.map('n', '<leader>ss', builtin.current_buffer_fuzzy_find)
+    end, { desc = 'Search: Buffers' })
+    util.map('n', '<leader>sh', builtin.help_tags, { desc = 'Search: Help tags' })
+    util.map('n', '<leader>sf', function() builtin.find_files({ hidden = true }) end, { desc = 'Search: Files' })
+    util.map('n', '<leader>sg', builtin.live_grep, { desc = 'Search: Grep workspace' })
+    util.map('n', '<leader>ss', builtin.current_buffer_fuzzy_find, { desc = 'Search: Grep file' })
     util.map('n', '<leader>so', function()
       builtin.lsp_document_symbols({
         ignore_symbols = { 'field', 'enummember' },
         symbol_width = 60,
         symbol_type_width = 8,
       })
-    end)
-    util.map('n', '<leader>st', builtin.lsp_dynamic_workspace_symbols)
-    util.map('n', '<leader>sw', function() builtin.lsp_workspace_symbols({ query = vim.fn.input('Query: ') }) end)
-    util.map('n', '<leader>sr', builtin.lsp_references)
-    util.map('n', '<leader>sci', builtin.lsp_incoming_calls)
-    util.map('n', '<leader>sco', builtin.lsp_outgoing_calls)
-    util.map('n', '<leader>si', builtin.lsp_implementations)
-    util.map('n', '<leader>sd', builtin.diagnostics)
-    util.map('n', '<leader>sD', function() builtin.diagnostics({ bufnr = 0 }) end)
+    end, { desc = 'Search: Document symbols' })
+    util.map('n', '<leader>st', builtin.lsp_dynamic_workspace_symbols, { desc = 'Search: Workspace symbols' })
+    util.map('n', '<leader>sw', function()
+      builtin.lsp_workspace_symbols({ query = vim.fn.input('Query: ') })
+    end, { desc = 'Search: Query workspace symbols' })
+    util.map('n', '<leader>sr', builtin.lsp_references, { desc = 'Search: References' })
+    util.map('n', '<leader>sci', builtin.lsp_incoming_calls, { desc = 'Search: Incoming calls' })
+    util.map('n', '<leader>sco', builtin.lsp_outgoing_calls, { desc = 'Search: Outgoing calls' })
+    util.map('n', '<leader>si', builtin.lsp_implementations, { desc = 'Search: Implementations' })
+    util.map('n', '<leader>sd', builtin.diagnostics, { desc = 'Search: Diagnostics' })
+    util.map('n', '<leader>sD', function() builtin.diagnostics({ bufnr = 0 }) end, { desc = 'Search: File diagnostics' })
   end,
 }

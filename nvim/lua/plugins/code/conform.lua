@@ -45,7 +45,8 @@ function M.config(_ --[[plugin--]], opts)
   conform.setup(opts)
 
   local util = require('util')
-  util.map({ 'n', 'v' }, '<leader>f', function() conform.format({ async = true }) end)
+  util.map('n', '<leader>f', function() conform.format({ async = true }) end, { desc = 'Format file' })
+  util.map('v', '<leader>f', function() conform.format({ async = true }) end, { desc = 'Format selection' })
 end
 
 return M

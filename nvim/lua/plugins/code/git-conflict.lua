@@ -52,12 +52,12 @@ end
 function M.create_buffer_local_mappings(bufnr)
   local util = require('util')
   local gc = require('git-conflict')
-  util.map('n', 'co', function() gc.choose('ours') end, { buffer = bufnr })
-  util.map('n', 'ct', function() gc.choose('theirs') end, { buffer = bufnr })
-  util.map('n', 'c0', function() gc.choose('none') end, { buffer = bufnr })
-  util.map('n', 'cb', function() gc.choose('both') end, { buffer = bufnr })
-  util.map('n', ']x', M.next_conflict, { buffer = bufnr })
-  util.map('n', '[x', M.prev_conflict, { buffer = bufnr })
+  util.map('n', 'co', function() gc.choose('ours') end, { buffer = bufnr, desc = 'Conflict: Choose ours' })
+  util.map('n', 'ct', function() gc.choose('theirs') end, { buffer = bufnr, desc = 'Conflict: Choose theirs' })
+  util.map('n', 'c0', function() gc.choose('none') end, { buffer = bufnr, desc = 'Conflict: Choose none' })
+  util.map('n', 'cb', function() gc.choose('both') end, { buffer = bufnr, desc = 'Conflict: Choose both' })
+  util.map('n', ']x', M.next_conflict, { buffer = bufnr, desc = 'Conflict: Next' })
+  util.map('n', '[x', M.prev_conflict, { buffer = bufnr, desc = 'Conflict: Previous' })
 end
 
 ---Clears mappings for bufnr.

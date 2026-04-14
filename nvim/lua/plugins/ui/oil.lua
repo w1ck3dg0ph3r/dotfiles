@@ -31,7 +31,7 @@ return {
       },
     })
 
-    util.map('n', '-', oil.open)
-    util.map('n', '=', function() oil.open(vim.fn.getcwd()) end)
+    util.map('n', '-', oil.open, { desc = 'Oil: Open' })
+    util.map('n', '=', function() oil.open(vim.fn.getcwd()) end, { desc = 'Oil: Open root' })
   end,
 }

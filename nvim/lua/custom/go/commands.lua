@@ -15,7 +15,7 @@ vim.api.nvim_create_user_command('GoRun', function(opts)
 end, {
   nargs = '?',
 })
-util.map('n', '<f9>', '<cmd>GoRun<cr>')
+util.map('n', '<f9>', '<cmd>GoRun<cr>', { desc = 'Run go file' })
 
 vim.api.nvim_create_user_command('GoTest', function(opts)
   pcall(function() vim.cmd('wa') end)
