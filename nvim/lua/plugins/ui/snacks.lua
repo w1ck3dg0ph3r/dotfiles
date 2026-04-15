@@ -8,8 +8,12 @@ return {
       win = {
         position = 'float',
         relative = 'cursor',
-        on_buf = function()
-          vim.api.nvim_feedkeys('_', 'n', false)
+        enter = true,
+        on_buf = function(self)
+          local title = self.opts.title and self.opts.title[1] and self.opts.title[1][1] or ''
+          if title == ' New Name' then
+            vim.api.nvim_feedkeys('_', 'n', false)
+          end
         end,
       }
     },

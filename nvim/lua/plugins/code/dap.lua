@@ -1,48 +1,19 @@
 return {
   'mfussenegger/nvim-dap',
-  version = '*',
+  -- version = '*', -- Switch to master for now, last tag was over a year ago.
+  branck = 'master',
 
   dependencies = {
-    { 'rcarriga/nvim-dap-ui',            branch = 'master' },
-    { 'theHamsta/nvim-dap-virtual-text', branch = 'master' },
-    { 'leoluz/nvim-dap-go',              branch = 'main' },
-    { 'jay-babu/mason-nvim-dap.nvim',    version = '2' },
+    { 'leoluz/nvim-dap-go',           branch = 'main' },
+    { 'jay-babu/mason-nvim-dap.nvim', version = '2' },
+    { 'igorlfs/nvim-dap-view',        version = '1' },
   },
 
   event = { 'BufNewFile', 'BufReadPost', 'FileReadPost' },
 
   config = function()
     local util = require('util')
-    local dap, dapui = require('dap'), require('dapui')
-
-    local layouts = {
-      sidebar = 1,
-      repl = 2,
-    }
-
-    ---@diagnostic disable-next-line: missing-fields
-    dapui.setup({
-      layouts = {
-        {
-          position = 'left',
-          size = 75,
-          elements = {
-            { id = 'scopes',  size = 0.5 },
-            { id = 'watches', size = 0.25 },
-            { id = 'stacks',  size = 0.25 },
-          },
-        },
-        {
-          position = 'bottom',
-          size = 16,
-          elements = {
-            { id = 'repl', size = 1 },
-          },
-        },
-      },
-    })
-
-    require('nvim-dap-virtual-text').setup({ enabled = false })
+    local dap = require('dap')
 
     require('mason-nvim-dap').setup({
       ensure_installed = {},
@@ -114,35 +85,32 @@ return {
         end
       end)
     end, { desc = 'Debug: Set logpoint' })
-    util.map('n', '<leader>dr', function() dapui.toggle({ layout = layouts.repl }) end, { desc = 'Debug: Toggle repl' })
-    util.map('n', '<leader>du', function()
-      dapui.toggle({ layout = layouts.sidebar })
-      if require('dapui.windows').layouts[layouts.sidebar]:is_open() then
-        dapui.open({ layout = layouts.repl })
-      else
-        dapui.close({ layout = layouts.repl })
-      end
-    end, { desc = 'Debug: Toggle UI' })
 
-    local float_opts = {
-      width = 80,
-      height = 40,
-      enter = true,
-      position = 'center',
-    }
-    util.map('n', '<leader>db', function()
-      dapui.float_element('breakpoints', float_opts)
-    end, { desc = 'Debug: Show breakpoints' })
-    util.map('n', '<leader>dw', function()
-      dapui.float_element('watches', float_opts)
-    end, { desc = 'Debug: Show watches' })
-    util.map('n', '<leader>ds', function()
-      dapui.float_element('stacks', float_opts)
-    end, { desc = 'Debug: Show stacks' })
+    local view = require('dap-view')
+    view.setup({
+      winbar = {
+        show = true,
+        sections = { 'scopes', 'watches', 'exceptions', 'breakpoints', 'threads', 'repl' },
+        default_section = 'scopes',
+        controls = { enabled = true },
+      },
+      windows = { size = 0.4, position = 'right' },
+      virtual_text = { enabled = false },
+    })
+
+    ---@param what dapview.Section
+    local view_open = function(what)
+      view.open()
+      view.jump_to_view(what)
+    end
+
+    util.map('n', '<leader>du', view.toggle, { desc = 'Debug: Toggle UI' })
+    util.map('n', '<leader>dw', function() view_open('watches') end, { desc = 'Debug: Show watches' })
+    util.map('n', '<leader>db', function() view_open('breakpoints') end, { desc = 'Debug: Show breakpoints' })
+    util.map('n', '<leader>dr', function() view_open('repl') end, { desc = 'Debug: Show repl' })
 
     dap.listeners.after.event_initialized['dapui_config'] = function()
-      dapui.open({ layout = layouts.repl })
-
+      view.open()
       util.pushmap('debug_mode', 'n', {
         { '<f26>', dap.terminate,     { desc = 'Debug: Terminate' } },
         { '<f14>', dap.disconnect,    { desc = 'Debug: Disconnect' } },
@@ -151,23 +119,11 @@ return {
         { '<f6>',  dap.step_into,     { desc = 'Debug: Step into' } },
         { '<f18>', dap.step_out,      { desc = 'Debug: Step out' } },
         { '<f4>',  dap.run_to_cursor, { desc = 'Debug: Run to cursor' } },
-        -- { 'K',     dapui.eval,        { desc = 'Debug: Eval hover' } }, -- Defined in keymap.lua
-        { '<leader>dc',
-          function()
-            vim.ui.input({ prompt = 'Eval: ' }, function(input)
-              if input == nil or input == '' then return end
-              dapui.eval(input)
-            end)
-          end,
-          { desc = 'Debug: Eval' },
-        },
       })
     end
 
     dap.listeners.before.event_terminated['dapui_config'] = function()
-      if not require('dapui.windows').layouts[layouts.sidebar]:is_open() then
-        dapui.close({ layout = layouts.repl })
-      end
+      view.close()
       util.popmap('debug_mode', 'n')
     end
 

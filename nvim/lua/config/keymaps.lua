@@ -157,9 +157,8 @@ end
 ---displayed comes from either LSP or DAP (depending on whether there is an active DAP session).
 function M.symbol_hover()
   local has_dap, dap = pcall(require, 'dap')
-  local has_dapui, dapui = pcall(require, 'dapui')
-  if has_dap and has_dapui and dap.session() ~= nil then
-    dapui.eval()
+  if has_dap and dap.session() ~= nil then
+    require('dap.ui.widgets').hover()
     return
   end
   vim.lsp.buf.hover()
