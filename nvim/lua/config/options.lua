@@ -15,7 +15,7 @@ vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.clipboard = 'unnamedplus'
 vim.opt.formatoptions = 'cronjq'
-require('vim._core.ui2').enable({})
+-- require('vim._core.ui2').enable({})
 vim.opt.shortmess:append('I')
 
 -- Leader
