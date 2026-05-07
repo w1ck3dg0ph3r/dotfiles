@@ -1,6 +1,7 @@
 return {
   'folke/trouble.nvim',
-  version = '3',
+  -- version = '3',
+  branch = 'main', -- Switch to main branch for decorator provider on_line callback fix.
 
   event = { 'BufNewFile', 'BufReadPost', 'FileReadPost' },
 
