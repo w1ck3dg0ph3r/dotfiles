@@ -1,0 +1,7 @@
+bind '"\C-gb":"git b\n"'
+bind '"\C-gs":"git sf\n"'
+bind '"\C-gr":"git rbf\n"'
+bind '"\C-gd":"git diff\n"'
+bind '"\C-gc":"git commit\n"'
+bind '"\C-gf":"git fap\n"'
+bind '"\C-gl":"git l\n"'
