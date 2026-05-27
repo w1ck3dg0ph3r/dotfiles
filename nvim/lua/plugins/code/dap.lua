@@ -105,9 +105,15 @@ return {
     end
 
     util.map('n', '<leader>du', view.toggle, { desc = 'Debug: Toggle UI' })
+    util.map('n', '<leader>ds', function() view_open('scopes') end, { desc = 'Debug: Show scopes' })
     util.map('n', '<leader>dw', function() view_open('watches') end, { desc = 'Debug: Show watches' })
     util.map('n', '<leader>db', function() view_open('breakpoints') end, { desc = 'Debug: Show breakpoints' })
     util.map('n', '<leader>dr', function() view_open('repl') end, { desc = 'Debug: Show repl' })
+    util.map('n', '<leader>de', function()
+      vim.ui.input({ prompt = 'Eval: ' }, function(value)
+        require('dap.ui.widgets').hover(value)
+      end)
+    end, { desc = 'Debug: Show repl' })
 
     dap.listeners.after.event_initialized['dapui_config'] = function()
       view.open()

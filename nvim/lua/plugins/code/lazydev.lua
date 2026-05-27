@@ -1,5 +1,6 @@
 return {
   'folke/lazydev.nvim',
+  -- TODO: Pin back to version.
   -- version = '1', -- Temporary switch to the main branch for the lua_ls fix.
   branch = 'main',
 
