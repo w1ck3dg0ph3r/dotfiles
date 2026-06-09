@@ -6,4 +6,4 @@ if [ -x /usr/share/nvm/init-nvm.sh ]; then
 fi
 
 export PNPM_HOME=~/.pnpm
-append_path $PNPM_HOME
+append_path "$PNPM_HOME/bin"
