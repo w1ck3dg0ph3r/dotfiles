@@ -29,8 +29,8 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.cursorline = true
 vim.opt.wrap = false
-vim.opt.scrolloff = 10
-vim.opt.sidescrolloff = 10
+vim.opt.scrolloff = 5
+vim.opt.sidescrolloff = 5
 vim.opt.sidescroll = 1
 
 -- Indentation
