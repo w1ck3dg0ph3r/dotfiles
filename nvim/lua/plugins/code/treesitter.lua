@@ -109,9 +109,6 @@ function M.setup_aucmds()
 
       -- Enable highlight
       vim.treesitter.start(buf, language)
-
-      -- Enable indent
-      vim.bo[buf].indentexpr = 'v:lua.require"nvim-treesitter".indentexpr()'
     end
   })
 end
