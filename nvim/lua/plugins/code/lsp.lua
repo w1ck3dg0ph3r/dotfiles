@@ -59,6 +59,7 @@ return {
           analyses = {
             unusedparams = false,
           },
+          ['ui.navigation.symbolScope'] = 'workspace',
         },
       },
       capabilities = {

@@ -29,12 +29,17 @@ return {
       },
 
       file_ignore_patterns = { '^%.git/' },
+
+      layout_strategy = 'horizontal',
+      layout_config = {
+        width = 0.7,
+        preview_width = 0.33,
+      }
     },
   },
 
   config = function(_, opts)
     local telescope = require('telescope')
-    local themes = require('telescope.themes')
     local util = require('util')
 
     local actions = require('telescope.actions')
@@ -69,16 +74,11 @@ return {
 
     util.map('n', '<leader>sc', function() builtin.commands() end, { desc = 'Search: Commands' })
     util.map('n', '<leader>sb', function()
-      builtin.buffers(vim.tbl_extend('force', themes.get_dropdown({
-        layout_config = {
-          width = function(_, max_columns, _)
-            return math.min(max_columns, 100)
-          end,
-        },
-      }), {
+      builtin.buffers({
         show_all_buffers = false,
-        ignore_current_buffer = true,
-      }))
+        ignore_current_buffer = false,
+        layout_config = { preview_width = 0.5 },
+      })
     end, { desc = 'Search: Buffers' })
     util.map('n', '<leader>sh', builtin.help_tags, { desc = 'Search: Help tags' })
     util.map('n', '<leader>sf', function() builtin.find_files({ hidden = true }) end, { desc = 'Search: Files' })
@@ -87,14 +87,36 @@ return {
     util.map('n', '<leader>so', function()
       builtin.lsp_document_symbols({
         ignore_symbols = { 'field', 'enummember' },
-        symbol_width = 60,
-        symbol_type_width = 8,
+        symbol_width = 0.9,
+        symbol_type_width = 0.1,
       })
     end, { desc = 'Search: Document symbols' })
-    util.map('n', '<leader>st', builtin.lsp_dynamic_workspace_symbols, { desc = 'Search: Workspace symbols' })
-    util.map('n', '<leader>sw', function()
-      builtin.lsp_workspace_symbols({ query = vim.fn.input('Query: ') })
-    end, { desc = 'Search: Query workspace symbols' })
+    util.map('n', '<leader>sw', builtin.lsp_dynamic_workspace_symbols, { desc = 'Search: Workspace symbols by type' })
+    util.map('n', '<leader>st', function()
+      vim.ui.select({
+        'All',
+        'Type',
+        'Interface',
+        'Method',
+        'Field',
+        'Function',
+        'Constant',
+        'Variable'
+      }, {
+        prompt = 'Search: Workspace symbols',
+      }, function(item, _ --[[ idx ]])
+        if not item then return end
+        local o = {
+          symbols = item,
+          fname_width = 0.3,
+          symbol_width = 0.6,
+          symbol_type_width = 0.1,
+        }
+        if item == 'All' then o.symbols = nil end
+        if item == 'Type' then o.symbols = { 'Class', 'Struct', 'Enum', 'Interface' } end
+        builtin.lsp_dynamic_workspace_symbols(o)
+      end)
+    end, { desc = 'Search: Workspace symbols by type' })
     util.map('n', '<leader>sr', builtin.lsp_references, { desc = 'Search: References' })
     util.map('n', '<leader>sci', builtin.lsp_incoming_calls, { desc = 'Search: Incoming calls' })
     util.map('n', '<leader>sco', builtin.lsp_outgoing_calls, { desc = 'Search: Outgoing calls' })
