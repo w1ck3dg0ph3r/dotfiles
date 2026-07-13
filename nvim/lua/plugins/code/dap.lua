@@ -90,7 +90,7 @@ return {
     view.setup({
       winbar = {
         show = true,
-        sections = { 'scopes', 'watches', 'exceptions', 'breakpoints', 'threads', 'repl' },
+        sections = { 'scopes', 'watches', 'breakpoints', 'threads', 'repl', 'console' },
         default_section = 'scopes',
         controls = { enabled = true },
       },
