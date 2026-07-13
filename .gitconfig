@@ -1,11 +1,14 @@
 [alias]
   s = status -u
+  d = diff
+  ds = diff --staged
   sw = switch
   sf = !git sw $(git branch --format='%(refname:short)' | fzf)
   sfa = !git sw $(git branch --all --format='%(refname:short)' | grep 'origin/.*' | sed 's|origin/||' | fzf)
   cb = switch -c
   rs = restore
-  b = branch
+  b = branch -vv
+  bc = rev-parse --abbrev-ref HEAD
   ba = branch -avv
   bdf = !git branch -d $(git branch --format='%(refname:short)' | fzf)
   bDf = !git branch -D $(git branch --format='%(refname:short)' | fzf)
@@ -17,12 +20,14 @@
   ca = commit --amend --no-edit
   rebase = rebase --rebase-merges
   rb = rebase --interactive
+  rbf = !git rebase $(git branch --format='%(refname:short)' | fzf)
+  rbm = rebase --interactive --rebase-merges
   rbs = rebase --exec 'git commit --amend --no-edit --no-verify --gpg-sign' --interactive
   rbc = rebase --continue
   rba = rebase --abort
   fa = fetch --all
   fap = fetch --all --prune --prune-tags
-  mc = merge --no-ff
+  mc = !git merge --no-ff $(git branch --format='%(refname:short)' | fzf)
   mf = merge --ff-only
   st = stash
   stl = stash list
@@ -46,10 +51,13 @@
   defaultBranch = main
 [diff]
   algorithm = histogram
+  wordDiff = color
 [commit]
   gpgSign = true
 [pull]
   rebase = true
+[merge]
+  #conflictStyle = diff3
 [rebase]
   autoStash = true
 [rerere]
