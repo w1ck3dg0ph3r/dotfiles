@@ -13,7 +13,9 @@ return {
     local mason = require('mason')
     local masonconfig = require('mason-lspconfig')
     mason.setup()
-    masonconfig.setup()
+    masonconfig.setup({
+      automatic_enable = false,
+    })
 
     vim.lsp.config('clangd', {
       cmd = { 'clangd', '--header-insertion=never' },
@@ -49,7 +51,7 @@ return {
       settings = {
         gopls = {
           gofumpt = false,
-          semanticTokens = true,
+          semanticTokens = false,
           experimentalPostfixCompletions = true,
           usePlaceholders = false,
           hints = {
