@@ -1,4 +1,13 @@
-return {
+local function get_active_lsps()
+  local clients = vim.lsp.get_clients({ bufnr = 0 })
+  if next(clients) == nil then return '' end
+  local names = {}
+  for _, c in ipairs(clients) do table.insert(names, c.name) end
+  return table.concat(names, ', ')
+end
+
+---@type LazyPluginSpec
+local M = {
   'nvim-lualine/lualine.nvim',
   branch = 'master',
 
@@ -51,6 +60,7 @@ return {
         'encoding',
         'fileformat',
         { 'filetype', colored = false },
+        { get_active_lsps, icon = ' ' },
       },
       lualine_y = { 'progress' },
       lualine_z = { 'location' }
@@ -58,3 +68,5 @@ return {
 
   },
 }
+
+return M
