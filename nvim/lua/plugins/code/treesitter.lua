@@ -18,7 +18,6 @@ local M = {
 
 function M.config()
   require('nvim-treesitter.install').update({ with_sync = true })
-  local repeatable_move = require('nvim-treesitter-textobjects.repeatable_move')
   local util = require('util')
 
   require('nvim-treesitter').setup()
@@ -49,40 +48,8 @@ function M.config()
     },
   })
 
-  vim.treesitter.query.set('go', 'textobjects',
-    util.read_file(vim.fn.stdpath('config') .. '/lua/custom/go/textobjects.scm'))
-
-  local select = require('nvim-treesitter-textobjects.select')
-  util.map({ 'x', 'o' }, 'if', function() select.select_textobject('@function.inner') end, { desc = 'Select: Inside function' })
-  util.map({ 'x', 'o' }, 'af', function() select.select_textobject('@function.outer') end, { desc = 'Select: Outside function' })
-  util.map({ 'x', 'o' }, 'it', function() select.select_textobject('@class.inner') end, { desc = 'Select: Inside type' })
-  util.map({ 'x', 'o' }, 'at', function() select.select_textobject('@class.outer') end, { desc = 'Select: Outside type' })
-  util.map({ 'x', 'o' }, 'ip', function() select.select_textobject('@parameter.inner') end, { desc = 'Select: Inside parameter' })
-  util.map({ 'x', 'o' }, 'ap', function() select.select_textobject('@parameter.outer') end, { desc = 'Select: Outside parameter' })
-
-  local move = require('nvim-treesitter-textobjects.move')
-  util.map({ 'n', 'x', 'o' }, ']f', function() move.goto_next_start('@function.outer') end, { desc = 'Move: Next function' })
-  util.map({ 'n', 'x', 'o' }, '[f', function() move.goto_previous_start('@function.outer') end, { desc = 'Move: Previous function' })
-  util.map({ 'n', 'x', 'o' }, ']t', function() move.goto_next_start('@class.outer') end, { desc = 'Move: Next type' })
-  util.map({ 'n', 'x', 'o' }, '[t', function() move.goto_previous_start('@class.outer') end, { desc = 'Move: Previous type' })
-  util.map({ 'n', 'x', 'o' }, ']p', function() move.goto_next_start('@parameter.inner') end, { desc = 'Move: Next parameter' })
-  util.map({ 'n', 'x', 'o' }, '[p', function() move.goto_previous_start('@parameter.inner') end, { desc = 'Move: Previous parameter' })
-
-  local swap = require('nvim-treesitter-textobjects.swap')
-  util.map({ 'n' }, '<a-]>f', function() swap.swap_next('@function.outer') end, { desc = 'Swap: Next function' })
-  util.map({ 'n' }, '<a-[>f', function() swap.swap_previous('@function.outer') end, { desc = 'Swap: Previous function' })
-  util.map({ 'n' }, '<a-]>t', function() swap.swap_next('@class.outer') end, { desc = 'Swap: Next type' })
-  util.map({ 'n' }, '<a-[>t', function() swap.swap_previous('@class.outer') end, { desc = 'Swap: Previous type' })
-  util.map({ 'n' }, '<a-]>p', function() swap.swap_next('@parameter.inner') end, { desc = 'Swap: Next parameter' })
-  util.map({ 'n' }, '<a-[>p', function() swap.swap_previous('@parameter.inner') end, { desc = 'Swap: Previous parameter' })
-
-  -- Repeat movements
-  util.map({ 'n', 'x', 'o' }, ';', function() pcall(repeatable_move.repeat_last_move) end, { desc = 'Repeat last move' })
-  util.map({ 'n', 'x', 'o' }, ',', function() pcall(repeatable_move.repeat_last_move_opposite) end, { desc = 'Repeat last move backwards' })
-  util.map({ 'n', 'x', 'o' }, 'f', repeatable_move.builtin_f_expr, { expr = true })
-  util.map({ 'n', 'x', 'o' }, 'F', repeatable_move.builtin_F_expr, { expr = true })
-  util.map({ 'n', 'x', 'o' }, 't', repeatable_move.builtin_t_expr, { expr = true })
-  util.map({ 'n', 'x', 'o' }, 'T', repeatable_move.builtin_T_expr, { expr = true })
+  util.map('n', ']f', function() end)
+  util.map('n', '[f', function() end)
 
   vim.api.nvim_create_user_command('TSInspectTree', function()
     vim.treesitter.inspect_tree({
@@ -102,6 +69,41 @@ function M.setup_aucmds()
       if not vim.treesitter.language.add(language) then
         return
       end
+
+      local repeatable_move = require('nvim-treesitter-textobjects.repeatable_move')
+      local util = require('util')
+
+      local select = require('nvim-treesitter-textobjects.select')
+      util.map({ 'x', 'o' }, 'if', function() select.select_textobject('@function.inner') end, { desc = 'Select: Inside function', buf = buf })
+      util.map({ 'x', 'o' }, 'af', function() select.select_textobject('@function.outer') end, { desc = 'Select: Outside function', buf = buf })
+      util.map({ 'x', 'o' }, 'it', function() select.select_textobject('@class.inner') end, { desc = 'Select: Inside type', buf = buf })
+      util.map({ 'x', 'o' }, 'at', function() select.select_textobject('@class.outer') end, { desc = 'Select: Outside type', buf = buf })
+      util.map({ 'x', 'o' }, 'ip', function() select.select_textobject('@parameter.inner') end, { desc = 'Select: Inside parameter', buf = buf })
+      util.map({ 'x', 'o' }, 'ap', function() select.select_textobject('@parameter.outer') end, { desc = 'Select: Outside parameter', buf = buf })
+
+      local move = require('nvim-treesitter-textobjects.move')
+      util.map({ 'n', 'x', 'o' }, ']f', function() move.goto_next_start('@function.outer') end, { desc = 'Move: Next function', buf = buf })
+      util.map({ 'n', 'x', 'o' }, '[f', function() move.goto_previous_start('@function.outer') end, { desc = 'Move: Previous function', buf = buf })
+      util.map({ 'n', 'x', 'o' }, ']t', function() move.goto_next_start('@class.outer') end, { desc = 'Move: Next type', buf = buf })
+      util.map({ 'n', 'x', 'o' }, '[t', function() move.goto_previous_start('@class.outer') end, { desc = 'Move: Previous type', buf = buf })
+      util.map({ 'n', 'x', 'o' }, ']p', function() move.goto_next_start('@parameter.inner') end, { desc = 'Move: Next parameter', buf = buf })
+      util.map({ 'n', 'x', 'o' }, '[p', function() move.goto_previous_start('@parameter.inner') end, { desc = 'Move: Previous parameter', buf = buf })
+
+      local swap = require('nvim-treesitter-textobjects.swap')
+      util.map({ 'n' }, '<a-]>f', function() swap.swap_next('@function.outer') end, { desc = 'Swap: Next function', buf = buf })
+      util.map({ 'n' }, '<a-[>f', function() swap.swap_previous('@function.outer') end, { desc = 'Swap: Previous function', buf = buf })
+      util.map({ 'n' }, '<a-]>t', function() swap.swap_next('@class.outer') end, { desc = 'Swap: Next type', buf = buf })
+      util.map({ 'n' }, '<a-[>t', function() swap.swap_previous('@class.outer') end, { desc = 'Swap: Previous type', buf = buf })
+      util.map({ 'n' }, '<a-]>p', function() swap.swap_next('@parameter.inner') end, { desc = 'Swap: Next parameter', buf = buf })
+      util.map({ 'n' }, '<a-[>p', function() swap.swap_previous('@parameter.inner') end, { desc = 'Swap: Previous parameter', buf = buf })
+
+      -- Repeat movements
+      util.map({ 'n', 'x', 'o' }, ';', function() pcall(repeatable_move.repeat_last_move) end, { desc = 'Repeat last move' })
+      util.map({ 'n', 'x', 'o' }, ',', function() pcall(repeatable_move.repeat_last_move_opposite) end, { desc = 'Repeat last move backwards' })
+      util.map({ 'n', 'x', 'o' }, 'f', repeatable_move.builtin_f_expr, { expr = true })
+      util.map({ 'n', 'x', 'o' }, 'F', repeatable_move.builtin_F_expr, { expr = true })
+      util.map({ 'n', 'x', 'o' }, 't', repeatable_move.builtin_t_expr, { expr = true })
+      util.map({ 'n', 'x', 'o' }, 'T', repeatable_move.builtin_T_expr, { expr = true })
 
       -- Enable fold
       vim.wo.foldmethod = 'expr'
