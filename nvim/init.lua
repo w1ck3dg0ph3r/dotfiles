@@ -10,6 +10,7 @@ require('lazy').setup({
     vim.tbl_values(plugin_specs),
     require('custom.go'),
     require('custom.cpp'),
+    require('custom.odin'),
   },
   change_detection = { enabled = false },
 })
