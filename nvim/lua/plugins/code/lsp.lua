@@ -78,6 +78,7 @@ return {
     if nvimrc ~= nil and nvimrc.lspconfig ~= nil then
       for key, value in pairs(nvimrc.lspconfig) do
         vim.lsp.config(key, value)
+        vim.lsp.enable(key)
       end
     end
 
