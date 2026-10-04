@@ -25,7 +25,7 @@ function M.config(_ --[[plugin--]], opts)
       go = { 'goimports', 'gci', lsp_format = 'first' },
       json = { 'prettier' },
       yaml = { 'prettier' },
-      markdown = { 'mdformat' },
+      markdown = { 'prettier' },
     },
     timeout_ms = 5000,
     format_on_save = function(buf)
