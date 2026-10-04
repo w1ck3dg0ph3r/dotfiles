@@ -54,8 +54,8 @@ function M.setup()
   util.map('n', '<a-k>', '<cmd>m .-2<cr>==', { desc = 'Move lines up' })
   util.map('i', '<a-j>', '<esc><cmd>m .+1<cr>==gi', { desc = 'Move lines down' })
   util.map('i', '<a-k>', '<esc><cmd>m .-2<cr>==gi', { desc = 'Move lines up' })
-  util.map('v', '<a-j>', ':m \'>+1<cr>gv=gv', { desc = 'Move lines down' })
-  util.map('v', '<a-k>', ':m \'<-2<cr>gv=gv', { desc = 'Move lines up' })
+  util.map('v', '<a-j>', '<cmd>m \'>+1<cr>gv=gv', { desc = 'Move lines down' })
+  util.map('v', '<a-k>', '<cmd>m \'<-2<cr>gv=gv', { desc = 'Move lines up' })
 
   -- Keep jumps when navigating
   util.map('n', '{', '<cmd>keepjumps norm! {<cr>')
@@ -77,6 +77,10 @@ function M.setup()
   util.map('n', '[d', prev_diagnostic, { desc = 'Previous diagnostic' })
   util.map('n', '<leader>df', vim.diagnostic.open_float, { desc = 'Open diagnostic float' })
   util.map('n', '<leader>dl', vim.diagnostic.setqflist, { desc = 'Open diagnostics quickfix list' })
+
+  local next_quickfix, prev_quickfix = util.make_repeatable_move('<cmd>cnext<cr>', '<cmd>cprev<cr>')
+  util.map('n', ']q', next_quickfix, { desc = 'Next quickfix item' })
+  util.map('n', '[q', prev_quickfix, { desc = 'Previous quickfix item' })
 
   -- Inlay hints
   util.map('n', '<leader>i', function()
