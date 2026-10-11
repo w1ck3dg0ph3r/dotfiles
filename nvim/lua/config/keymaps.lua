@@ -54,8 +54,8 @@ function M.setup()
   util.map('n', '<a-k>', '<cmd>m .-2<cr>==', { desc = 'Move lines up' })
   util.map('i', '<a-j>', '<esc><cmd>m .+1<cr>==gi', { desc = 'Move lines down' })
   util.map('i', '<a-k>', '<esc><cmd>m .-2<cr>==gi', { desc = 'Move lines up' })
-  util.map('v', '<a-j>', '<cmd>m \'>+1<cr>gv=gv', { desc = 'Move lines down' })
-  util.map('v', '<a-k>', '<cmd>m \'<-2<cr>gv=gv', { desc = 'Move lines up' })
+  util.map('v', '<a-j>', ':m \'>+1<cr>gv=gv', { desc = 'Move lines down' })
+  util.map('v', '<a-k>', ':m \'<-2<cr>gv=gv', { desc = 'Move lines up' })
 
   -- Keep jumps when navigating
   util.map('n', '{', '<cmd>keepjumps norm! {<cr>')
