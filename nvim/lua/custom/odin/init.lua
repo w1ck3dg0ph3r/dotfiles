@@ -7,11 +7,10 @@ local M = {
 
 local helper_script = require('util').script_dir() .. '/odin.py'
 
-function M.config(plugin, opts)
-  vim.print('odin setup')
-
-  --TODO: Check if we have ols available first.
-  vim.lsp.enable('ols')
+function M.config(_ --[[ spec ]], _ --[[ opts ]])
+  if vim.fn.executable('ols') == 1 then
+    vim.lsp.enable('ols')
+  end
 
   local dap = require('dap')
   dap.configurations.odin = {
