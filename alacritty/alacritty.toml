@@ -1,0 +1,29 @@
+[env]
+# Compile terminfo:
+# 	tic -xe alacritty,alacritty-direct ./alacritty.info
+TERM = "alacritty"
+
+[general]
+import = [
+  "~/.config/alacritty/catppuccin-macchiato.toml"
+]
+
+[window]
+decorations = "None"
+dynamic_title = false
+startup_mode = "maximized"
+title = "alacritty"
+dimensions = {
+  columns = 150,
+  lines = 45,
+}
+
+[font]
+size = 9
+normal = {
+  family = "JetBrainsMono Nerd Font"
+}
+
+[debug]
+render_timer = false
+highlight_damage = false
