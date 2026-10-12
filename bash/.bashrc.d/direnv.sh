@@ -7,7 +7,7 @@ if type -P direnv &>/dev/null; then
   }
   copy_function _direnv_hook _direnv_hook__old
   _direnv_hook() {
-    _direnv_hook__old "$@" 2> >(awk '{if (length >= 200) { sub("^direnv: export.*","direnv: exported "NF" environment variables")}}1')
+    _direnv_hook__old "$@" 2> >(awk '{if (length >= 200) { sub(/^(\033\[[0-9;]*m)*direnv: export.*/,"direnv: exported "NF-2" environment variables")}}1')
     wait $!
   }
 fi
