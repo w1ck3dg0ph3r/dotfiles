@@ -19,9 +19,9 @@ dimensions = {
 }
 
 [font]
-size = 9
+size = 10
 normal = {
-  family = "JetBrainsMono Nerd Font"
+  family = "Agave Nerd Font",
 }
 
 [debug]
