@@ -82,6 +82,25 @@ return {
       end
     end
 
+    -- Drop file watchers with nonexistent base dirs (e.g. gopls always watches
+    -- <go.work dir>/vendor), which make inotifywait error out.
+    local register_capability = vim.lsp.handlers['client/registerCapability']
+    vim.lsp.handlers['client/registerCapability'] = function(err, res, ctx)
+      for _, reg in ipairs(res.registrations or {}) do
+        if reg.method == 'workspace/didChangeWatchedFiles' then
+          reg.registerOptions.watchers = vim.tbl_filter(function(w)
+            local gp = w.globPattern
+            if type(gp) ~= 'table' then
+              return true
+            end
+            local base = type(gp.baseUri) == 'string' and gp.baseUri or gp.baseUri.uri
+            return vim.uv.fs_stat(vim.uri_to_fname(base)) ~= nil
+          end, reg.registerOptions.watchers)
+        end
+      end
+      return register_capability(err, res, ctx)
+    end
+
     vim.api.nvim_create_autocmd('LspAttach', {
       group = vim.api.nvim_create_augroup('lsp.group', {}),
       callback = function(args)
