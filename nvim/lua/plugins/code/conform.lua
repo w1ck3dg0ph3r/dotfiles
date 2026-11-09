@@ -19,10 +19,16 @@ function M.config(_ --[[plugin--]], opts)
     formatters = {
       gci = {
         append_args = { '--custom-order', '-s', 'standard', '-s', 'default', '-s', 'localmodule', '-s', 'dot' },
-      }
+      },
+      odinfmt = {
+        command = 'odinfmt',
+        args = { '-stdin' },
+        stdin = true,
+      },
     },
     formatters_by_ft = {
       go = { 'goimports', 'gci', lsp_format = 'first' },
+      odin = { 'odinfmt', lsp_format = 'never' },
       json = { 'prettier' },
       yaml = { 'prettier' },
       markdown = { 'prettier' },
